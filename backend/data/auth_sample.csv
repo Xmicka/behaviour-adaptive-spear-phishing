@@ -1,0 +1,6 @@
+user,src,dst,timestamp,success
+alice,PC1,SERVER1,17000001,True
+alice,PC1,SERVER2,17000002,False
+bob,PC3,SERVER1,17000003,True
+bob,PC4,SERVER3,17000004,True
+charlie,PC7,SERVER9,17000005,False

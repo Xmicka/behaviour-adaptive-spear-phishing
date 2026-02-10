@@ -1,0 +1,4 @@
+user,login_count,failed_login_ratio,unique_src_hosts,unique_dst_hosts,anomaly_score,risk_score
+charlie,1,1.0,1,1,0.0033981169031933045,0.9999999999918566
+bob,2,0.0,2,2,-0.03058305212873963,0.7232813330454219
+alice,2,0.5,1,2,-0.11940230493547521,0.0
