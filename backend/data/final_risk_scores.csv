@@ -1,4 +1,4 @@
-user,login_count,failed_login_ratio,unique_src_hosts,unique_dst_hosts,anomaly_score,risk_score
-charlie,1,1.0,1,1,0.0033981169031933045,0.9999999999918566
-bob,2,0.0,2,2,-0.03058305212873963,0.7232813330454219
-alice,2,0.5,1,2,-0.11940230493547521,0.0
+user,login_count,failed_login_ratio,unique_src_hosts,unique_dst_hosts,anomaly_score,ml_anomaly_score,rule_based_score,final_risk_score,risk_reason
+charlie,1,1.0,1,1,0.0033981169031933045,0.9999999999918566,0.3999999999996,0.6999999999957283,Behavior deviates significantly from historical baseline
+bob,2,0.0,2,2,-0.03058305212873963,0.7232813330454219,0.5999999999994,0.6616406665224109,Behavior deviates significantly from historical baseline
+alice,2,0.5,1,2,-0.11940230493547521,0.0,0.5999999999994,0.2999999999997,No strong evidence of deviation

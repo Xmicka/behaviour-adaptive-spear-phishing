@@ -3,6 +3,8 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 from typing import List
 
+from backend.config import IF_CONTAMINATION, IF_RANDOM_STATE
+
 
 def run_isolation_forest(features: pd.DataFrame) -> pd.DataFrame:
     """Train Isolation Forest on behavioral features and return scored DataFrame.
@@ -36,8 +38,8 @@ def run_isolation_forest(features: pd.DataFrame) -> pd.DataFrame:
 
     model = IsolationForest(
         n_estimators=100,
-        contamination=0.05,
-        random_state=42,
+        contamination=IF_CONTAMINATION,
+        random_state=IF_RANDOM_STATE,
     )
 
     model.fit(X_scaled)
