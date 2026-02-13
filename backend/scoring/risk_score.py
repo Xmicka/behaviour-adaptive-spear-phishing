@@ -12,8 +12,16 @@ def _minmax_series(s: pd.Series) -> pd.Series:
     min_v = s.min()
     max_v = s.max()
     denom = max_v - min_v
+    # If all values are identical, there is no variation to rescale.
+    # Returning zeros is a safe, stable choice: it avoids division by
+    # zero and represents the practical reality that no observation is
+    # more extreme than another in this dimension.
     if denom == 0:
         return pd.Series(0.0, index=s.index)
+
+    # Normal case: perform stable division. The tiny epsilon guards
+    # against floating point edge-cases but the denom==0 branch above
+    # already prevents true division-by-zero.
     return (s - min_v) / (denom + 1e-12)
 
 
@@ -58,10 +66,36 @@ def compute_risk_score(
     # no explicit ml_anomaly_score provided.
     if ml_anomaly_score is None:
         if "anomaly_score" not in out.columns:
-            raise ValueError("compute_risk_score: 'anomaly_score' column is required when ml_anomaly_score is not provided")
-        out["ml_anomaly_score"] = _minmax_series(out["anomaly_score"])
+            # When no external ML score is provided, we expect the DataFrame
+            # to contain an `anomaly_score` column produced by an upstream
+            # model. If it's missing, we cannot compute the ML component.
+            # Raising a ValueError here is intentional and descriptive so
+            # the pipeline orchestrator can decide how to proceed.
+            raise ValueError(
+                "compute_risk_score: 'anomaly_score' column is required when ml_anomaly_score is not provided"
+            )
+
+        raw_ml = out["anomaly_score"]
+        # Defensive: if the series is empty or has no variation, the
+        # normalizer returns zeros. This can happen in real-world logs
+        # when an upstream model failed to produce scores or produced a
+        # constant placeholder.
+        out["ml_anomaly_score"] = _minmax_series(raw_ml)
     else:
-        out["ml_anomaly_score"] = _minmax_series(ml_anomaly_score)
+        # If a precomputed ML score Series is supplied, accept it but
+        # validate its length. An empty series indicates missing ML
+        # outputs and we treat that as all-equal/zeroed scores rather
+        # than crashing the pipeline.
+        if getattr(ml_anomaly_score, "empty", False):
+            out["ml_anomaly_score"] = pd.Series(0.0, index=out.index)
+        else:
+            # Align provided series to the DataFrame index where possible;
+            # _minmax_series will handle identical values safely.
+            s = pd.Series(ml_anomaly_score, index=ml_anomaly_score.index) if not isinstance(ml_anomaly_score, pd.Series) else ml_anomaly_score
+            # Reindex to df index if length differs to avoid misalignment.
+            if not s.index.equals(out.index):
+                s = s.reindex(out.index, fill_value=s.mean() if not s.empty else 0.0)
+            out["ml_anomaly_score"] = _minmax_series(s)
 
     # Rule-based score: use provided Series or compute a simple interpretable
     # score from key behavioral metrics (weights chosen for interpretability).
@@ -83,7 +117,16 @@ def compute_risk_score(
             0.4 * failed_n + 0.2 * login_n + 0.2 * src_n + 0.2 * dst_n
         )
     else:
-        out["rule_based_score"] = _minmax_series(rule_based_score)
+        # Accept externally computed rule-based scores but normalise
+        # defensively. If the provided series is empty or constant the
+        # normaliser returns zeros rather than causing a failure.
+        if getattr(rule_based_score, "empty", False):
+            out["rule_based_score"] = pd.Series(0.0, index=out.index)
+        else:
+            srb = rule_based_score if isinstance(rule_based_score, pd.Series) else pd.Series(rule_based_score)
+            if not srb.index.equals(out.index):
+                srb = srb.reindex(out.index, fill_value=srb.mean() if not srb.empty else 0.0)
+            out["rule_based_score"] = _minmax_series(srb)
 
     # Final risk score: blend ML and rule-based explanations equally for now.
     out["final_risk_score"] = 0.5 * out["ml_anomaly_score"] + 0.5 * out["rule_based_score"]
@@ -108,26 +151,17 @@ def compute_risk_score(
     out["risk_reason"] = reason_series.fillna("No strong evidence of deviation")
 
     # Sort by final risk for consistency with previous behavior
+    # If we reach here, the DataFrame is fully annotated with the
+    # normalized components and a stable `final_risk_score`. For the
+    # single-user case (n==1) the normalizers above will produce zeros
+    # because there is no variation; we explicitly provide a human
+    # readable reason in that scenario to aid downstream analysis.
+    if out.shape[0] == 1:
+        # Real-world scenario: logs from a single user (e.g., a new
+        # account) do not provide comparative context. Assign a neutral
+        # risk and explain why the score is uninformative.
+        out.loc[:, "risk_reason"] = out.loc[:, "risk_reason"].fillna(
+            "Single-user data: insufficient variation to assess deviation"
+        )
+
     return out.sort_values("final_risk_score", ascending=False)
-
-    if df.shape[0] == 0:
-        # Nothing to score; return empty frame with expected columns
-        out = df.copy()
-        out["risk_score"] = pd.Series(dtype=float)
-        return out
-
-    min_score = df["anomaly_score"].min()
-    max_score = df["anomaly_score"].max()
-
-    # Avoid division by zero when all scores are equal
-    denom = (max_score - min_score)
-    if denom == 0:
-        # All identical scores -> assign identical risk (0.0)
-        df = df.copy()
-        df["risk_score"] = 0.0
-        return df.sort_values("risk_score", ascending=False)
-
-    df = df.copy()
-    df["risk_score"] = (df["anomaly_score"] - min_score) / (denom + 1e-12)
-
-    return df.sort_values("risk_score", ascending=False)

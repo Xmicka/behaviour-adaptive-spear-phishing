@@ -26,6 +26,9 @@ def main():
     data_path = Path(INPUT_CSV_PATH)
     out_path = Path(OUTPUT_CSV_PATH)
 
+    # Informational start message for observability; concise for demos.
+    logger.info("Pipeline start")
+
     if not data_path.exists():
         logger.error("Auth sample file not found: %s", data_path)
         raise FileNotFoundError(f"Auth sample file not found: {data_path}")
@@ -34,6 +37,9 @@ def main():
     print(f"Loading authentication data from {data_path}")
     try:
         df = load_authentication_data(data_path)
+        # Log number of raw events read from the input CSV. This helps
+        # users quickly understand ingest volume without parsing files.
+        logger.info("Loaded %d authentication event(s) from %s", df.shape[0], data_path)
     except EmptyDataError:
         logger.warning("Authentication CSV is empty or has no parseable columns")
         print("No data found in auth CSV; exiting pipeline.")
@@ -51,7 +57,9 @@ def main():
     print("Extracting user features...")
     features = extract_user_features(df)
 
-    logger.info("Extracted features for %d users", features.shape[0])
+    # Number of users (rows) after aggregation — useful to report for
+    # downstream monitoring and to confirm the pipeline processed data.
+    logger.info("Extracted features for %d user(s)", features.shape[0])
 
     if features.shape[0] == 0:
         print("No users found after feature extraction; exiting.")
@@ -81,6 +89,9 @@ def main():
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_df.to_csv(out_path, index=False)
 
+    # Report how many users were written to the output file; concise and
+    # human-readable for demos and simple monitoring.
+    logger.info("Number of users written to output: %d", out_df.shape[0])
     logger.info("Wrote pipeline output CSV to %s", out_path)
     print(f"Pipeline completed. Results saved to {out_path}")
 

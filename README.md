@@ -31,3 +31,27 @@ Notes
 	defensive rather than production-grade.
 - If you encounter missing dependency errors, install the packages listed
 	in `requirements.txt`.
+
+## Research vs Engineering Separation
+
+Jupyter notebooks are used here as the primary vehicle for research and
+exploration because they permit rapid, iterative investigation: analysts can
+compose code, run visualisations and inspect intermediate outputs inline,
+which accelerates hypothesis development and feature discovery. Notebooks
+are especially useful when working with LANL-style, unlabeled logs where
+exploratory plots and ad-hoc aggregations guide modeling decisions.
+
+The backend pipeline exists separately to operationalise the outcomes of
+that research. By isolating data-loading, feature extraction, modelling and
+scoring in a small, well-documented Python package, the project gains
+repeatability, automation and a clear contract for downstream users. This
+separation keeps exploratory artefacts (notebooks) distinct from the
+deterministic code paths used for batch processing, validation and simple
+deployment.
+
+This pattern mirrors real-world ML workflows: researchers iterate interactively
+to identify signals and validate assumptions, then engineers (or the same
+researchers) extract stable logic into reproducible pipelines. The division
+of concerns improves auditability, facilitates testing, and reduces the
+risk that exploratory code (intended for insight) is run in uncontrolled
+production contexts.

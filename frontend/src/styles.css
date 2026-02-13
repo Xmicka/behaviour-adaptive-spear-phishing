@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0b0d0f;
+  --panel: #0f1113;
+  --muted: #9aa6a3;
+  --accent: #00ffd5;
+  --accent2: #26ff8a;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+/*
+  Avoid using `@apply` with arbitrary values (e.g. bg-[var(...)]) since
+  Tailwind does not support arbitrary values inside `@apply`. Use explicit
+  CSS properties for variables to keep the style stable and avoid build errors.
+*/
+body {
+  background-color: var(--bg);
+  color: #cfece6; /* muted neon-friendly text */
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  line-height: 1.6;
+}
+
+.card{
+  background-color: var(--panel);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+}
+
+.subtle-anim{
+  transition: transform 0.8s ease, opacity 0.8s ease;
+}
+
+/* Premium UI utility classes */
+.container-md{max-width:1200px;margin-left:auto;margin-right:auto;padding:1rem}
+.muted{color:var(--muted)}
+.accent{color:var(--accent)}
+.panel-quiet{background-color:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);}
+.btn{background:var(--accent);color:#021; padding:0.5rem 0.9rem;border-radius:0.45rem;font-weight:600}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:0.45rem 0.75rem;border-radius:0.45rem}
+a:hover{color:var(--accent)}
+
+/* Smooth scrolling and subtle interactions */
+html{scroll-behavior:smooth}
+button, .clickable{transition:transform .12s ease, box-shadow .12s ease}
+button:hover, .clickable:hover{transform:translateY(-3px)}
+
+/* Pipeline step */
+.pipeline{display:flex;gap:0.75rem;align-items:center}
+.pipeline-step{padding:0.75rem 1rem;border-radius:0.5rem;min-width:150px;text-align:center}
+.pipeline-step .label{font-size:0.8rem;color:var(--muted)}
+.pipeline-step .count{font-size:1.25rem;font-weight:700}
+

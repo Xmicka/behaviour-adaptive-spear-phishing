@@ -27,6 +27,7 @@ from typing import Union, Iterable
 
 import numpy as np
 import pandas as pd
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -37,11 +38,27 @@ __all__ = [
 ]
 
 
+# Explicit list of required columns for feature extraction. Keeping this
+# as a module-level constant makes it clear what the rest of the code
+# expects and allows reuse in multiple functions below.
+REQUIRED_COLUMNS = ["user", "src_host", "dst_host", "timestamp", "success"]
+
+
 def _validate_required_columns(df: pd.DataFrame, required: Iterable[str]) -> None:
-    """Raise ValueError if any required column is missing from the DataFrame."""
+    """Validate presence of required columns and raise a clear ValueError.
+
+    The raised ValueError contains a short, human-readable message listing
+    which columns are missing and what the expected columns are. Callers
+    can catch this and decide how to continue the pipeline without
+    exposing raw stack traces to users.
+    """
+
     missing = [c for c in required if c not in df.columns]
     if missing:
-        raise ValueError(f"Missing required columns in authentication data: {missing}")
+        raise ValueError(
+            "Authentication data is missing required column(s): "
+            f"{', '.join(missing)}. Expected columns: {', '.join(REQUIRED_COLUMNS)}."
+        )
 
 
 def _coerce_success_to_bool(series: pd.Series) -> pd.Series:
@@ -87,12 +104,27 @@ def load_authentication_data(path_or_buffer: Union[str, "_io.TextIOBase"]) -> pd
     """
 
 
+    # If a path string was supplied, validate that the path exists for
+    # a better, clearer error message. We still allow URLs (http/https)
+    # and file-like objects which pandas can also accept.
+    if isinstance(path_or_buffer, str):
+        lower = path_or_buffer.strip().lower()
+        if not (lower.startswith("http://") or lower.startswith("https://")):
+            if not os.path.exists(path_or_buffer):
+                # Raise a clear ValueError rather than letting pandas raise
+                # a less helpful exception later. Callers can catch this
+                # ValueError to avoid crashing the pipeline.
+                raise ValueError(f"CSV file not found at path: {path_or_buffer}")
+
     # Read CSV with liberal parsing of dates; let pandas infer where possible
     try:
         df = pd.read_csv(path_or_buffer)
     except Exception as exc:
-        logger.exception("Failed to read authentication CSV")
-        raise
+        # Surface a concise, human-readable message rather than a raw
+        # stack trace. Use ValueError so callers can catch validation-type
+        # problems specifically.
+        logger.error("Failed to read authentication CSV: %s", exc)
+        raise ValueError(f"Failed to read CSV: {exc}") from None
 
     # Accept common column name aliases to be flexible with sample data
     # e.g., some datasets use 'src'/'dst' rather than 'src_host'/'dst_host'
@@ -102,8 +134,7 @@ def load_authentication_data(path_or_buffer: Union[str, "_io.TextIOBase"]) -> pd
         df = df.rename(columns={"dst": "dst_host"})
 
     # Validate required columns (timestamp is allowed but may be non-parsable)
-    required = ["user", "src_host", "dst_host", "timestamp", "success"]
-    _validate_required_columns(df, required)
+    _validate_required_columns(df, REQUIRED_COLUMNS)
 
     # Parse timestamps defensively. Timestamps are not required for the
     # behavioral features below, so we coerce invalid values to NaT but do
@@ -145,9 +176,9 @@ def extract_user_features(df: pd.DataFrame) -> pd.DataFrame:
       include a fixed user list, merge the result with that list externally.
     """
 
-    # Validate input columns
-    required = ["user", "src_host", "dst_host", "timestamp", "success"]
-    _validate_required_columns(df, required)
+    # Validate input columns early to provide a clear, human-friendly
+    # error message if the DataFrame is missing expected fields.
+    _validate_required_columns(df, REQUIRED_COLUMNS)
 
     # Group by user and compute aggregations
     grouped = df.groupby("user").agg(
@@ -188,5 +219,23 @@ def load_and_extract(path_or_buffer: Union[str, "_io.TextIOBase"]) -> pd.DataFra
     `extract_user_features` for quick usage.
     """
 
-    df = load_authentication_data(path_or_buffer)
+    try:
+        df = load_authentication_data(path_or_buffer)
+    except ValueError as ve:
+        # Input validation failed. Log a friendly message and return an
+        # empty features DataFrame so the pipeline can continue without
+        # crashing. The caller may decide how to handle an empty result.
+        logger.error("Validation error while loading authentication data: %s", ve)
+        # Construct an empty DataFrame with the expected output columns
+        cols = ["login_count", "failed_login_ratio", "unique_src_hosts", "unique_dst_hosts"]
+        empty = pd.DataFrame(columns=cols)
+        # Use sensible dtypes for downstream code that may inspect dtypes
+        empty = empty.astype({"login_count": "Int64", "unique_src_hosts": "Int64", "unique_dst_hosts": "Int64", "failed_login_ratio": "float"})
+        return empty
+    except Exception as exc:
+        # Unexpected errors should also not crash the pipeline here.
+        logger.error("Unexpected error while loading authentication data: %s", exc)
+        cols = ["login_count", "failed_login_ratio", "unique_src_hosts", "unique_dst_hosts"]
+        return pd.DataFrame(columns=cols)
+
     return extract_user_features(df)
