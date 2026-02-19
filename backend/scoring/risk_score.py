@@ -1,9 +1,6 @@
 import pandas as pd
 from typing import Optional
 
-import pandas as pd
-from typing import Optional
-
 
 def _minmax_series(s: pd.Series) -> pd.Series:
     """Min-max normalize a series to 0..1 defensively."""

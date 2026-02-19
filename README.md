@@ -1,8 +1,14 @@
 Behaviour-adaptive spear-phishing research pipeline
 =================================================
 
+A research platform for behavior-adaptive threat detection in spear-phishing campaigns, featuring:
+- **Backend**: Python pipeline for feature extraction and anomaly detection
+- **Frontend**: Premium React/Vite dashboard with smooth animations and 3D visualization
+
 Quick start (macOS / Linux)
 ---------------------------
+
+### Backend Setup
 
 1. Create a clean virtual environment (Python 3.10+ recommended):
 
@@ -19,18 +25,61 @@ pip install -r requirements.txt
 python -m backend.pipeline.run_pipeline
 ```
 
-What the pipeline does
+### Frontend Setup
+
+1. Navigate to the frontend directory:
+
+```bash
+cd frontend
+npm install
+```
+
+2. Start the development server:
+
+```bash
+npm run dev
+# Opens at http://localhost:5173
+```
+
+3. For production build:
+
+```bash
+npm run build
+npm run preview
+```
+
+## Architecture
+
+### Backend Pipeline
 - Loads `backend/data/auth_sample.csv`
 - Extracts per-user behavioral features
 - Runs an Isolation Forest to compute anomaly scores
 - Normalizes anomaly scores into a `risk_score`
 - Writes `backend/data/final_risk_scores.csv`
 
-Notes
+### Frontend Application
+- **Landing Page**: Immersive hero with 3D shield, scroll-based content reveals
+- **Dashboard**: Risk metrics, employee threat assessment, campaign tracking
+- **Micro-Training**: Contextual security education modal
+- Premium animations powered by Framer Motion and Three.js
+
+For detailed frontend documentation, see [FRONTEND_DOCUMENTATION.md](./frontend/FRONTEND_DOCUMENTATION.md)
+
+## Technology Stack
+
+| Component | Technology |
+|-----------|-----------|
+| Backend | Python 3.10+, Scikit-learn, Pandas |
+| Frontend | React 18, TypeScript, Vite, Framer Motion, Three.js |
+| Styling | Tailwind CSS, Custom CSS animations |
+| Deployment | (Ready for Docker/cloud deployment) |
+
+## Notes
+
 - This repository is research-focused: code is intentionally simple and
 	defensive rather than production-grade.
 - If you encounter missing dependency errors, install the packages listed
-	in `requirements.txt`.
+	in `requirements.txt` (backend) or run `npm install` (frontend).
 
 ## Research vs Engineering Separation
 
@@ -48,6 +97,10 @@ repeatability, automation and a clear contract for downstream users. This
 separation keeps exploratory artefacts (notebooks) distinct from the
 deterministic code paths used for batch processing, validation and simple
 deployment.
+
+The frontend provides a professional, production-ready interface for interacting
+with the research outputs, enabling real-time monitoring, employee risk assessment,
+and integrated security training workflows.
 
 This pattern mirrors real-world ML workflows: researchers iterate interactively
 to identify signals and validate assumptions, then engineers (or the same
