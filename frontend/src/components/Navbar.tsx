@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function Navbar(){
+interface NavbarProps {
+  onLogout?: () => void
+}
+
+export default function Navbar({ onLogout }: NavbarProps){
   const navigate = useNavigate()
   const location = useLocation()
   const [isVisible, setIsVisible] = useState(false)
   const [user, setUser] = useState<any>(null)
 
   useEffect(() => {
-    const userData = localStorage.getItem('user')
+    const userData = localStorage.getItem('demo_auth_user')
     if (userData) {
       setUser(JSON.parse(userData))
     }
@@ -22,9 +26,13 @@ export default function Navbar(){
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleSignOut = () => {
-    localStorage.removeItem('user')
-    navigate('/')
+  const handleSignOut = async () => {
+    if (onLogout) {
+      await onLogout()
+    } else {
+      localStorage.removeItem('demo_auth_user')
+      navigate('/')
+    }
   }
 
   // Only show navbar on dashboard
@@ -40,7 +48,7 @@ export default function Navbar(){
       }}
       transition={{ duration: 0.3 }}
     >
-      <div className="glass rounded-xl px-6 py-4 flex items-center justify-between">
+      <div className="bg-white/80 backdrop-blur-lg rounded-xl px-6 py-4 flex items-center justify-between border border-slate-200 shadow-md">
         {/* Logo */}
         <motion.div
           className="flex items-center space-x-3"
@@ -48,12 +56,12 @@ export default function Navbar(){
           onClick={() => navigate('/')}
           style={{ cursor: 'pointer' }}
         >
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-            <span className="text-white font-black text-lg">AG</span>
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+            <span className="text-white font-black text-lg">AS</span>
           </div>
           <div>
-            <p className="font-black text-white text-sm">Adaptive</p>
-            <p className="text-xs text-gray-400">Guard</p>
+            <p className="font-black text-slate-900 text-sm">Adaptive</p>
+            <p className="text-xs text-slate-700">Security</p>
           </div>
         </motion.div>
 
@@ -69,10 +77,10 @@ export default function Navbar(){
               onClick={() => navigate(item.path)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 location.pathname === item.path
-                  ? 'text-cyan-400'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'text-blue-600'
+                  : 'text-slate-700 hover:text-slate-900'
               }`}
-              whileHover={{ backgroundColor: 'rgba(0, 217, 255, 0.05)' }}
+              whileHover={{ backgroundColor: 'rgba(59, 130, 246, 0.05)' }}
             >
               {item.label}
             </motion.button>
@@ -83,12 +91,12 @@ export default function Navbar(){
         <div className="flex items-center space-x-4">
           {user && (
             <motion.div className="hidden lg:block">
-              <p className="text-sm font-medium text-gray-300">{user.email}</p>
+              <p className="text-sm font-medium text-slate-700">{user.email}</p>
             </motion.div>
           )}
           <motion.button
             onClick={handleSignOut}
-            className="px-4 py-2 text-sm font-medium text-gray-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
+            className="px-4 py-2 text-sm font-medium text-slate-700 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition-colors"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
