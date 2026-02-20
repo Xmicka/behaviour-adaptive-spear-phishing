@@ -55,7 +55,7 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({
     <motion.section
       ref={sectionRef}
       className={`relative min-h-screen flex items-center justify-center px-6 lg:px-16 py-20 overflow-hidden ${
-        section.darkBg ? 'bg-black' : 'bg-gradient-to-b from-slate-900 to-black'
+        section.darkBg ? 'bg-white' : 'bg-gradient-to-b from-slate-50 via-white to-blue-50'
       }`}
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
@@ -87,7 +87,7 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({
         <div className="space-y-6 mb-16">
           {section.title && (
             <motion.h2
-              className="text-4xl lg:text-5xl font-black text-white leading-tight"
+              className="text-4xl lg:text-5xl font-black text-slate-900 leading-tight"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -98,7 +98,7 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({
           )}
           {section.subtitle && (
             <motion.p
-              className="text-lg text-gray-400 max-w-2xl leading-relaxed"
+              className="text-lg text-slate-700 max-w-2xl leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
@@ -122,7 +122,7 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({
 
       {/* Bottom accent */}
       <motion.div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-cyan-400 to-transparent"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-16 bg-gradient-to-b from-blue-400 to-transparent"
         animate={{ height: [64, 96, 64] }}
         transition={{ duration: 2, repeat: Infinity }}
       />

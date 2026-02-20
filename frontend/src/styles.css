@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --bg: #0b0d0f;
-  --panel: #0f1113;
-  --muted: #9aa6a3;
-  --accent: #00ffd5;
-  --accent2: #26ff8a;
+  --bg: #f5f7fa;
+  --panel: #ffffff;
+  --muted: #64748b;
+  --accent: #0066cc;
+  --accent2: #00a8ff;
 }
 
 html, body, #root {
@@ -19,16 +19,16 @@ html, body, #root {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #e2e8f0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #333333;
+  background: #94a3b8;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555555;
+  background: #64748b;
 }
 
 /* Smooth scroll behavior */
@@ -36,59 +36,104 @@ html {
   scroll-behavior: smooth;
 }
 
-/*
-  Avoid using `@apply` with arbitrary values (e.g. bg-[var(...)]) since
-  Tailwind does not support arbitrary values inside `@apply`. Use explicit
-  CSS properties for variables to keep the style stable and avoid build errors.
-*/
 body {
-  background-color: var(--bg);
-  color: #cfece6; /* muted neon-friendly text */
+  background: linear-gradient(135deg, #f5f7fa 0%, #e0e7ff 100%);
+  color: #1e293b;
   font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   line-height: 1.6;
+  min-height: 100vh;
 }
 
-.card{
+.card {
   background-color: var(--panel);
-  border-radius: 0.5rem;
+  border-radius: 0.75rem;
   padding: 1rem;
-  box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(100, 116, 139, 0.1);
 }
 
-.subtle-anim{
+.subtle-anim {
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
 /* Premium UI utility classes */
-.container-md{max-width:1200px;margin-left:auto;margin-right:auto;padding:1rem}
-.muted{color:var(--muted)}
-.accent{color:var(--accent)}
-.panel-quiet{background-color:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);}
-.btn{background:var(--accent);color:#021; padding:0.5rem 0.9rem;border-radius:0.45rem;font-weight:600}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:0.45rem 0.75rem;border-radius:0.45rem}
-a:hover{color:var(--accent)}
+.container-md {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+}
+.muted {
+  color: var(--muted);
+}
+.accent {
+  color: var(--accent);
+}
+.panel-quiet {
+  background-color: rgba(0, 102, 204, 0.02);
+  border: 1px solid rgba(0, 102, 204, 0.08);
+}
+.btn {
+  background: linear-gradient(135deg, #0066cc 0%, #0052a3 100%);
+  color: white;
+  padding: 0.5rem 0.9rem;
+  border-radius: 0.45rem;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(0, 102, 204, 0.2);
+}
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(0, 102, 204, 0.3);
+  color: #0066cc;
+  padding: 0.45rem 0.75rem;
+  border-radius: 0.45rem;
+}
+a:hover {
+  color: var(--accent);
+}
 
 /* Smooth scrolling and subtle interactions */
-button, .clickable{transition:transform .12s ease, box-shadow .12s ease}
-button:hover, .clickable:hover{transform:translateY(-3px)}
+button, .clickable {
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+button:hover, .clickable:hover {
+  transform: translateY(-3px);
+}
 
 /* Pipeline step */
-.pipeline{display:flex;gap:0.75rem;align-items:center}
-.pipeline-step{padding:0.75rem 1rem;border-radius:0.5rem;min-width:150px;text-align:center}
-.pipeline-step .label{font-size:0.8rem;color:var(--muted)}
-.pipeline-step .count{font-size:1.25rem;font-weight:700}
+.pipeline {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.pipeline-step {
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  min-width: 150px;
+  text-align: center;
+}
+.pipeline-step .label {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.pipeline-step .count {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
 
-/* Glassmorphism effect */
+/* Glassmorphism effect - updated for light theme */
 .glass {
-  background: rgba(20, 20, 30, 0.7);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 102, 204, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
 }
 
 .glass-dark {
-  background: rgba(10, 10, 15, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(0, 102, 204, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 /* Smooth transitions for all interactive elements */
@@ -96,18 +141,27 @@ button, a, input, select, textarea {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Premium gradient text */
+/* Premium gradient text - light theme */
 .gradient-text {
-  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+  background: linear-gradient(135deg, #0066cc 0%, #00a8ff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-weight: 900;
+}
+
+.gradient-text-dark {
+  background: linear-gradient(135deg, #0052a3 0%, #0078cc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
 }
 
 .gradient-glow {
-  background: linear-gradient(135deg, #00d9ff 0%, #0099cc 100%);
+  background: linear-gradient(135deg, #0066cc 0%, #00a8ff 100%);
   filter: blur(20px);
-  opacity: 0.5;
+  opacity: 0.3;
 }
 
 /* Smooth animations */
@@ -142,10 +196,10 @@ button, a, input, select, textarea {
 
 @keyframes glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(0, 217, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 102, 204, 0.15);
   }
   50% {
-    box-shadow: 0 0 40px rgba(0, 217, 255, 0.3);
+    box-shadow: 0 0 40px rgba(0, 102, 204, 0.3);
   }
 }
 
@@ -159,19 +213,19 @@ button, a, input, select, textarea {
 
 /* Disable default focus outline, use custom */
 :focus-visible {
-  outline: 2px solid #00d9ff;
+  outline: 2px solid #0066cc;
   outline-offset: 2px;
 }
 
 /* Selection style */
 ::selection {
-  background: #00d9ff;
-  color: #000000;
+  background: #0066cc;
+  color: #ffffff;
 }
 
 /* Smooth text shadows for premium feel */
 .text-glow {
-  text-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+  text-shadow: 0 0 20px rgba(0, 102, 204, 0.2);
 }
 
 /* Hero section base styles */

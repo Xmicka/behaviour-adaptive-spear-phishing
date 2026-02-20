@@ -28,23 +28,31 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
   }
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-b from-black via-slate-950 to-black overflow-hidden flex items-center justify-center">
-      {/* Animated background gradient orbs */}
+    <div className="relative w-full min-h-screen bg-gradient-to-b from-slate-50 via-blue-50 to-indigo-100 overflow-hidden flex items-center justify-center">
+      {/* Animated background gradient orbs - softer colors */}
       <motion.div
-        className="absolute top-0 left-1/4 w-96 h-96 gradient-glow rounded-full"
+        className="absolute top-0 left-1/4 w-96 h-96 rounded-full"
         animate={{
           y: [0, 40, 0],
-          opacity: [0.2, 0.4, 0.2],
+          opacity: [0.1, 0.2, 0.1],
         }}
         transition={{ duration: 8, repeat: Infinity }}
+        style={{
+          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%)',
+          filter: 'blur(40px)',
+        }}
       />
       <motion.div
-        className="absolute bottom-0 right-1/4 w-80 h-80 gradient-glow rounded-full"
+        className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full"
         animate={{
           y: [0, -40, 0],
-          opacity: [0.2, 0.3, 0.2],
+          opacity: [0.1, 0.15, 0.1],
         }}
         transition={{ duration: 10, repeat: Infinity, delay: 1 }}
+        style={{
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%)',
+          filter: 'blur(40px)',
+        }}
       />
 
       {/* Main content */}
@@ -58,17 +66,17 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
         >
           {/* Product name */}
           <motion.div variants={itemVariants}>
-            <h1 className="text-5xl lg:text-7xl font-black leading-tight text-white">
-              <span className="gradient-text">Adaptive</span>
+            <h1 className="text-5xl lg:text-7xl font-black leading-tight text-slate-900">
+              <span className="gradient-text-dark">Adaptive</span>
               <br />
-              <span className="gradient-text">Spear Guard</span>
+              <span className="gradient-text-dark">Security</span>
             </h1>
           </motion.div>
 
           {/* Bold statement */}
           <motion.p
             variants={itemVariants}
-            className="text-lg lg:text-xl text-gray-300 max-w-xl leading-relaxed font-light"
+            className="text-lg lg:text-xl text-slate-700 max-w-xl leading-relaxed font-light"
           >
             AI-driven spear phishing simulation and adaptive micro-training that evolves with your organization's threat landscape.
           </motion.p>
@@ -76,16 +84,16 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           {/* Quick benefits */}
           <motion.div variants={itemVariants} className="space-y-3">
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span className="text-gray-400">Real-time behavioral detection</span>
+              <div className="w-2 h-2 rounded-full bg-blue-500" />
+              <span className="text-slate-700">Real-time behavioral detection</span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span className="text-gray-400">Contextual threat simulation</span>
+              <div className="w-2 h-2 rounded-full bg-blue-400" />
+              <span className="text-slate-700">Contextual threat simulation</span>
             </div>
             <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span className="text-gray-400">Personalized risk scoring</span>
+              <div className="w-2 h-2 rounded-full bg-blue-400" />
+              <span className="text-slate-700">Personalized risk scoring</span>
             </div>
           </motion.div>
 
@@ -93,7 +101,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           <motion.div variants={itemVariants}>
             <motion.button
               onClick={onCtaClick}
-              className="px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded-lg text-lg group relative overflow-hidden"
+              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg text-lg group relative overflow-hidden shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -119,7 +127,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           {/* Scroll indicator */}
           <motion.div
             variants={itemVariants}
-            className="pt-8 text-gray-500 text-sm"
+            className="pt-8 text-slate-600 text-sm"
           >
             <motion.div
               animate={{ y: [0, 8, 0] }}
@@ -155,7 +163,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
 
           {/* Floating accent elements around shield */}
           <motion.div
-            className="absolute top-1/4 right-1/4 w-1 h-1 bg-cyan-400 rounded-full"
+            className="absolute top-1/4 right-1/4 w-1 h-1 bg-blue-500 rounded-full"
             animate={{
               opacity: [0.3, 1, 0.3],
               scale: [1, 1.5, 1],

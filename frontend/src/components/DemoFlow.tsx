@@ -74,13 +74,13 @@ const DemoFlow: React.FC = () => {
             {/* Card */}
             <motion.div
               className={`p-6 rounded-xl glass text-center transition-all duration-300 ${
-                activeStep >= idx ? 'ring-2 ring-cyan-400' : ''
+                activeStep >= idx ? 'ring-2 ring-blue-500' : ''
               }`}
               animate={{
                 boxShadow:
                   activeStep >= idx
-                    ? '0 0 30px rgba(0, 217, 255, 0.3)'
-                    : '0 0 0px rgba(0, 217, 255, 0)',
+                    ? '0 0 30px rgba(0, 102, 204, 0.3)'
+                    : '0 0 0px rgba(0, 102, 204, 0)',
               }}
             >
               {/* Step number */}
@@ -95,12 +95,12 @@ const DemoFlow: React.FC = () => {
               </motion.div>
 
               {/* Title */}
-              <h3 className="text-sm lg:text-base font-bold text-white mb-2">
+              <h3 className="text-sm lg:text-base font-bold text-slate-900 mb-2">
                 {step.title}
               </h3>
 
               {/* Progress indicator */}
-              <div className="mt-4 h-1 bg-gray-700 rounded-full overflow-hidden">
+              <div className="mt-4 h-1 bg-slate-300 rounded-full overflow-hidden">
                 <motion.div
                   className={`h-full bg-gradient-to-r ${step.color}`}
                   initial={{ width: '0%' }}
@@ -113,7 +113,7 @@ const DemoFlow: React.FC = () => {
 
               {/* Connector line */}
               {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-gray-600 -translate-y-1/2">
+                <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-slate-300 -translate-y-1/2">
                   <motion.div
                     className={`h-full bg-gradient-to-r ${step.color}`}
                     animate={{
@@ -139,38 +139,38 @@ const DemoFlow: React.FC = () => {
           transition={{ duration: 0.4 }}
         >
           <div className="space-y-4">
-            <h4 className="text-2xl lg:text-3xl font-bold text-white">
+            <h4 className="text-2xl lg:text-3xl font-bold text-slate-900">
               {steps[activeStep].title}
             </h4>
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <p className="text-slate-700 text-lg leading-relaxed">
               {steps[activeStep].description}
             </p>
 
             {/* Additional context based on step */}
             <div className="pt-4">
               {activeStep === 0 && (
-                <div className="space-y-2 text-sm text-gray-400">
+                <div className="space-y-2 text-sm text-slate-700">
                   <p>✓ Context-aware email generation</p>
                   <p>✓ Personalized targeting based on organization profile</p>
                   <p>✓ Multi-variant campaign support</p>
                 </div>
               )}
               {activeStep === 1 && (
-                <div className="space-y-2 text-sm text-gray-400">
+                <div className="space-y-2 text-sm text-slate-700">
                   <p>✓ Real-time interaction monitoring</p>
                   <p>✓ Behavioral pattern recognition</p>
                   <p>✓ Anomaly detection algorithms</p>
                 </div>
               )}
               {activeStep === 2 && (
-                <div className="space-y-2 text-sm text-gray-400">
+                <div className="space-y-2 text-sm text-slate-700">
                   <p>✓ Isolation Forest anomaly scoring</p>
                   <p>✓ Aggregate organizational risk assessment</p>
                   <p>✓ Trend analysis and forecasting</p>
                 </div>
               )}
               {activeStep === 3 && (
-                <div className="space-y-2 text-sm text-gray-400">
+                <div className="space-y-2 text-sm text-slate-700">
                   <p>✓ Immediate contextual education</p>
                   <p>✓ Long-form training assignment</p>
                   <p>✓ Engagement tracking and compliance</p>
@@ -191,7 +191,7 @@ const DemoFlow: React.FC = () => {
         <motion.button
           onClick={handleStartSimulation}
           disabled={isSimulating}
-          className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group"
+          className="px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group shadow-lg hover:shadow-xl"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
