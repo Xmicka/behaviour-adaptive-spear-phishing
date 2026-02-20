@@ -1,81 +1,67 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { motion } from 'framer-motion'
 
-const Shield = () => {
-  const meshRef = useRef<THREE.Group>(null)
+const Earth = () => {
+  const group = useRef<THREE.Group>(null)
+  const rings = useRef<THREE.Mesh[]>([])
 
-  useFrame(() => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += 0.003
-      meshRef.current.rotation.x += 0.001
+  useFrame(({ clock }) => {
+    const t = clock.getElapsedTime()
+    if (group.current) {
+      // Slow, subtle rotation for premium feel
+      group.current.rotation.y = Math.sin(t / 12) * 0.08
+      group.current.rotation.x = Math.sin(t / 18) * 0.04
     }
+
+    // animate rings with a smooth, out-of-phase motion
+    rings.current.forEach((r, i) => {
+      if (!r) return
+      r.rotation.z = Math.sin(t / (8 + i * 2)) * 0.2 + i * 0.2
+    })
   })
 
   return (
-    <group ref={meshRef}>
-      {/* Outer shield sphere with glow */}
+    <group ref={group}>
+      {/* Dark Earth sphere */}
       <mesh>
-        <icosahedronGeometry args={[1.5, 4]} />
-        <meshPhongMaterial
-          color="#00d9ff"
-          emissive="#0099cc"
-          emissiveIntensity={0.3}
-          wireframe={false}
-          shininess={100}
-        />
-      </mesh>
-
-      {/* Inner glow layer */}
-      <mesh scale={0.98}>
-        <icosahedronGeometry args={[1.5, 4]} />
-        <meshBasicMaterial
-          color="#0099cc"
-          transparent={true}
-          opacity={0.2}
-          wireframe={false}
-        />
-      </mesh>
-
-      {/* Wireframe layer */}
-      <mesh scale={1.02}>
-        <icosahedronGeometry args={[1.5, 4]} />
-        <meshBasicMaterial
-          color="#00d9ff"
-          transparent={true}
-          opacity={0.1}
-          wireframe={true}
-        />
-      </mesh>
-
-      {/* Center accent orb */}
-      <mesh position={[0, -0.1, 0.5]}>
-        <sphereGeometry args={[0.3, 32, 32]} />
-        <meshPhongMaterial
-          color="#00d9ff"
-          emissive="#00d9ff"
-          emissiveIntensity={0.5}
-        />
-      </mesh>
-
-      {/* Rotating rings */}
-      <mesh rotation={[Math.PI / 4, 0, 0]}>
-        <torusGeometry args={[1.8, 0.1, 16, 100]} />
-        <meshPhongMaterial
-          color="#00d9ff"
-          emissive="#0099cc"
+        <sphereGeometry args={[1.25, 64, 64]} />
+        <meshStandardMaterial
+          color="#071422"
+          roughness={0.7}
+          metalness={0.05}
+          emissive="#05202a"
           emissiveIntensity={0.2}
         />
       </mesh>
 
-      <mesh rotation={[0, Math.PI / 3, Math.PI / 6]}>
-        <torusGeometry args={[1.6, 0.08, 16, 100]} />
-        <meshBasicMaterial
-          color="#0099cc"
-          transparent={true}
-          opacity={0.15}
-        />
+      {/* subtle atmosphere glow */}
+      <mesh scale={1.06}>
+        <sphereGeometry args={[1.25, 64, 64]} />
+        <meshBasicMaterial color="#0b2b36" transparent opacity={0.12} />
+      </mesh>
+
+      {/* multiple orbital security rings */}
+      {[0, 1, 2].map((i) => (
+        <mesh
+          key={i}
+          ref={(el) => (rings.current[i] = el as THREE.Mesh)}
+          rotation={[i === 0 ? Math.PI / 4 : 0, i === 1 ? Math.PI / 5 : 0, i * 0.5]}
+          position={[0, 0, 0]}
+        >
+          <torusGeometry args={[1.6 - i * 0.15, 0.02 + i * 0.01, 16, 256]} />
+          <meshBasicMaterial color={i === 0 ? '#1de9b6' : '#00bcd4'} transparent opacity={0.12 - i * 0.02} />
+        </mesh>
+      ))}
+
+      {/* small accent points */}
+      <mesh position={[0.9, 0.2, 0.6]}>
+        <sphereGeometry args={[0.03, 8, 8]} />
+        <meshStandardMaterial color="#1de9b6" emissive="#1de9b6" emissiveIntensity={0.8} />
+      </mesh>
+      <mesh position={[-0.8, -0.25, -0.5]}>
+        <sphereGeometry args={[0.02, 8, 8]} />
+        <meshStandardMaterial color="#00bcd4" emissive="#00bcd4" emissiveIntensity={0.6} />
       </mesh>
     </group>
   )
@@ -85,11 +71,11 @@ const ShieldScene = () => {
   return (
     <div className="w-full h-full">
       <Canvas className="w-full h-full">
-        <perspectiveCamera makeDefault position={[0, 0, 3]} />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
-        <pointLight position={[-10, -10, 10]} intensity={0.5} color="#0099cc" />
-        <Shield />
+        <perspectiveCamera makeDefault position={[0, 0, 4]} />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={0.8} />
+        <directionalLight position={[-5, -3, -2]} intensity={0.3} color="#00bcd4" />
+        <Earth />
       </Canvas>
     </div>
   )

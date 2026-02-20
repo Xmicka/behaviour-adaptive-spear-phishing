@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useRef } from 'react'
+import { motion, useScroll } from 'framer-motion'
 
 interface ScrollSection {
   id: string
@@ -16,20 +16,22 @@ interface ScrollSectionsProps {
 
 const ScrollSections: React.FC<ScrollSectionsProps> = ({ sections }) => {
   const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start start', 'end end'],
-  })
+  const { scrollYProgress } = useScroll()
 
   return (
-    <div ref={containerRef} className="relative">
+    <div
+      ref={containerRef}
+      className="relative w-full"
+      style={{ scrollBehavior: 'smooth' as const }}
+    >
       {sections.map((section, index) => (
-        <ScrollSection
-          key={section.id}
-          section={section}
-          index={index}
-          scrollProgress={scrollYProgress}
-        />
+        <div key={section.id}>
+          <ScrollSection
+            section={section}
+            index={index}
+            scrollProgress={scrollYProgress}
+          />
+        </div>
       ))}
     </div>
   )
@@ -49,35 +51,16 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({
   const sectionRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
-  // Calculate section-specific scroll progress
-  const sectionStart = index / 5
-  const sectionEnd = (index + 1) / 5
-
-  const opacity = useTransform(
-    scrollProgress,
-    [sectionStart, sectionStart + 0.1, sectionEnd - 0.1, sectionEnd],
-    [0, 1, 1, 0]
-  )
-
-  const y = useTransform(
-    scrollProgress,
-    [sectionStart - 0.05, sectionStart, sectionEnd],
-    [100, 0, -100]
-  )
-
-  const scale = useTransform(
-    scrollProgress,
-    [sectionStart - 0.1, sectionStart, sectionEnd - 0.1, sectionEnd],
-    [0.9, 1, 1, 0.95]
-  )
-
   return (
     <motion.section
       ref={sectionRef}
       className={`relative min-h-screen flex items-center justify-center px-6 lg:px-16 py-20 overflow-hidden ${
         section.darkBg ? 'bg-black' : 'bg-gradient-to-b from-slate-900 to-black'
       }`}
-      style={{ opacity, y, scale }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: false, amount: 0.3 }}
+      transition={{ duration: 0.6 }}
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
@@ -87,7 +70,7 @@ const ScrollSection: React.FC<ScrollSectionProps> = ({
             rotate: 360,
           }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          style={{ opacity }}
+          style={{ opacity: 0.3 }}
         />
       </div>
 

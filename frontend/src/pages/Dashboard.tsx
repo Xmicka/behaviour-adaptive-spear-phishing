@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
+import { fetchRiskSummary } from '../api/client'
 
 interface RiskEmployee {
   id: string
@@ -24,54 +25,30 @@ const Dashboard: React.FC = () => {
       navigate('/login')
       return
     }
+    // Load risk summary from backend if available
+    let mounted = true
+    fetchRiskSummary()
+      .then((data) => {
+        if (!mounted) return
+        // Map backend payload to RiskEmployee minimal shape
+        const mapped = data.map((d: any, i: number) => ({
+          id: String(i + 1),
+          name: d.user,
+          email: `${d.user}@example.com`,
+          riskScore: Math.round((d.risk_score || 0) * 100),
+          lastIncident: 'recent',
+          status: d.tier === 'High' ? 'critical' : d.tier === 'Medium' ? 'medium' : 'low',
+          reason_tags: d.reason_tags || [],
+          action_taken: d.action_taken || 'No action',
+        }))
+        setEmployees(mapped)
+      })
+      .catch(() => {})
+      .finally(() => setIsLoading(false))
 
-    // Simulate loading dashboard data
-    setTimeout(() => {
-      const mockEmployees: RiskEmployee[] = [
-        {
-          id: '1',
-          name: 'Sarah Chen',
-          email: 'sarah.chen@company.com',
-          riskScore: 78,
-          lastIncident: '2 hours ago',
-          status: 'critical',
-        },
-        {
-          id: '2',
-          name: 'James Mitchell',
-          email: 'james.mitchell@company.com',
-          riskScore: 62,
-          lastIncident: '1 day ago',
-          status: 'high',
-        },
-        {
-          id: '3',
-          name: 'Emily Rodriguez',
-          email: 'emily.r@company.com',
-          riskScore: 45,
-          lastIncident: '3 days ago',
-          status: 'medium',
-        },
-        {
-          id: '4',
-          name: 'Michael Park',
-          email: 'michael.park@company.com',
-          riskScore: 28,
-          lastIncident: '1 week ago',
-          status: 'low',
-        },
-        {
-          id: '5',
-          name: 'Jessica Brown',
-          email: 'jessica.brown@company.com',
-          riskScore: 85,
-          lastIncident: '30 minutes ago',
-          status: 'critical',
-        },
-      ]
-      setEmployees(mockEmployees)
-      setIsLoading(false)
-    }, 1000)
+    return () => {
+      mounted = false
+    }
   }, [navigate])
 
   const containerVariants = {
@@ -186,14 +163,14 @@ const Dashboard: React.FC = () => {
               <>
                 <MetricCard
                   label="Organizational Risk"
-                  value="62%"
-                  trend="↑ 8%"
+                  value="—"
+                  trend="—"
                   color="from-red-500 to-orange-500"
                 />
                 <MetricCard
                   label="At-Risk Employees"
-                  value={employees.length}
-                  trend="2 critical"
+                  value={employees.filter(e=>e.status==='critical').length}
+                  trend="see details"
                   color="from-orange-500 to-yellow-500"
                 />
                 <MetricCard
@@ -414,7 +391,7 @@ const EmployeeDetailPanel: React.FC<{
     animate={{ opacity: 1, y: 0 }}
     exit={{ opacity: 0, y: -20 }}
   >
-    <div className="space-y-2">
+                      <div className="space-y-2">
       <p className="text-sm text-gray-400">Employee</p>
       <p className="text-xl font-bold text-white">{employee.name}</p>
       <p className="text-sm text-gray-500">{employee.email}</p>
@@ -423,23 +400,20 @@ const EmployeeDetailPanel: React.FC<{
     <div className="pt-4 border-t border-white/10 space-y-4">
       <div>
         <div className="flex justify-between items-center mb-2">
-          <p className="text-sm text-gray-400">Risk Score</p>
+          <p className="text-sm text-gray-400">Risk Tier</p>
           <p className={`font-bold bg-gradient-to-r ${statusColor} bg-clip-text text-transparent`}>
-            {employee.riskScore}%
+            {employee.status === 'critical' ? 'High' : employee.status === 'medium' ? 'Medium' : 'Low'}
           </p>
         </div>
-        <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-          <motion.div
-            className={`h-full bg-gradient-to-r ${statusColor}`}
-            initial={{ width: 0 }}
-            animate={{ width: `${employee.riskScore}%` }}
-            transition={{ duration: 1, delay: 0.3 }}
-          />
+        <div className="flex gap-2 flex-wrap">
+          {(employee as any).reason_tags?.map((t:string, i:number)=>(
+            <span key={i} className="text-xs px-2 py-1 bg-white/5 rounded-full text-gray-300">{t}</span>
+          ))}
         </div>
       </div>
 
       <div className={`px-3 py-2 rounded-lg ${statusBgColor} border ${statusBorderColor}`}>
-        <p className="text-xs font-semibold text-gray-300 capitalize">{employee.status}</p>
+        <p className="text-xs font-semibold text-gray-300">Action: {(employee as any).action_taken}</p>
       </div>
 
       <div>

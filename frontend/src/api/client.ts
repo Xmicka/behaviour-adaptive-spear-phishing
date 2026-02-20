@@ -20,14 +20,28 @@ const MOCK_USERS = [
 ]
 
 export async function fetchOverview(): Promise<Overview> {
-  // Simulate latency
-  await new Promise((r) => setTimeout(r, 300))
-  const totalUsers = MOCK_USERS.length
-  const highRisk = MOCK_USERS.filter((u) => u.final_risk_score >= 0.66).length
-  const activeTraining = Math.max(0, highRisk - 0) // demo only
-  const lastSimulation = MOCK_USERS.reduce((a, b) => (a.last_simulated > b.last_simulated ? a : b)).last_simulated
-  const avgRisk = MOCK_USERS.reduce((s, u) => s + u.final_risk_score, 0) / totalUsers
-  return { totalUsers, highRisk, activeTraining, lastSimulation, avgRisk }
+  // Prefer backend API if available; fall back to mocked data for dev/demo
+  try {
+    const res = await fetch('/api/risk-summary')
+    if (!res.ok) throw new Error('no api')
+    const json = await res.json()
+    const data = json.data || []
+    const totalUsers = data.length
+    const highRisk = data.filter((d: any) => d.tier === 'High').length
+    const activeTraining = data.filter((d: any) => d.action_taken === 'Training triggered').length
+    const lastSimulation = new Date().toISOString()
+    const avgRisk = data.reduce((s: number, u: any) => s + (u.risk_score || 0), 0) / Math.max(1, totalUsers)
+    return { totalUsers, highRisk, activeTraining, lastSimulation, avgRisk }
+  } catch (err) {
+    // Fallback to demo mocks
+    await new Promise((r) => setTimeout(r, 300))
+    const totalUsers = MOCK_USERS.length
+    const highRisk = MOCK_USERS.filter((u) => u.final_risk_score >= 0.66).length
+    const activeTraining = Math.max(0, highRisk - 0) // demo only
+    const lastSimulation = MOCK_USERS.reduce((a, b) => (a.last_simulated > b.last_simulated ? a : b)).last_simulated
+    const avgRisk = MOCK_USERS.reduce((s, u) => s + u.final_risk_score, 0) / totalUsers
+    return { totalUsers, highRisk, activeTraining, lastSimulation, avgRisk }
+  }
 }
 
 export async function generateEmail(theme: string): Promise<{ subject: string; body: string; target_behavior: string; risk_score: number }>{
@@ -58,7 +72,7 @@ export async function generateEmail(theme: string): Promise<{ subject: string; b
 
 export async function fetchPipeline(): Promise<{ stage: string; count: number }[]> {
   await new Promise((r) => setTimeout(r, 200))
-  // Sent → Opened → Clicked → Training → Resolved
+  // Sent → Opened → Clicked → Training → Resolved (mocked)
   return [
     { stage: 'Sent', count: 120 },
     { stage: 'Opened', count: 74 },
@@ -69,11 +83,38 @@ export async function fetchPipeline(): Promise<{ stage: string; count: number }[
 }
 
 export async function fetchMicroTrainingForRisk(riskScore: number){
-  await new Promise((r) => setTimeout(r, 150))
-  return {
-    threshold: 0.66,
-    why: 'The message leverages urgency cues and financial language to prompt immediate action. This pattern is strongly associated with credential or invoice fraud.',
-    advice: 'Slow down when asked to transfer funds or provide credentials. Verify with an alternate channel (phone or internal ticket).',
-    videoId: 'dQw4w9WgXcQ' // placeholder video id for demo; replace in prod
+  // Prefer backend training-status API
+  try {
+    const res = await fetch('/api/training-status')
+    if (!res.ok) throw new Error('no api')
+    const json = await res.json()
+    // Simplified: return a generic payload when API is present
+    return {
+      threshold: 0.66,
+      why: 'See training status from backend',
+      advice: 'Follow the recommended micro or mandatory training.',
+      videoId: 'dQw4w9WgXcQ',
+      raw: json.data
+    }
+  } catch (err) {
+    await new Promise((r) => setTimeout(r, 150))
+    return {
+      threshold: 0.66,
+      why: 'The message leverages urgency cues and financial language to prompt immediate action. This pattern is strongly associated with credential or invoice fraud.',
+      advice: 'Slow down when asked to transfer funds or provide credentials. Verify with an alternate channel (phone or internal ticket).',
+      videoId: 'dQw4w9WgXcQ' // placeholder video id for demo; replace in prod
+    }
+  }
+}
+
+export async function fetchRiskSummary(){
+  try{
+    const res = await fetch('/api/risk-summary')
+    if(!res.ok) throw new Error('no api')
+    const json = await res.json()
+    return json.data || []
+  }catch(e){
+    // fallback: synthesize from mocks
+    return MOCK_USERS.map(u=>({user:u.user,risk_score:u.final_risk_score,tier: u.final_risk_score>=0.66? 'High': u.final_risk_score>=0.3? 'Medium': 'Low', reason_tags: [], action_taken: u.final_risk_score>=0.66? 'Training triggered':'No action'}))
   }
 }
