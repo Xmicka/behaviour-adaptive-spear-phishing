@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
+import { signInWithEmailAndPassword } from '../firebase'
 
 interface LoginProps {
   isOpen?: boolean
@@ -20,17 +21,17 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
     setIsLoading(true)
 
     try {
-      // Simulate auth for demo (replace with actual Firebase auth)
-      await new Promise(resolve => setTimeout(resolve, 1500))
-
-      if (email && password) {
-        localStorage.setItem('user', JSON.stringify({ email }))
-        navigate('/dashboard')
-      } else {
+      if (!email || !password) {
         setError('Please fill in all fields')
+        setIsLoading(false)
+        return
       }
-    } catch (err) {
-      setError('Authentication failed. Please try again.')
+
+      // Use Firebase auth (demo credentials)
+      const user = await signInWithEmailAndPassword(email, password)
+      navigate('/dashboard')
+    } catch (err: any) {
+      setError(err.message || 'Authentication failed. Please try again.')
     } finally {
       setIsLoading(false)
     }
@@ -57,7 +58,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
   return (
     <div
       className={`fixed inset-0 z-50 flex items-center justify-center px-4 ${
-        isOpen ? 'bg-black/60 backdrop-blur-sm' : 'pointer-events-none'
+        isOpen ? 'bg-black/40 backdrop-blur-sm' : 'pointer-events-none'
       }`}
     >
       <motion.div
@@ -79,10 +80,10 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
         <div className="relative glass rounded-2xl p-8 lg:p-12 space-y-8">
           {/* Header */}
           <motion.div variants={itemVariants} className="space-y-2">
-            <h2 className="text-3xl lg:text-4xl font-black text-white">
-              <span className="gradient-text">Access Dashboard</span>
+            <h2 className="text-3xl lg:text-4xl font-black text-slate-900">
+              <span className="gradient-text-dark">Access Dashboard</span>
             </h2>
-            <p className="text-gray-400">
+            <p className="text-slate-700">
               Sign in to view your organization's security posture
             </p>
           </motion.div>
@@ -105,7 +106,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
 
             {/* Email field */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-300">
+              <label className="text-sm font-semibold text-slate-900">
                 Email Address
               </label>
               <motion.input
@@ -113,7 +114,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 placeholder="you@company.com"
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-cyan-400 focus:bg-white/10 transition-all outline-none"
+                className="w-full px-4 py-3 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all outline-none"
                 whileFocus={{ scale: 1.02 }}
                 disabled={isLoading}
               />
@@ -121,7 +122,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
 
             {/* Password field */}
             <div className="space-y-2">
-              <label className="text-sm font-semibold text-gray-300">
+              <label className="text-sm font-semibold text-slate-900">
                 Password
               </label>
               <motion.input
@@ -129,7 +130,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-cyan-400 focus:bg-white/10 transition-all outline-none"
+                className="w-full px-4 py-3 bg-slate-100 border border-slate-300 rounded-lg text-slate-900 placeholder-slate-500 focus:border-blue-500 focus:bg-white focus:ring-1 focus:ring-blue-500 transition-all outline-none"
                 whileFocus={{ scale: 1.02 }}
                 disabled={isLoading}
               />
@@ -139,7 +140,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
             <motion.button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded-lg relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -148,13 +149,13 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 initial={{ x: '-100%' }}
                 whileHover={{ x: 0 }}
                 transition={{ duration: 0.3 }}
-                style={{ opacity: 0.2 }}
+                style={{ opacity: 0.1 }}
               />
               <span className="relative flex items-center justify-center space-x-2">
                 {isLoading ? (
                   <>
                     <motion.div
-                      className="w-4 h-4 border-2 border-transparent border-t-black rounded-full"
+                      className="w-4 h-4 border-2 border-transparent border-t-white rounded-full"
                       animate={{ rotate: 360 }}
                       transition={{ duration: 1, repeat: Infinity }}
                     />
@@ -167,9 +168,13 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
             </motion.button>
 
             {/* Demo credentials hint */}
-            <div className="pt-4 border-t border-white/10">
-              <p className="text-xs text-gray-500 text-center">
-                Demo: Use any email and password
+            <div className="pt-4 border-t border-slate-300">
+              <p className="text-xs text-slate-600 text-center mb-2">
+                Demo credentials:
+              </p>
+              <p className="text-xs text-slate-700 text-center font-mono">
+                admin@example.com / DemoPass123<br/>
+                owner@example.com / DemoPass123
               </p>
             </div>
           </motion.form>
@@ -178,12 +183,12 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
           {onClose && isOpen && (
             <motion.button
               onClick={onClose}
-              className="absolute top-6 right-6 p-2 hover:bg-white/10 rounded-lg transition-colors"
+              className="absolute top-6 right-6 p-2 hover:bg-slate-200 rounded-lg transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
               <svg
-                className="w-6 h-6 text-gray-400"
+                className="w-6 h-6 text-slate-700"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
