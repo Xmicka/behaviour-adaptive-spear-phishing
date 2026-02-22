@@ -29,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
 
       // Use Firebase auth (demo credentials)
       const user = await signInWithEmailAndPassword(email, password)
-      navigate('/dashboard')
+      navigate('/dashboard-premium')
     } catch (err: any) {
       setError(err.message || 'Authentication failed. Please try again.')
     } finally {

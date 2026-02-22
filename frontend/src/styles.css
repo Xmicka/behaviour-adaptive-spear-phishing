@@ -3,11 +3,13 @@
 @tailwind utilities;
 
 :root {
-  --bg: #f5f7fa;
-  --panel: #ffffff;
-  --muted: #64748b;
-  --accent: #0066cc;
-  --accent2: #00a8ff;
+  --bg: #0f172a;
+  --panel: #1e293b;
+  --muted: #94a3b8;
+  --accent: #00d9ff;
+  --accent2: #26ff8a;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
 }
 
 html, body, #root {
@@ -15,33 +17,36 @@ html, body, #root {
 }
 
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #e2e8f0;
+  background: #0f172a;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #94a3b8;
-  border-radius: 4px;
+  background: #1e293b;
+  border-radius: 5px;
+  border: 2px solid #0f172a;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
+  background: #334155;
 }
 
-/* Smooth scroll behavior */
+/* Smooth scroll behavior and snap */
 html {
   scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body {
-  background: linear-gradient(135deg, #f5f7fa 0%, #e0e7ff 100%);
-  color: #1e293b;
+  background: linear-gradient(135deg, #0f172a 0%, #1a1f3a 50%, #0f172a 100%);
+  color: var(--text-primary);
   font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
   line-height: 1.6;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .card {
@@ -285,13 +290,19 @@ body {
   transition: transform 0.8s ease, opacity 0.8s ease;
 }
 
+/* Scroll snap sections */
+.scroll-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
 /* Premium UI utility classes */
 .container-md{max-width:1200px;margin-left:auto;margin-right:auto;padding:1rem}
 .muted{color:var(--muted)}
 .accent{color:var(--accent)}
-.panel-quiet{background-color:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);}
-.btn{background:var(--accent);color:#021; padding:0.5rem 0.9rem;border-radius:0.45rem;font-weight:600}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:0.45rem 0.75rem;border-radius:0.45rem}
+.panel-quiet{background-color:rgba(34,211,238,0.02);border:1px solid rgba(34,211,238,0.03);}
+.btn{background:linear-gradient(135deg, var(--accent) 0%, #0099cc 100%);color:#021; padding:0.5rem 0.9rem;border-radius:0.45rem;font-weight:600}
+.btn-ghost{background:transparent;border:1px solid rgba(34,211,238,0.2);padding:0.45rem 0.75rem;border-radius:0.45rem}
 a:hover{color:var(--accent)}
 
 /* Smooth scrolling and subtle interactions */
