@@ -18,7 +18,6 @@ import {
     signInWithGoogle,
     signOut,
     onAuthStateChanged,
-    isFirebaseConfigured,
     db,
 } from '../firebase'
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore'
@@ -65,7 +64,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
      * the Firestore `users` collection (upsert / merge).
      */
     const ensureUserDoc = async (u: AppUser) => {
-        if (!isFirebaseConfigured || !db) return
+        if (!db) return
         try {
             await setDoc(
                 doc(db, 'users', u.uid),
@@ -101,7 +100,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return (
         <AuthContext.Provider
-            value={{ user, loading, login, loginWithGoogle, logout, isFirebase: isFirebaseConfigured }}
+            value={{ user, loading, login, loginWithGoogle, logout, isFirebase: true }}
         >
             {children}
         </AuthContext.Provider>
