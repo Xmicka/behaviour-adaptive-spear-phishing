@@ -160,14 +160,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
               <span>{isFirebase ? 'Sign in with Google' : 'Google (requires Firebase)'}</span>
             </button>
 
-            {/* Demo creds */}
-            <div className="pt-4 border-t border-slate-700/50">
-              <p className="text-xs text-slate-500 text-center mb-2">Demo credentials:</p>
-              <p className="text-xs text-slate-400 text-center font-mono">
-                admin@example.com / DemoPass123<br />
-                owner@example.com / DemoPass123
-              </p>
-            </div>
+
           </form>
 
           {/* Close */}
