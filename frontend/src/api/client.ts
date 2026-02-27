@@ -4,7 +4,7 @@
   - Falls back to empty/mock data when backend is unreachable
 */
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://behaviour-adaptive-spear-phishing.onrender.com'
 
 function apiUrl(path: string): string {
   // In dev with Vite proxy, use relative paths; otherwise use full URL
