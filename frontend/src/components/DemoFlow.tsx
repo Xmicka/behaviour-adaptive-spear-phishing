@@ -61,46 +61,40 @@ const DemoFlow: React.FC = () => {
 
   return (
     <div className="space-y-12">
-      {/* Interactive flow visualization */}
+      {/* Interactive flow */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-2">
         {steps.map((step, idx) => (
           <motion.div
             key={step.id}
-            className={`relative group cursor-pointer`}
+            className="relative group cursor-pointer"
             onClick={() => setActiveStep(idx)}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            {/* Card */}
             <motion.div
-              className={`p-6 rounded-xl glass text-center transition-all duration-300 ${
-                activeStep >= idx ? 'ring-2 ring-blue-500' : ''
-              }`}
+              className={`p-6 rounded-xl glass text-center transition-all duration-300 ${activeStep >= idx ? 'border-cyan-500/30' : ''
+                }`}
               animate={{
                 boxShadow:
                   activeStep >= idx
-                    ? '0 0 30px rgba(0, 102, 204, 0.3)'
-                    : '0 0 0px rgba(0, 102, 204, 0)',
+                    ? '0 0 30px rgba(34, 211, 238, 0.15)'
+                    : '0 0 0px rgba(34, 211, 238, 0)',
               }}
             >
-              {/* Step number */}
               <motion.div
                 className={`text-4xl mb-4 bg-gradient-to-r ${step.color} bg-clip-text text-transparent`}
-                animate={{
-                  scale: activeStep === idx ? 1.2 : 1,
-                }}
+                animate={{ scale: activeStep === idx ? 1.2 : 1 }}
                 transition={{ duration: 0.3 }}
               >
                 {step.icon}
               </motion.div>
 
-              {/* Title */}
-              <h3 className="text-sm lg:text-base font-bold text-slate-900 mb-2">
+              <h3 className="text-sm lg:text-base font-bold text-white mb-2">
                 {step.title}
               </h3>
 
-              {/* Progress indicator */}
-              <div className="mt-4 h-1 bg-slate-300 rounded-full overflow-hidden">
+              {/* Progress bar */}
+              <div className="mt-4 h-1 bg-slate-700 rounded-full overflow-hidden">
                 <motion.div
                   className={`h-full bg-gradient-to-r ${step.color}`}
                   initial={{ width: '0%' }}
@@ -111,14 +105,12 @@ const DemoFlow: React.FC = () => {
                 />
               </div>
 
-              {/* Connector line */}
+              {/* Connector */}
               {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-slate-300 -translate-y-1/2">
+                <div className="hidden lg:block absolute top-1/2 -right-2 w-4 h-0.5 bg-slate-700 -translate-y-1/2">
                   <motion.div
                     className={`h-full bg-gradient-to-r ${step.color}`}
-                    animate={{
-                      width: activeStep > idx ? '100%' : '0%',
-                    }}
+                    animate={{ width: activeStep > idx ? '100%' : '0%' }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   />
                 </div>
@@ -128,7 +120,7 @@ const DemoFlow: React.FC = () => {
         ))}
       </div>
 
-      {/* Detailed description section */}
+      {/* Description panel */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeStep}
@@ -139,38 +131,37 @@ const DemoFlow: React.FC = () => {
           transition={{ duration: 0.4 }}
         >
           <div className="space-y-4">
-            <h4 className="text-2xl lg:text-3xl font-bold text-slate-900">
+            <h4 className="text-2xl lg:text-3xl font-bold text-white">
               {steps[activeStep].title}
             </h4>
-            <p className="text-slate-700 text-lg leading-relaxed">
+            <p className="text-slate-400 text-lg leading-relaxed">
               {steps[activeStep].description}
             </p>
 
-            {/* Additional context based on step */}
             <div className="pt-4">
               {activeStep === 0 && (
-                <div className="space-y-2 text-sm text-slate-700">
+                <div className="space-y-2 text-sm text-slate-400">
                   <p>✓ Context-aware email generation</p>
                   <p>✓ Personalized targeting based on organization profile</p>
                   <p>✓ Multi-variant campaign support</p>
                 </div>
               )}
               {activeStep === 1 && (
-                <div className="space-y-2 text-sm text-slate-700">
+                <div className="space-y-2 text-sm text-slate-400">
                   <p>✓ Real-time interaction monitoring</p>
                   <p>✓ Behavioral pattern recognition</p>
                   <p>✓ Anomaly detection algorithms</p>
                 </div>
               )}
               {activeStep === 2 && (
-                <div className="space-y-2 text-sm text-slate-700">
+                <div className="space-y-2 text-sm text-slate-400">
                   <p>✓ Isolation Forest anomaly scoring</p>
                   <p>✓ Aggregate organizational risk assessment</p>
                   <p>✓ Trend analysis and forecasting</p>
                 </div>
               )}
               {activeStep === 3 && (
-                <div className="space-y-2 text-sm text-slate-700">
+                <div className="space-y-2 text-sm text-slate-400">
                   <p>✓ Immediate contextual education</p>
                   <p>✓ Long-form training assignment</p>
                   <p>✓ Engagement tracking and compliance</p>
@@ -181,32 +172,18 @@ const DemoFlow: React.FC = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Demo simulation button */}
-      <motion.div
-        className="flex justify-center"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: false }}
-      >
+      {/* Simulate button */}
+      <div className="flex justify-center">
         <motion.button
           onClick={handleStartSimulation}
           disabled={isSimulating}
-          className="px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg text-lg disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden group shadow-lg hover:shadow-xl"
+          className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold rounded-full text-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-cyan-500/20"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <motion.span
-            className="absolute inset-0 bg-white"
-            initial={{ x: '-100%' }}
-            whileHover={{ x: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ opacity: 0.1 }}
-          />
-          <span className="relative">
-            {isSimulating ? 'Simulating...' : 'Run Demo Flow'}
-          </span>
+          {isSimulating ? 'Simulating...' : 'Run Demo Flow'}
         </motion.button>
-      </motion.div>
+      </div>
     </div>
   )
 }

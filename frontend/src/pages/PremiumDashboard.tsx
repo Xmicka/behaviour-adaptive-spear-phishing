@@ -10,6 +10,8 @@ import TrainingEnforcement from '../dashboard/TrainingEnforcement'
 import AlertsRecommendations from '../dashboard/AlertsRecommendations'
 import EmailGenerator from '../dashboard/EmailGenerator'
 import AdvancedView from '../dashboard/AdvancedView'
+import ImplementationGuide from '../dashboard/ImplementationGuide'
+import ShieldScene from '../components/Shield3D'
 
 const PremiumDashboard: React.FC = () => {
   const [showAdvanced, setShowAdvanced] = useState(false)
@@ -26,28 +28,43 @@ const PremiumDashboard: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
       <PremiumNavbar />
 
-      {/* Animated background elements */}
+      {/* Subtle static background blobs — reduced from animated */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-20 left-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"
-          animate={{
-            y: [0, 50, 0],
-            x: [0, 30, 0],
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
-        />
-        <motion.div
-          className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl"
-          animate={{
-            y: [0, -50, 0],
-            x: [0, -30, 0],
-          }}
-          transition={{ duration: 25, repeat: Infinity }}
-        />
+        <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-cyan-600/5 rounded-full blur-3xl" />
       </div>
 
       <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12 mt-20">
+
+          {/* Dashboard Centerpiece: Globe + Risk Layers */}
+          <motion.section
+            className="scroll-section"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            <div className="relative flex flex-col items-center">
+              {/* Risk ring layers */}
+              <div className="relative w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 mx-auto">
+                {/* Outer risk ring */}
+                <div className="absolute inset-0 rounded-full border-2 border-red-500/20 animate-pulse" />
+                <div className="absolute inset-3 rounded-full border-2 border-yellow-500/20" />
+                <div className="absolute inset-6 rounded-full border-2 border-green-500/20" />
+                {/* Globe centerpiece */}
+                <div className="absolute inset-8 rounded-full overflow-hidden hide-on-mobile">
+                  <ShieldScene />
+                </div>
+                {/* Mobile fallback */}
+                <div className="absolute inset-8 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-600/30 backdrop-blur-sm hidden max-[768px]:block" />
+              </div>
+              <p className="text-center text-gray-400 text-sm mt-4">
+                Global threat landscape — risk layers visualized
+              </p>
+            </div>
+          </motion.section>
+
           {/* Section 1: Security Posture Overview */}
           <motion.section
             id="security-posture"
@@ -55,7 +72,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <SecurityPostureOverview />
           </motion.section>
@@ -67,7 +84,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <DataCollection />
           </motion.section>
@@ -79,7 +96,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <BehavioralRiskDistribution />
           </motion.section>
@@ -91,7 +108,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <AdaptivePhishingPipeline />
           </motion.section>
@@ -103,7 +120,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <EmailGenerator />
           </motion.section>
@@ -115,7 +132,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <SimulationOutcomes />
           </motion.section>
@@ -127,7 +144,7 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <TrainingEnforcement />
           </motion.section>
@@ -139,25 +156,32 @@ const PremiumDashboard: React.FC = () => {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, margin: '-100px' }}
+            viewport={{ once: true, margin: '-100px' }}
           >
             <AlertsRecommendations />
           </motion.section>
 
-          {/* Advanced View Toggle */}
-          <motion.div
-            className="flex justify-center py-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: false }}
+          {/* Section 6.5: Implementation Guide */}
+          <motion.section
+            id="implementation-guide"
+            className="scroll-section"
+            variants={sectionVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
           >
+            <ImplementationGuide />
+          </motion.section>
+
+          {/* Advanced View Toggle */}
+          <div className="flex justify-center py-8">
             <button
               onClick={() => setShowAdvanced(!showAdvanced)}
               className="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold hover:shadow-lg hover:shadow-cyan-500/20 transition-all duration-300 transform hover:-translate-y-1"
             >
               {showAdvanced ? 'Hide' : 'Show'} Advanced Analytics
             </button>
-          </motion.div>
+          </div>
 
           {/* Section 7: Advanced View */}
           <AnimatePresence>
@@ -169,7 +193,6 @@ const PremiumDashboard: React.FC = () => {
                 initial="hidden"
                 animate="visible"
                 exit="hidden"
-                viewport={{ once: false, margin: '-100px' }}
               >
                 <AdvancedView />
               </motion.section>

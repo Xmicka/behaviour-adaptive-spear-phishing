@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import ShieldScene from './Shield3D'
+import ParticleCloud from './ParticleCloud'
 
 interface HeroProps {
   onCtaClick: () => void
@@ -11,10 +11,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3,
-      },
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
     },
   }
 
@@ -28,156 +25,93 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
   }
 
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-b from-slate-50 via-blue-50 to-indigo-100 overflow-hidden flex items-center justify-center">
-      {/* Animated background gradient orbs - softer colors */}
-      <motion.div
-        className="absolute top-0 left-1/4 w-96 h-96 rounded-full"
-        animate={{
-          y: [0, 40, 0],
-          opacity: [0.1, 0.2, 0.1],
-        }}
-        transition={{ duration: 8, repeat: Infinity }}
-        style={{
-          background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0) 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
-      <motion.div
-        className="absolute bottom-0 right-1/4 w-80 h-80 rounded-full"
-        animate={{
-          y: [0, -40, 0],
-          opacity: [0.1, 0.15, 0.1],
-        }}
-        transition={{ duration: 10, repeat: Infinity, delay: 1 }}
-        style={{
-          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0) 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
+    <div
+      className="relative w-full min-h-screen overflow-hidden flex items-center justify-center"
+      style={{
+        background:
+          'radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.06) 0%, transparent 50%), radial-gradient(ellipse at 30% 70%, rgba(168,85,247,0.04) 0%, transparent 50%), #050810',
+      }}
+    >
+      {/* Particle cloud — fills the hero background */}
+      <ParticleCloud />
 
-      {/* Main content */}
-      <div className="relative z-10 w-full h-screen flex flex-col lg:flex-row items-center justify-between px-6 lg:px-16 gap-8">
-        {/* Left side: Text content */}
+      {/* Content overlay */}
+      <div className="relative z-10 w-full min-h-screen flex flex-col items-center justify-center px-6 lg:px-16 text-center">
         <motion.div
-          className="flex-1 flex flex-col justify-center space-y-8"
+          className="max-w-4xl space-y-8"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Product name */}
+          {/* Headline */}
           <motion.div variants={itemVariants}>
-            <h1 className="text-5xl lg:text-7xl font-black leading-tight text-slate-900">
-              <span className="gradient-text-dark">Adaptive</span>
+            <h1 className="text-5xl md:text-6xl lg:text-8xl font-black leading-[0.95] tracking-tight">
+              <span className="gradient-text-hero">Adaptive AI</span>
               <br />
-              <span className="gradient-text-dark">Security</span>
+              <span className="text-white">for Phishing</span>
+              <br />
+              <span className="gradient-text-hero">Defense</span>
             </h1>
           </motion.div>
 
-          {/* Bold statement */}
+          {/* Sub-copy */}
           <motion.p
             variants={itemVariants}
-            className="text-lg lg:text-xl text-slate-700 max-w-xl leading-relaxed font-light"
+            className="text-lg lg:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-light"
           >
-            AI-driven spear phishing simulation and adaptive micro-training that evolves with your organization's threat landscape.
+            AI Agents that simulate, detect, and train — so your team stays
+            ahead of real-world spear phishing threats.
           </motion.p>
 
-          {/* Quick benefits */}
-          <motion.div variants={itemVariants} className="space-y-3">
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 rounded-full bg-blue-500" />
-              <span className="text-slate-700">Real-time behavioral detection</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 rounded-full bg-blue-400" />
-              <span className="text-slate-700">Contextual threat simulation</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <div className="w-2 h-2 rounded-full bg-blue-400" />
-              <span className="text-slate-700">Personalized risk scoring</span>
-            </div>
+          {/* Chips */}
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-3">
+            {[
+              'Behavioral Detection',
+              'Adaptive Simulation',
+              'Micro-Training',
+              'Risk Scoring',
+            ].map((label, i) => (
+              <span
+                key={i}
+                className="px-4 py-1.5 rounded-full text-sm font-medium border border-slate-700 text-slate-400 bg-slate-800/40"
+              >
+                {label}
+              </span>
+            ))}
           </motion.div>
 
-          {/* CTA Button */}
-          <motion.div variants={itemVariants}>
+          {/* CTA Buttons */}
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-4 pt-4">
             <motion.button
               onClick={onCtaClick}
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold rounded-lg text-lg group relative overflow-hidden shadow-lg hover:shadow-xl"
+              className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold rounded-full text-lg shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <motion.span
-                className="absolute inset-0 bg-white"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-                style={{ opacity: 0.2 }}
-              />
-              <span className="relative flex items-center space-x-2">
-                <span>View Demo</span>
-                <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </span>
+              View Demo
+            </motion.button>
+            <motion.button
+              className="px-10 py-4 border border-slate-600 text-slate-300 font-semibold rounded-full text-lg hover:border-cyan-500/50 hover:text-white transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Learn More
             </motion.button>
           </motion.div>
 
           {/* Scroll indicator */}
-          <motion.div
-            variants={itemVariants}
-            className="pt-8 text-slate-600 text-sm"
-          >
+          <motion.div variants={itemVariants} className="pt-16">
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="flex flex-col items-start space-y-2"
+              className="flex flex-col items-center text-slate-600 text-sm space-y-2"
             >
               <span>Scroll to explore</span>
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                />
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
               </svg>
             </motion.div>
           </motion.div>
-        </motion.div>
-
-        {/* Right side: 3D Shield */}
-        <motion.div
-          className="flex-1 w-full h-screen relative"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-        >
-          <ShieldScene />
-
-          {/* Floating accent elements around shield */}
-          <motion.div
-            className="absolute top-1/4 right-1/4 w-1 h-1 bg-blue-500 rounded-full"
-            animate={{
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{ duration: 2, repeat: Infinity }}
-          />
-          <motion.div
-            className="absolute bottom-1/4 left-1/4 w-1 h-1 bg-blue-400 rounded-full"
-            animate={{
-              opacity: [0.3, 1, 0.3],
-              scale: [1, 1.5, 1],
-            }}
-            transition={{ duration: 2.5, repeat: Infinity, delay: 0.3 }}
-          />
         </motion.div>
       </div>
     </div>

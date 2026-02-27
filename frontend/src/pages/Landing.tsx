@@ -35,16 +35,16 @@ const Landing: React.FC = () => {
             ].map((item, idx) => (
               <motion.div
                 key={idx}
-                className="glass p-6 lg:p-8 rounded-xl space-y-4 group hover:ring-2 hover:ring-cyan-400/50 transition-all"
+                className="glass p-6 lg:p-8 rounded-xl space-y-4 group hover:border-cyan-500/30 transition-all"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.2 }}
                 whileHover={{ translateY: -5 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <div className="text-5xl">{item.icon}</div>
                 <h3 className="text-xl font-bold text-white">{item.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{item.description}</p>
+                <p className="text-slate-400 leading-relaxed">{item.description}</p>
               </motion.div>
             ))}
           </div>
@@ -67,35 +67,19 @@ const Landing: React.FC = () => {
             {[
               {
                 title: 'Multi-Campaign Management',
-                items: [
-                  'Concurrent phishing simulations',
-                  'A/B testing capabilities',
-                  'Scheduled campaign deployment',
-                ],
+                items: ['Concurrent phishing simulations', 'A/B testing capabilities', 'Scheduled campaign deployment'],
               },
               {
                 title: 'Advanced Analytics',
-                items: [
-                  'Aggregate risk dashboards',
-                  'Behavioral trend analysis',
-                  'Compliance reporting',
-                ],
+                items: ['Aggregate risk dashboards', 'Behavioral trend analysis', 'Compliance reporting'],
               },
               {
                 title: 'Micro-Training Engine',
-                items: [
-                  'Real-time contextual education',
-                  'Long-form training tracking',
-                  'Progress and engagement metrics',
-                ],
+                items: ['Real-time contextual education', 'Long-form training tracking', 'Progress and engagement metrics'],
               },
               {
                 title: 'Integration & API',
-                items: [
-                  'REST API for custom workflows',
-                  'Third-party tool integration',
-                  'Single Sign-On (SSO) support',
-                ],
+                items: ['REST API for custom workflows', 'Third-party tool integration', 'Single Sign-On (SSO) support'],
               },
             ].map((feature, idx) => (
               <motion.div
@@ -104,20 +88,13 @@ const Landing: React.FC = () => {
                 initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ delay: idx * 0.1 }}
-                viewport={{ once: false }}
+                viewport={{ once: true }}
               >
                 <h3 className="text-xl font-bold text-white">{feature.title}</h3>
                 <ul className="space-y-2">
                   {feature.items.map((item, i) => (
-                    <li
-                      key={i}
-                      className="flex items-center space-x-3 text-gray-400"
-                    >
-                      <motion.div
-                        className="w-1.5 h-1.5 rounded-full bg-cyan-400"
-                        animate={{ scale: [1, 1.2, 1] }}
-                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.1 }}
-                      />
+                    <li key={i} className="flex items-center space-x-3 text-slate-400">
+                      <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -142,21 +119,17 @@ const Landing: React.FC = () => {
           ].map((metric, idx) => (
             <motion.div
               key={idx}
-              className="glass p-8 rounded-xl text-center space-y-2 group hover:ring-2 hover:ring-cyan-400/50 transition-all"
+              className="glass p-8 rounded-xl text-center space-y-2 group hover:border-cyan-500/30 transition-all"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.15 }}
               whileHover={{ scale: 1.05 }}
-              viewport={{ once: false }}
+              viewport={{ once: true }}
             >
-              <motion.div
-                className="text-4xl lg:text-5xl font-black gradient-text"
-                animate={{ scale: [1, 1.1, 1] }}
-                transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
-              >
+              <div className="text-4xl lg:text-5xl font-black gradient-text">
                 {metric.value}
-              </motion.div>
-              <p className="text-gray-400 text-sm">{metric.label}</p>
+              </div>
+              <p className="text-slate-400 text-sm">{metric.label}</p>
             </motion.div>
           ))}
         </div>
@@ -166,53 +139,36 @@ const Landing: React.FC = () => {
 
   return (
     <div className="relative">
-      {/* Hero section */}
+      {/* Hero */}
       <Hero onCtaClick={() => setShowLogin(true)} />
 
       {/* Scroll sections */}
       <ScrollSections sections={sections} />
 
-      {/* CTA Footer Section */}
-      <motion.section className="relative min-h-screen bg-gradient-to-t from-black to-slate-900 flex items-center justify-center px-6 lg:px-16 py-20 overflow-hidden">
-        {/* Background elements */}
-        <motion.div
-          className="absolute inset-0 overflow-hidden"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: false }}
-        >
-          <motion.div
-            className="absolute -top-1/2 -right-1/2 w-96 h-96 gradient-glow rounded-full"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute -bottom-1/2 -left-1/2 w-96 h-96 gradient-glow rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
-          />
-        </motion.div>
-
-        {/* Content */}
+      {/* CTA Footer */}
+      <motion.section
+        className="relative min-h-screen flex items-center justify-center px-6 lg:px-16 py-20 overflow-hidden"
+        style={{ background: 'radial-gradient(ellipse at 50% 80%, rgba(34,211,238,0.05) 0%, transparent 60%), radial-gradient(ellipse at 50% 20%, rgba(168,85,247,0.04) 0%, transparent 60%), #050810' }}
+      >
         <motion.div
           className="relative z-10 max-w-3xl text-center space-y-8"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          viewport={{ once: false }}
+          viewport={{ once: true }}
         >
-          <motion.h2 className="text-5xl lg:text-6xl font-black text-white leading-tight">
+          <h2 className="text-5xl lg:text-6xl font-black text-white leading-tight">
             Ready to Transform Your
             <br />
             <span className="gradient-text">Security Posture?</span>
-          </motion.h2>
+          </h2>
 
           <motion.p
-            className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed"
+            className="text-lg text-slate-400 max-w-2xl mx-auto leading-relaxed"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             Join leading organizations that are using adaptive threat simulation to
             reduce security risk and build a security-aware culture.
@@ -223,26 +179,19 @@ const Landing: React.FC = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.4 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
             <motion.button
               onClick={() => setShowLogin(true)}
-              className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-bold rounded-lg text-lg relative overflow-hidden group"
+              className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold rounded-full text-lg shadow-lg shadow-cyan-500/20"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <motion.span
-                className="absolute inset-0 bg-white"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-                style={{ opacity: 0.2 }}
-              />
-              <span className="relative">Get Started</span>
+              Get Started
             </motion.button>
 
             <motion.button
-              className="px-10 py-4 border-2 border-cyan-400 text-cyan-400 font-bold rounded-lg text-lg hover:bg-cyan-400/10 transition-colors"
+              className="px-10 py-4 border border-slate-600 text-slate-300 font-semibold rounded-full text-lg hover:border-cyan-500/50 hover:text-white transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -256,14 +205,14 @@ const Landing: React.FC = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            viewport={{ once: false }}
+            viewport={{ once: true }}
           >
-            <p className="text-sm text-gray-500 mb-4">Trusted by enterprise security teams</p>
-            <div className="flex justify-center items-center space-x-6 text-gray-600">
+            <p className="text-sm text-slate-600 mb-4">Trusted by enterprise security teams</p>
+            <div className="flex justify-center items-center space-x-6 text-slate-500">
               <span className="font-semibold">Enterprise Security</span>
-              <span className="text-gray-700">•</span>
+              <span>•</span>
               <span className="font-semibold">24/7 Support</span>
-              <span className="text-gray-700">•</span>
+              <span>•</span>
               <span className="font-semibold">SOC 2 Compliant</span>
             </div>
           </motion.div>

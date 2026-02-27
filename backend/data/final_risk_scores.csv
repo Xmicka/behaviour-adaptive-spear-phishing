@@ -1,4 +1,5 @@
 user,login_count,failed_login_ratio,unique_src_hosts,unique_dst_hosts,anomaly_score,ml_anomaly_score,rule_based_score,final_risk_score,risk_reason
-employee_charlie,18,0.0,1,3,0.010705330024234572,0.9999999999938413,0.39999999999978575,0.6999999999968135,Behavior deviates significantly from historical baseline
-employee_alice,4,0.0,1,2,-0.09634797021811142,0.34068639683918,0.0,0.17034319841959,No strong evidence of deviation
-employee_bob,12,0.0,1,2,-0.15166550493118225,0.0,0.11428571428570614,0.05714285714285307,No strong evidence of deviation
+employee_charlie,18,0.0,1,3,0.0005412143658868884,0.9999999999816883,0.39999999999978575,0.699999999990737,Behavior deviates significantly from historical baseline
+employee_alice,4,0.0,1,2,-0.0030668814066923678,0.9339295273369754,0.0,0.4669647636684877,Behavior deviates significantly from historical baseline
+ext_test_employee_01,10,0.0,1,3,-0.05406859283067045,0.0,0.2857142857140796,0.1428571428570398,No strong evidence of deviation
+employee_bob,12,0.0,1,2,-0.049222280152044995,0.088744365294925,0.11428571428570614,0.10151503979031556,No strong evidence of deviation

@@ -3,7 +3,7 @@ Behaviour-adaptive spear-phishing research pipeline
 
 A research platform for behavior-adaptive threat detection in spear-phishing campaigns, featuring:
 - **Backend**: Python pipeline for feature extraction and anomaly detection
-- **Frontend**: Premium React/Vite dashboard with smooth animations and 3D visualization
+- **Frontend**: React/Vite dashboard
 
 Quick start (macOS / Linux)
 ---------------------------
@@ -58,20 +58,16 @@ npm run preview
 - Writes `backend/data/final_risk_scores.csv`
 
 ### Frontend Application
-- **Landing Page**: Immersive hero with 3D shield, scroll-based content reveals
 - **Dashboard**: Risk metrics, employee threat assessment, campaign tracking
 - **Micro-Training**: Contextual security education modal
-- Premium animations powered by Framer Motion and Three.js
-
-For detailed frontend documentation, see [FRONTEND_DOCUMENTATION.md](./frontend/FRONTEND_DOCUMENTATION.md)
 
 ## Technology Stack
 
 | Component | Technology |
 |-----------|-----------|
 | Backend | Python 3.10+, Scikit-learn, Pandas |
-| Frontend | React 18, TypeScript, Vite, Framer Motion, Three.js |
-| Styling | Tailwind CSS, Custom CSS animations |
+| Frontend | React 18, TypeScript, Vite |
+| Styling | Tailwind CSS |
 | Deployment | (Ready for Docker/cloud deployment) |
 
 ## Notes

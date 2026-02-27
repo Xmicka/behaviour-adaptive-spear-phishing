@@ -10,6 +10,10 @@ interface MetricCardProps {
   icon?: React.ReactNode
 }
 
+/**
+ * Floating metric card with subtle hover lift.
+ * Infinite boxShadow pulse removed for performance.
+ */
 const FloatingMetricCard: React.FC<MetricCardProps> = ({
   label,
   value,
@@ -20,12 +24,13 @@ const FloatingMetricCard: React.FC<MetricCardProps> = ({
   return (
     <motion.div
       className={`relative overflow-hidden rounded-2xl p-6 backdrop-blur-xl transition-all duration-300 group hover:shadow-2xl hover:shadow-cyan-500/20 ${isHighlight
-          ? 'bg-gradient-to-br from-cyan-900/40 via-blue-900/30 to-slate-900/40 border border-cyan-500/30'
-          : 'bg-gradient-to-br from-slate-800/40 via-slate-800/20 to-slate-900/40 border border-slate-700/40'
+        ? 'bg-gradient-to-br from-cyan-900/40 via-blue-900/30 to-slate-900/40 border border-cyan-500/30'
+        : 'bg-gradient-to-br from-slate-800/40 via-slate-800/20 to-slate-900/40 border border-slate-700/40'
         }`}
       whileHover={{ translateY: -8, scale: 1.02 }}
       initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
       transition={{ duration: 0.5 }}
     >
       <motion.div
@@ -39,15 +44,11 @@ const FloatingMetricCard: React.FC<MetricCardProps> = ({
           {icon && <div className="text-2xl opacity-70 group-hover:opacity-100 transition-opacity">{icon}</div>}
         </div>
 
-        <motion.div
-          className={`text-4xl font-bold ${isHighlight ? 'text-cyan-300' : 'text-white'
-            }`}
-          initial={{ scale: 0.9 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.2, type: 'spring' }}
+        <div
+          className={`text-4xl font-bold ${isHighlight ? 'text-cyan-300' : 'text-white'}`}
         >
           {value}
-        </motion.div>
+        </div>
 
         {change && (
           <p
@@ -59,18 +60,9 @@ const FloatingMetricCard: React.FC<MetricCardProps> = ({
         )}
       </div>
 
+      {/* Highlight border on hover — static, no infinite pulse */}
       {isHighlight && (
-        <motion.div
-          className="absolute inset-0 rounded-2xl border border-cyan-400/0 group-hover:border-cyan-400/30 transition-all duration-300"
-          animate={{
-            boxShadow: [
-              '0 0 0 0 rgba(34, 211, 238, 0)',
-              '0 0 0 8px rgba(34, 211, 238, 0.1)',
-              '0 0 0 0 rgba(34, 211, 238, 0)',
-            ],
-          }}
-          transition={{ duration: 2, repeat: Infinity }}
-        />
+        <div className="absolute inset-0 rounded-2xl border border-cyan-400/0 group-hover:border-cyan-400/30 transition-all duration-300" />
       )}
     </motion.div>
   )
@@ -89,7 +81,6 @@ const SecurityPostureOverview: React.FC = () => {
 
   const posture = data?.posture
   const riskLevel = posture?.overall_risk_level || 'Unknown'
-  const riskColor = riskLevel === 'High' ? 'text-red-400' : riskLevel === 'Medium' ? 'text-yellow-400' : 'text-green-400'
 
   const metrics = [
     {
@@ -125,7 +116,7 @@ const SecurityPostureOverview: React.FC = () => {
         className="space-y-2"
         initial={{ opacity: 0, x: -20 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
         <h2 className="text-4xl font-bold bg-gradient-to-r from-white via-cyan-200 to-blue-200 bg-clip-text text-transparent">
@@ -153,7 +144,7 @@ const SecurityPostureOverview: React.FC = () => {
         className="mt-8 p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 flex items-start gap-4"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: false }}
+        viewport={{ once: true }}
         transition={{ delay: 0.4 }}
       >
         <div className="text-2xl">ℹ️</div>
@@ -164,7 +155,10 @@ const SecurityPostureOverview: React.FC = () => {
                 <span className="font-semibold text-cyan-300">Live Data:</span> Metrics are derived from{' '}
                 <span className="text-white font-semibold">{data.posture.total_events_collected}</span> behavioral events
                 across <span className="text-white font-semibold">{data.posture.total_users}</span> monitored users.
-                Run the pipeline to refresh risk scores.
+                {data.scheduler_status?.running
+                  ? <span className="ml-2 text-green-400 font-semibold">🟢 Auto-pipeline active</span>
+                  : <span className="ml-2 text-gray-500">⏸ Auto-pipeline stopped</span>
+                }
               </>
             ) : (
               <>
@@ -175,6 +169,35 @@ const SecurityPostureOverview: React.FC = () => {
           </p>
         </div>
       </motion.div>
+
+      {/* User State Distribution */}
+      {data?.state_distribution && Object.values(data.state_distribution).some(v => v > 0) && (
+        <motion.div
+          className="mt-4 p-4 rounded-xl bg-slate-800/30 border border-slate-700/50"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+        >
+          <p className="text-sm font-semibold text-gray-300 mb-3">User Training States</p>
+          <div className="flex gap-2 flex-wrap">
+            {[
+              { key: 'CLEAN', label: 'Clean', color: 'bg-gray-600', text: 'text-gray-200' },
+              { key: 'PHISH_SENT', label: 'Phish Sent', color: 'bg-blue-600', text: 'text-blue-200' },
+              { key: 'PHISH_CLICKED', label: 'Clicked', color: 'bg-red-600', text: 'text-red-200' },
+              { key: 'MICRO_TRAINING_REQUIRED', label: 'Micro Training', color: 'bg-orange-600', text: 'text-orange-200' },
+              { key: 'MICRO_TRAINING_COMPLETED', label: 'Micro Done', color: 'bg-amber-600', text: 'text-amber-200' },
+              { key: 'MANDATORY_TRAINING_REQUIRED', label: 'Mandatory', color: 'bg-yellow-600', text: 'text-yellow-200' },
+              { key: 'COMPLIANT', label: 'Compliant', color: 'bg-green-600', text: 'text-green-200' },
+            ].filter(s => (data.state_distribution?.[s.key] ?? 0) > 0).map(s => (
+              <div key={s.key} className={`${s.color}/20 border border-white/10 rounded-lg px-3 py-2 text-center`}>
+                <div className={`text-lg font-bold ${s.text}`}>{data.state_distribution?.[s.key] ?? 0}</div>
+                <div className="text-xs text-gray-400">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      )}
     </div>
   )
 }

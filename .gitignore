@@ -10,5 +10,19 @@ frontend/dist
 
 .env
 .venv
+venv_backend/
 
 *.log
+
+# Databases (generated at runtime)
+*.db
+
+# Backend secrets
+backend/.env
+backend/firebase-service-account.json
+
+# Frontend env (contains Firebase keys)
+frontend/.env
+
+# Build artifacts
+adaptive-security-extension.zip
