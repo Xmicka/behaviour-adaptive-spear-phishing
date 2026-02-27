@@ -9,7 +9,7 @@
  */
 const EXT_CONFIG = {
     /** Backend collector endpoint — POST /api/collect */
-    COLLECTOR_ENDPOINT: 'http://localhost:8000/api/collect',
+    COLLECTOR_ENDPOINT: 'https://behaviour-adaptive-spear-phishing.onrender.com/api/collect',
 
     /** User identifier — should be set per-employee (hashed email or UID) */
     USER_ID: '',
