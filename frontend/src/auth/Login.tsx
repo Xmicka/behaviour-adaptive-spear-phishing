@@ -15,10 +15,11 @@ interface LoginProps {
 const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isSignUp, setIsSignUp] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { login, loginWithGoogle, isFirebase } = useAuth()
+  const { login, signup, loginWithGoogle, isFirebase } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -31,7 +32,13 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
         setIsLoading(false)
         return
       }
-      await login(email, password)
+
+      if (isSignUp) {
+        await signup(email, password)
+      } else {
+        await login(email, password)
+      }
+
       navigate('/dashboard-premium')
     } catch (err: any) {
       setError(err.message || 'Authentication failed. Please try again.')
@@ -136,13 +143,25 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 {isLoading ? (
                   <>
                     <div className="w-4 h-4 border-2 border-transparent border-t-slate-950 rounded-full animate-spin" />
-                    <span>Signing in...</span>
+                    <span>{isSignUp ? 'Creating account...' : 'Signing in...'}</span>
                   </>
                 ) : (
-                  <span>Sign In</span>
+                  <span>{isSignUp ? 'Sign Up' : 'Sign In'}</span>
                 )}
               </span>
             </button>
+
+            {/* Toggle Sign Up / Sign In mode */}
+            <div className="text-center text-sm text-slate-400 mt-4">
+              {isSignUp ? "Already have an account? " : "Don't have an account? "}
+              <button
+                type="button"
+                onClick={() => { setIsSignUp(!isSignUp); setError(''); }}
+                className="text-cyan-400 font-semibold hover:underline bg-transparent border-none p-0 cursor-pointer"
+              >
+                {isSignUp ? 'Sign In' : 'Sign Up'}
+              </button>
+            </div>
 
             {/* Google */}
             <button
@@ -157,7 +176,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
                 <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
                 <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
-              <span>{isFirebase ? 'Sign in with Google' : 'Google (requires Firebase)'}</span>
+              <span>{isFirebase ? 'Continue with Google' : 'Google (requires Firebase)'}</span>
             </button>
 
 

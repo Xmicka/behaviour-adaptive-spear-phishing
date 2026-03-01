@@ -30,6 +30,7 @@ interface AuthContextValue {
     user: AppUser | null
     loading: boolean
     login: (email: string, password: string) => Promise<void>
+    signup: (email: string, password: string) => Promise<void>
     loginWithGoogle: () => Promise<void>
     logout: () => Promise<void>
     isFirebase: boolean
@@ -39,6 +40,7 @@ const AuthContext = createContext<AuthContextValue>({
     user: null,
     loading: true,
     login: async () => { },
+    signup: async () => { },
     loginWithGoogle: async () => { },
     logout: async () => { },
     isFirebase: false,
@@ -93,6 +95,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         await ensureUserDoc(u)
     }
 
+    const signup = async (email: string, password: string) => {
+        const { createUserWithEmailAndPassword } = await import('../firebase')
+        const u = await createUserWithEmailAndPassword(email, password)
+        setUser(u)
+        await ensureUserDoc(u)
+    }
+
     const loginWithGoogle = async () => {
         const u = await signInWithGoogle()
         setUser(u)
@@ -126,7 +135,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     return (
         <AuthContext.Provider
-            value={{ user, loading, login, loginWithGoogle, logout, isFirebase: true }}
+            value={{ user, loading, login, signup, loginWithGoogle, logout, isFirebase: true }}
         >
             {children}
         </AuthContext.Provider>
