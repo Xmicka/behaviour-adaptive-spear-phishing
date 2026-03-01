@@ -8,8 +8,10 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://behaviour-adaptiv
 
 function apiUrl(path: string): string {
   // In dev with Vite proxy, use relative paths; otherwise use full URL
-  if (path.startsWith('/')) return path
-  return `${API_BASE}${path}`
+  if (import.meta.env.DEV) return path
+  const base = API_BASE.endsWith('/') ? API_BASE.slice(0, -1) : API_BASE
+  const normalizedPath = path.startsWith('/') ? path : `/${path}`
+  return `${base}${normalizedPath}`
 }
 
 // ============ TYPES ============
@@ -248,7 +250,7 @@ export type GeneratedEmail = {
 
 export async function fetchOverview(): Promise<Overview> {
   try {
-    const res = await fetch('/api/risk-summary')
+    const res = await fetch(apiUrl('/api/risk-summary'))
     if (!res.ok) throw new Error('no api')
     const json = await res.json()
     const data = json.data || []
@@ -265,7 +267,7 @@ export async function fetchOverview(): Promise<Overview> {
 
 export async function fetchRiskSummary() {
   try {
-    const res = await fetch('/api/risk-summary')
+    const res = await fetch(apiUrl('/api/risk-summary'))
     if (!res.ok) throw new Error('no api')
     const json = await res.json()
     return json.data || []
@@ -276,7 +278,7 @@ export async function fetchRiskSummary() {
 
 export async function fetchCollectorStats(): Promise<CollectorStats> {
   try {
-    const res = await fetch('/api/events/stats')
+    const res = await fetch(apiUrl('/api/events/stats'))
     if (!res.ok) throw new Error('stats API unavailable')
     return await res.json()
   } catch (err) {
@@ -297,7 +299,7 @@ export async function fetchEvents(params?: {
     if (params?.event_type) query.set('event_type', params.event_type)
     if (params?.since) query.set('since', params.since)
     if (params?.limit) query.set('limit', params.limit.toString())
-    const res = await fetch(`/api/events?${query.toString()}`)
+    const res = await fetch(apiUrl(`/api/events?${query.toString()}`))
     if (!res.ok) throw new Error('events API unavailable')
     return await res.json()
   } catch (err) {
@@ -307,7 +309,7 @@ export async function fetchEvents(params?: {
 
 export async function triggerPipelineRun(): Promise<PipelineRunResult> {
   try {
-    const res = await fetch('/api/pipeline/run', { method: 'POST' })
+    const res = await fetch(apiUrl('/api/pipeline/run'), { method: 'POST' })
     return await res.json()
   } catch (err) {
     return { status: 'error', message: 'Failed to connect to pipeline API' }
@@ -316,7 +318,7 @@ export async function triggerPipelineRun(): Promise<PipelineRunResult> {
 
 export async function fetchDashboardData(): Promise<DashboardData | null> {
   try {
-    const res = await fetch('/api/dashboard')
+    const res = await fetch(apiUrl('/api/dashboard'))
     if (!res.ok) throw new Error('dashboard unavailable')
     return await res.json()
   } catch (err) {
@@ -330,7 +332,7 @@ export async function generatePhishingEmail(
   user_id: string, scenario: string, context?: string
 ): Promise<GeneratedEmail | null> {
   try {
-    const res = await fetch('/api/generate-email', {
+    const res = await fetch(apiUrl('/api/generate-email'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id, scenario, context: context || '' }),
@@ -346,7 +348,7 @@ export async function sendPhishingEmail(
   user_id: string, recipient_email?: string, scenario?: string, context?: string
 ): Promise<EmailSendResult | null> {
   try {
-    const res = await fetch('/api/email/send', {
+    const res = await fetch(apiUrl('/api/email/send'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id, recipient_email, scenario, context }),
@@ -366,7 +368,7 @@ export async function sendAutoEmails(threshold?: number): Promise<{
   skipped: any[]; results: EmailSendResult[]
 } | null> {
   try {
-    const res = await fetch('/api/email/send-auto', {
+    const res = await fetch(apiUrl('/api/email/send-auto'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(threshold ? { threshold } : {}),
@@ -383,7 +385,7 @@ export async function fetchEmailLog(user_id?: string): Promise<{
 } | null> {
   try {
     const query = user_id ? `?user_id=${user_id}` : ''
-    const res = await fetch(`/api/email/log${query}`)
+    const res = await fetch(apiUrl(`/api/email/log${query}`))
     if (!res.ok) throw new Error('email log unavailable')
     return await res.json()
   } catch (err) {
@@ -397,7 +399,7 @@ export async function fetchTrainingStatus(user_id?: string): Promise<{
 } | null> {
   try {
     const path = user_id ? `/api/training/status/${user_id}` : '/api/training/status'
-    const res = await fetch(path)
+    const res = await fetch(apiUrl(path))
     if (!res.ok) throw new Error('training status unavailable')
     return await res.json()
   } catch (err) {
@@ -407,7 +409,7 @@ export async function fetchTrainingStatus(user_id?: string): Promise<{
 
 export async function triggerTraining(user_id: string, training_type: string = 'micro'): Promise<any> {
   try {
-    const res = await fetch('/api/training/trigger', {
+    const res = await fetch(apiUrl('/api/training/trigger'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id, training_type }),
@@ -420,7 +422,7 @@ export async function triggerTraining(user_id: string, training_type: string = '
 
 export async function completeTraining(user_id: string): Promise<any> {
   try {
-    const res = await fetch('/api/training/complete', {
+    const res = await fetch(apiUrl('/api/training/complete'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ user_id, score: 100 }),
@@ -433,7 +435,7 @@ export async function completeTraining(user_id: string): Promise<any> {
 
 export async function fetchEmailScenarios(): Promise<Record<string, string[]> | null> {
   try {
-    const res = await fetch('/api/email/scenarios')
+    const res = await fetch(apiUrl('/api/email/scenarios'))
     if (!res.ok) throw new Error('scenarios unavailable')
     const json = await res.json()
     return json.scenarios
@@ -475,7 +477,7 @@ export async function fetchPipeline(): Promise<{ stage: string; count: number }[
 
 export async function fetchMicroTrainingForRisk(riskScore: number) {
   try {
-    const res = await fetch('/api/training-status')
+    const res = await fetch(apiUrl('/api/training-status'))
     if (!res.ok) throw new Error('no api')
     const json = await res.json()
     return {
@@ -516,7 +518,7 @@ export async function fetchUserStates(): Promise<{
   states: UserStateEntry[]; distribution: StateDistribution; total_users: number
 } | null> {
   try {
-    const res = await fetch('/api/user-states')
+    const res = await fetch(apiUrl('/api/user-states'))
     if (!res.ok) throw new Error('user-states unavailable')
     return await res.json()
   } catch (err) {
@@ -526,7 +528,7 @@ export async function fetchUserStates(): Promise<{
 
 export async function startAutoPipeline(interval_minutes: number = 5): Promise<any> {
   try {
-    const res = await fetch('/api/pipeline/auto-start', {
+    const res = await fetch(apiUrl('/api/pipeline/auto-start'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ interval_minutes }),
@@ -539,7 +541,7 @@ export async function startAutoPipeline(interval_minutes: number = 5): Promise<a
 
 export async function stopAutoPipeline(): Promise<any> {
   try {
-    const res = await fetch('/api/pipeline/auto-stop', { method: 'POST' })
+    const res = await fetch(apiUrl('/api/pipeline/auto-stop'), { method: 'POST' })
     return await res.json()
   } catch (err) {
     return null
@@ -548,7 +550,7 @@ export async function stopAutoPipeline(): Promise<any> {
 
 export async function fetchSchedulerStatus(): Promise<SchedulerStatus | null> {
   try {
-    const res = await fetch('/api/pipeline/scheduler-status')
+    const res = await fetch(apiUrl('/api/pipeline/scheduler-status'))
     if (!res.ok) throw new Error('scheduler status unavailable')
     return await res.json()
   } catch (err) {
