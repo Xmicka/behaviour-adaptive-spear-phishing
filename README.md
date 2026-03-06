@@ -1,106 +1,81 @@
-Behaviour-adaptive spear-phishing research pipeline
+# Behaviour-Adaptive Spear Phishing System
 =================================================
 
-A research platform for behavior-adaptive threat detection in spear-phishing campaigns, featuring:
-- **Backend**: Python pipeline for feature extraction and anomaly detection
-- **Frontend**: React/Vite dashboard
+The Behaviour-Adaptive Spear Phishing System is a comprehensive, automated platform designed to improve organizational security posture through continuous behavioral monitoring and targeted security awareness training.
 
-Quick start (macOS / Linux)
----------------------------
+Instead of sending generic phishing simulations to all employees, this system uses a browser extension to silently monitor behavioral indicators (like excessive tab creation, late-night logins, or rapid typing cadence) that often correlate with susceptibility to social engineering. It runs an anomaly detection pipeline to identify high-risk users, and then automatically crafts and delivers highly personalized, context-aware phishing simulations. When a user falls for a simulation, they are immediately guided through contextual micro-training tailored to their specific vulnerability.
 
-### Backend Setup
+## Core Components
 
-1. Create a clean virtual environment (Python 3.10+ recommended):
+1. **Browser Extension (Metadata Collector)**: A Manifest V3 Chrome extension that silently collects non-intrusive behavioral telemetry. It explicitly does *not* capture keystrokes, passwords, or the content of visited pages—only metadata like navigation events, click frequency, and typing pace.
+2. **Backend Engine (Python/Flask)**: Receives and stores telemetry, runs the Isolation Forest machine learning pipeline to detect anomalies and compute risk scores, generates adaptive phishing emails via LLM templates, and manages user state.
+3. **Admin Dashboard (React/TypeScript)**: A premium, real-time visualization interface for security administrators to monitor organizational risk, review individual employee behavior, manually trigger simulations, and track training compliance.
+
+## Quick Start (Local Development)
+
+### 1. Backend Setup
+
+The backend requires Python 3.10+ and uses SQLite for local event storage.
 
 ```bash
+# Create and activate a virtual environment
 python3 -m venv .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
+
+# Install dependencies
 pip install -r requirements.txt
+
+# Start the Flask API server (runs on port 8000)
+python -m backend.api_server
 ```
 
-2. Run the pipeline from the repository root (this uses package imports):
+### 2. Frontend Setup
+
+The frontend is a React application built with Vite and Tailwind CSS.
 
 ```bash
-python -m backend.pipeline.run_pipeline
-```
-
-### Frontend Setup
-
-1. Navigate to the frontend directory:
-
-```bash
+# Navigate to the frontend directory
 cd frontend
+
+# Install dependencies
 npm install
-```
 
-2. Start the development server:
-
-```bash
+# Start the development server (runs on port 5173)
 npm run dev
-# Opens at http://localhost:5173
 ```
 
-3. For production build:
+### 3. Extension Installation
 
-```bash
-npm run build
-npm run preview
-```
+To test the end-to-end data flow, install the extension locally:
 
-## Architecture
+1. In Chrome, navigate to `chrome://extensions`.
+2. Enable **Developer mode** (toggle in the top right).
+3. Click **Load unpacked** and select the `extension/` directory.
+4. Click the newly added extension icon to open the Onboarding Popup.
+5. Register a test employee. This creates an entry in the backend database and links the extension to that ID.
 
-### Backend Pipeline
-- Loads `backend/data/auth_sample.csv`
-- Extracts per-user behavioral features
-- Runs an Isolation Forest to compute anomaly scores
-- Normalizes anomaly scores into a `risk_score`
-- Writes `backend/data/final_risk_scores.csv`
+## Core Workflows
 
-### Frontend Application
-- **Dashboard**: Risk metrics, employee threat assessment, campaign tracking
-- **Micro-Training**: Contextual security education modal
+For a detailed breakdown of how data moves through the system, please refer to [SYSTEM_WORKFLOWS.md](SYSTEM_WORKFLOWS.md).
 
-## Technology Stack
+Key workflows include:
+- **Continuous Telemetry Gathering**: The extension batches behavioral events and POSTs them to `/api/collect`.
+- **Suspicious Activity Warnings**: The backend monitors for immediate anomalies (e.g., rapid tab creation) and automatically fires warning emails to the affected user.
+- **Autonomous Pipeline**: An isolation forest algorithm runs over the collected events, calculating risk scores and automatically triggering phishing simulations for users crossing the threshold.
+- **Remediation**: When a simulation link is clicked, the user is navigated to a dynamic training landing page demanding completion of a micro-quiz.
 
-| Component | Technology |
-|-----------|-----------|
-| Backend | Python 3.10+, Scikit-learn, Pandas |
-| Frontend | React 18, TypeScript, Vite |
-| Styling | Tailwind CSS |
-| Deployment | (Ready for Docker/cloud deployment) |
+## Security & Privacy Considerations
 
-## Notes
+This system processes sensitive data and is categorized as a security tool. The following constraints are enforced:
 
-- This repository is research-focused: code is intentionally simple and
-	defensive rather than production-grade.
-- If you encounter missing dependency errors, install the packages listed
-	in `requirements.txt` (backend) or run `npm install` (frontend).
+*   **Privacy by Design**: The browser extension only captures telemetry metadata. It does not record keystrokes or scrape page content.
+*   **CORS Hardening**: The backend restricts cross-origin requests exclusively to configured dashboard domains and the `chrome-extension://` scheme.
+*   **Email Cooldowns**: Automated warning emails initiated by suspicious behavior triggers are rate-limited to prevent inbox flooding.
+*   **Input Validation**: All POST endpoints enforce payload size limits (typically 50-100KB) to prevent resource exhaustion attacks.
 
-## Research vs Engineering Separation
+## Extensibility
 
-Jupyter notebooks are used here as the primary vehicle for research and
-exploration because they permit rapid, iterative investigation: analysts can
-compose code, run visualisations and inspect intermediate outputs inline,
-which accelerates hypothesis development and feature discovery. Notebooks
-are especially useful when working with LANL-style, unlabeled logs where
-exploratory plots and ad-hoc aggregations guide modeling decisions.
-
-The backend pipeline exists separately to operationalise the outcomes of
-that research. By isolating data-loading, feature extraction, modelling and
-scoring in a small, well-documented Python package, the project gains
-repeatability, automation and a clear contract for downstream users. This
-separation keeps exploratory artefacts (notebooks) distinct from the
-deterministic code paths used for batch processing, validation and simple
-deployment.
-
-The frontend provides a professional, production-ready interface for interacting
-with the research outputs, enabling real-time monitoring, employee risk assessment,
-and integrated security training workflows.
-
-This pattern mirrors real-world ML workflows: researchers iterate interactively
-to identify signals and validate assumptions, then engineers (or the same
-researchers) extract stable logic into reproducible pipelines. The division
-of concerns improves auditability, facilitates testing, and reduces the
-risk that exploratory code (intended for insight) is run in uncontrolled
-production contexts.
+This repository serves as a foundation for adaptive security awareness. Future extensions could include:
+- Integration with Active Directory (AD) for automated employee onboarding and de-provisioning.
+- Expanded ML models analyzing different behavior vectors (e.g., email sentiment analysis, building access logs).
+- Webhook integrations to alert SIEM systems (like Splunk or Datadog) when critical anomalies are detected.

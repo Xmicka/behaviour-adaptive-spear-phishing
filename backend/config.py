@@ -42,7 +42,8 @@ COLLECTOR_ALLOWED_ORIGINS = os.environ.get("COLLECTOR_ALLOWED_ORIGINS", "*")
 # Comma-separated allowed origins for production.
 # Default "*" allows all origins (dev mode). In production, set to
 # your frontend domain, e.g. "https://your-app.web.app,https://your-domain.com"
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "*")
+# Specifically restrict to known domains for security.
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8000,https://behaviour-adaptive-spear-phishing.onrender.com")
 
 # ── Email / SMTP configuration ───────────────────────────────────
 # SMTP credentials — set via env vars for security.
@@ -63,6 +64,11 @@ PLATFORM_BASE_URL = os.environ.get("PLATFORM_BASE_URL", "http://localhost:8000")
 # Users with final_risk_score >= this threshold will automatically
 # receive phishing simulation emails when the pipeline runs.
 RISK_THRESHOLD_EMAIL = float(os.environ.get("RISK_THRESHOLD_EMAIL", "0.5"))
+
+# ── Anomaly detection ────────────────────────────────────────────
+# Minimum tab/navigation events within 5 minutes to trigger alert
+ANOMALY_TAB_THRESHOLD = int(os.environ.get("ANOMALY_TAB_THRESHOLD", "30"))
+WARNING_EMAIL_COOLDOWN_MINUTES = int(os.environ.get("WARNING_EMAIL_COOLDOWN_MINUTES", "60"))
 
 # ── Email event database ─────────────────────────────────────────
 EMAIL_DB_PATH = Path("backend") / "data" / "email_events.db"
@@ -105,4 +111,6 @@ __all__ = [
     "PLATFORM_BASE_URL",
     "RISK_THRESHOLD_EMAIL",
     "EMAIL_DB_PATH",
+    "ANOMALY_TAB_THRESHOLD",
+    "WARNING_EMAIL_COOLDOWN_MINUTES"
 ]

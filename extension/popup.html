@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Shield360 Adaptive Security</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 16px;
+            width: 320px;
+            background-color: #0f172a;
+            color: #f1f5f9;
+        }
+
+        h2 {
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #38bdf8;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            background-color: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 4px;
+            color: #fff;
+            transition: border-color 0.2s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+            margin-top: 8px;
+        }
+
+        button:hover {
+            background-color: #0369a1;
+        }
+
+        button:disabled {
+            background-color: #475569;
+            cursor: not-allowed;
+        }
+
+        #message {
+            margin-top: 12px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .success {
+            color: #4ade80;
+        }
+
+        .error {
+            color: #f87171;
+        }
+
+        #onboarded-state {
+            display: none;
+            text-align: center;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-top: 16px;
+            border: 1px solid rgba(74, 222, 128, 0.4);
+        }
+
+        .info-text {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 16px;
+            text-align: center;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Shield360 Registration</h2>
+
+    <div id="registration-form">
+        <p style="font-size: 13px; margin-bottom: 16px;">Please register this device with the security system.</p>
+
+        <div class="form-group">
+            <label for="name">Full Name *</label>
+            <input type="text" id="name" placeholder="Jane Doe" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Work Email *</label>
+            <input type="email" id="email" placeholder="jane.doe@company.com" required>
+        </div>
+
+        <div class="form-group">
+            <label for="empId">Employee ID (Optional)</label>
+            <input type="text" id="empId" placeholder="EMP12345">
+        </div>
+
+        <button id="submitBtn">Register Device</button>
+        <div id="message"></div>
+    </div>
+
+    <div id="onboarded-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#4ade80" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto;">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+        </svg>
+        <h3 style="margin-top: 12px; margin-bottom: 4px;">Device Secured</h3>
+        <p id="registered-name" style="color: #94a3b8; font-size: 14px; margin: 0;"></p>
+        <div class="status-badge">Active & Monitoring</div>
+    </div>
+
+    <p class="info-text">
+        This extension monitors behavioral patterns to adapt your security training. It does not record keystrokes or
+        read sensitive webpage content.
+    </p>
+
+    <script src="js/config.js"></script>
+    <script src="js/popup.js"></script>
+</body>
+
+</html>

@@ -26,6 +26,10 @@ const EXT_CONFIG = {
     /** Heartbeat interval in seconds */
     HEARTBEAT_INTERVAL_SEC: 30,
 
+    /** Threshold for rapid tab/page view anomaly */
+    TAB_BURST_THRESHOLD: 15,
+    TAB_BURST_WINDOW_SEC: 60,
+
     /** Extension version for debugging */
     VERSION: '1.0.0',
 };

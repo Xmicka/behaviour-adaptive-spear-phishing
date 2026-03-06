@@ -144,6 +144,11 @@ export type EmailInteraction = {
   timestamp: string
 }
 
+export type LoginBehaviorEvent = {
+  timestamp: string
+  domain: string
+}
+
 export type EmailStats = {
   total_sent: number
   total_opened: number
@@ -307,6 +312,47 @@ export async function fetchEvents(params?: {
   }
 }
 
+export async function fetchEmployees(): Promise<any[]> {
+  try {
+    const res = await fetch(apiUrl('/api/employees'))
+    if (!res.ok) throw new Error('employees API unavailable')
+    const json = await res.json()
+    return json.employees || []
+  } catch (err) {
+    return []
+  }
+}
+
+export async function downloadExtension(): Promise<void> {
+  window.location.href = apiUrl('/api/extension/download')
+}
+
+export async function sendEmployeeSimulation(user_id: string): Promise<any> {
+  try {
+    const res = await fetch(apiUrl('/api/employees/send-simulation'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id }),
+    })
+    return await res.json()
+  } catch (err) {
+    return { error: 'Failed to connect to simulation API' }
+  }
+}
+
+export async function sendWarningEmail(user_id: string): Promise<any> {
+  try {
+    const res = await fetch(apiUrl('/api/alerts/warning-email'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id }),
+    })
+    return await res.json()
+  } catch (err) {
+    return { error: 'Failed to connect to alert API' }
+  }
+}
+
 export async function triggerPipelineRun(): Promise<PipelineRunResult> {
   try {
     const res = await fetch(apiUrl('/api/pipeline/run'), { method: 'POST' })
@@ -323,6 +369,17 @@ export async function fetchDashboardData(): Promise<DashboardData | null> {
     return await res.json()
   } catch (err) {
     return null
+  }
+}
+
+export async function fetchLoginBehavior(user_id: string): Promise<LoginBehaviorEvent[]> {
+  try {
+    const res = await fetch(apiUrl(`/api/employees/${user_id}/login-behavior`))
+    if (!res.ok) throw new Error('login behavior unavailable')
+    const json = await res.json()
+    return json.events || []
+  } catch (err) {
+    return []
   }
 }
 

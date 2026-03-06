@@ -20,6 +20,11 @@
     let keystrokeTimes = [];
     let isPageVisible = !document.hidden;
 
+    // Burst detection logic
+    const BURST_KEY = 'shield360_page_views';
+    const BURST_WINDOW_MS = (typeof EXT_CONFIG !== 'undefined' ? EXT_CONFIG.TAB_BURST_WINDOW_SEC : 60) * 1000;
+    const BURST_THRESHOLD = typeof EXT_CONFIG !== 'undefined' ? EXT_CONFIG.TAB_BURST_THRESHOLD : 15;
+
     // ── Utilities ──────────────────────────────────────────────────
 
     function now() {
@@ -74,11 +79,38 @@
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     });
 
-    // 2. Page view
-    emit('page_view', {
-        title: document.title.substring(0, 80),
-        referrer: safeReferrerHost(),
-    });
+    // 2. Page view (with burst detection)
+    function trackPageView() {
+        emit('page_view', {
+            title: document.title.substring(0, 80),
+            referrer: safeReferrerHost(),
+        });
+
+        // Simple local storage based burst detection for new tabs/navs
+        try {
+            const nowMs = Date.now();
+            let views = JSON.parse(localStorage.getItem(BURST_KEY) || '[]');
+
+            // Filter old
+            views = views.filter(t => nowMs - t < BURST_WINDOW_MS);
+            views.push(nowMs);
+
+            localStorage.setItem(BURST_KEY, JSON.stringify(views));
+
+            if (views.length > BURST_THRESHOLD) {
+                emit('unusual_browser_activity', {
+                    reason: 'rapid_tab_creation',
+                    count: views.length,
+                    windowSeconds: BURST_WINDOW_MS / 1000
+                });
+                // Reset to avoid spam
+                localStorage.removeItem(BURST_KEY);
+            }
+        } catch (e) {
+            // Ignore Storage quota/access issues
+        }
+    }
+    trackPageView();
 
     // 3. Click tracking — element metadata only
     document.addEventListener(

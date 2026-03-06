@@ -107,10 +107,18 @@ async function flushEvents() {
     const batch = eventQueue.splice(0, CONFIG.MAX_BATCH_SIZE);
     persistQueue();
 
+    // Fetch employee data attributes to append to telemetry if available
+    const localData = await chrome.storage.local.get(['employeeData', 'deviceId']);
+    const empData = localData.employeeData || {};
+
     const payload = {
         user_id: userId,
         session_id: SESSION_ID,
+        device_id: localData.deviceId || '',
+        employee_name: empData.name || '',
+        employee_email: empData.email || '',
         events: batch,
+        timestamp: new Date().toISOString(),
     };
 
     const headers = { 'Content-Type': 'application/json' };
@@ -155,7 +163,24 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
             event.tabId = sender.tab.id;
         }
         enqueueEvent(event);
+
+        // Immediate flush for critical events (like login or suspicious activity)
+        if (event.type === 'login_attempt' || event.type === 'unusual_browser_activity') {
+            flushEvents();
+        }
         sendResponse({ ok: true });
+    } else if (message.type === 'EMPLOYEE_ONBOARDED') {
+        // Force flush immediately on registration to establish session with backend
+        CONFIG.USER_ID = message.data.userId;
+        enqueueEvent({
+            type: 'onboarding_complete',
+            data: { message: 'Extension linked to employee profile' },
+            url: 'chrome-extension://popup',
+            domain: 'local',
+            timestamp: new Date().toISOString()
+        });
+        flushEvents();
+        sendResponse({ status: 'acknowledged' });
     }
     return false; // Synchronous response
 });

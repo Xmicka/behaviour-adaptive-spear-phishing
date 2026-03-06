@@ -68,6 +68,17 @@ class EventStore:
                 created_at  TEXT DEFAULT (datetime('now'))
             );
 
+            CREATE TABLE IF NOT EXISTS employees (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id     TEXT UNIQUE NOT NULL,
+                name        TEXT NOT NULL,
+                email       TEXT NOT NULL,
+                employee_id TEXT DEFAULT '',
+                device_id   TEXT DEFAULT '',
+                created_at  TEXT DEFAULT (datetime('now')),
+                last_active TEXT DEFAULT (datetime('now'))
+            );
+
             CREATE INDEX IF NOT EXISTS idx_events_user
                 ON behavioral_events(user_id);
             CREATE INDEX IF NOT EXISTS idx_events_session
@@ -269,3 +280,74 @@ class EventStore:
             "SELECT * FROM pipeline_runs ORDER BY id DESC LIMIT ?", (limit,)
         ).fetchall()
         return [dict(r) for r in rows]
+
+    # ── Employees ─────────────────────────────────────────────────────
+
+    def register_employee(self, user_id: str, name: str, email: str, employee_id: str = "", device_id: str = "") -> bool:
+        """Register or update an employee onboarding record."""
+        conn = self._get_conn()
+        try:
+            conn.execute(
+                """INSERT INTO employees (user_id, name, email, employee_id, device_id, last_active)
+                   VALUES (?, ?, ?, ?, ?, datetime('now'))
+                   ON CONFLICT(user_id) DO UPDATE SET
+                   name=excluded.name, email=excluded.email, employee_id=excluded.employee_id,
+                   device_id=excluded.device_id, last_active=datetime('now')""",
+                (user_id, name, email, employee_id, device_id)
+            )
+            conn.commit()
+            return True
+        except Exception as exc:
+            logger.error("Failed to register employee %s: %s", user_id, exc)
+            return False
+
+    def get_employee(self, user_id: str) -> Optional[Dict[str, Any]]:
+        """Get an employee by ID."""
+        conn = self._get_conn()
+        row = conn.execute("SELECT * FROM employees WHERE user_id = ?", (user_id,)).fetchone()
+        return dict(row) if row else None
+
+    def get_all_employees(self) -> List[Dict[str, Any]]:
+        """Get all registered employees."""
+        conn = self._get_conn()
+        rows = conn.execute("SELECT * FROM employees ORDER BY name").fetchall()
+        return [dict(r) for r in rows]
+
+    def get_login_behavior(self, user_id: str, limit: int = 100) -> List[Dict[str, Any]]:
+        """Get login attempt events for a user, used for behavior visualization."""
+        conn = self._get_conn()
+        rows = conn.execute(
+            """SELECT timestamp, event_data, page_url 
+               FROM behavioral_events 
+               WHERE user_id = ? AND event_type = 'login_attempt' 
+               ORDER BY timestamp DESC LIMIT ?""",
+            (user_id, limit)
+        ).fetchall()
+        
+        results = []
+        for r in rows:
+            try:
+                data = json.loads(r["event_data"]) if isinstance(r["event_data"], str) else r["event_data"]
+            except Exception:
+                data = {}
+            results.append({
+                "timestamp": r["timestamp"],
+                "domain": data.get("domain", ""),
+                "url": r["page_url"]
+            })
+        return results
+
+    def detect_suspicious_activity(self, user_id: str, time_window_minutes: int = 5, threshold: int = 20) -> bool:
+        """Detect rapid bursts of activity (e.g. tab creation) within a time window."""
+        conn = self._get_conn()
+        since = (datetime.utcnow() - timedelta(minutes=time_window_minutes)).isoformat()
+        
+        # Check for rapid navigation/tab events
+        count = conn.execute(
+            """SELECT COUNT(*) FROM behavioral_events 
+               WHERE user_id = ? AND event_type IN ('navigation', 'page_view') 
+               And timestamp >= ?""",
+            (user_id, since)
+        ).fetchone()[0]
+        
+        return count >= threshold

@@ -6,6 +6,9 @@ import random
 import logging
 import json as _json
 from datetime import datetime, timedelta
+import shutil
+import tempfile
+import uuid
 
 # Add parent directory to path so backend can be imported
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -363,6 +366,37 @@ def collect_events():
         except Exception as sync_exc:
             logger.debug("Firestore sync skipped: %s", sync_exc)
 
+        # ── Suspicious Activity Detection ──
+        try:
+            from backend.config import ANOMALY_TAB_THRESHOLD, WARNING_EMAIL_COOLDOWN_MINUTES
+            is_suspicious = _event_store.detect_suspicious_activity(
+                user_id=user_id, 
+                time_window_minutes=5, 
+                threshold=ANOMALY_TAB_THRESHOLD
+            )
+            
+            if is_suspicious:
+                # Check cooldown to prevent spamming
+                last_warning = getattr(_local, f"last_warning_{user_id}", None)
+                now = datetime.utcnow()
+                if not last_warning or (now - last_warning) > timedelta(minutes=WARNING_EMAIL_COOLDOWN_MINUTES):
+                    emp = _event_store.get_employee(user_id)
+                    if emp:
+                        # Auto-trigger warning email
+                        from backend.mailer.email_sender import send_phishing_email
+                        send_phishing_email(
+                            recipient_email=emp["email"],
+                            subject="Security Alert: Unusual Browser Activity Detected",
+                            body_html=f"<p>Dear {emp['name']},</p><p>We detected an unusually high volume of browser activity on your account. Please verify that this activity was performed by you. If this wasn't you, contact IT security immediately.</p>",
+                            body_text=f"Dear {emp['name']},\n\nWe detected an unusually high volume of browser activity on your account. Please verify that this activity was performed by you. If this wasn't you, contact IT security immediately.",
+                            tracking_token="",
+                            sender_name="Security Operations"
+                        )
+                        setattr(_local, f"last_warning_{user_id}", now)
+                        logger.warning("Unusual activity detected for %s. Warning email sent.", user_id)
+        except Exception as exc:
+            logger.error("Suspicious activity detection failed: %s", exc)
+
         return _cors_json({
             "status": "ok",
             "events_received": count,
@@ -372,6 +406,72 @@ def collect_events():
     except Exception as exc:
         logger.error("Failed to insert events: %s", exc)
         return _cors_json({"error": "Failed to store events"}), 500
+
+@app.route("/api/employees/register", methods=["POST", "OPTIONS"])
+def register_employee():
+    """Register an employee from the browser extension onboarding flow."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+        
+    data = request.get_json(silent=True) or {}
+    name = data.get("employee_name", "").strip()
+    email = data.get("employee_email", "").strip()
+    emp_id = data.get("employee_id", "").strip()
+    device = data.get("device_id", "").strip()
+    
+    if not name or not email:
+        return _cors_json({"error": "Name and Email are required"}), 400
+        
+    # Generate unique user_id based on email if not provided
+    user_id = data.get("user_id", "")
+    if not user_id:
+        # Simple consistent hash for demo purposes
+        import hashlib
+        user_id = "emp_" + hashlib.md5(email.encode()).hexdigest()[:8]
+        
+    success = _event_store.register_employee(
+        user_id=user_id,
+        name=name,
+        email=email,
+        employee_id=emp_id,
+        device_id=device
+    )
+    
+    if success:
+        return _cors_json({
+            "status": "registered",
+            "user_id": user_id,
+            "name": name,
+            "email": email
+        })
+    return _cors_json({"error": "Failed to register employee"}), 500
+
+
+@app.route("/api/employees", methods=["GET", "OPTIONS"])
+def get_employees():
+    """Get the employee directory with latest risk scores."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+        
+    employees = _event_store.get_all_employees()
+    
+    # Enrichment from pipeline output
+    if FINAL_CSV.exists():
+        try:
+            df = pd.read_csv(FINAL_CSV)
+            score_map = {row["user"]: float(row.get("final_risk_score", 0)) 
+                         for _, row in df.iterrows() if "user" in row}
+            metrics_map = {row["user"]: dict(row) for _, row in df.iterrows() if "user" in row}
+            
+            for emp in employees:
+                uid = emp["user_id"]
+                emp["risk_score"] = score_map.get(uid, 0.0)
+                emp["tier"] = _tier_from_score(emp["risk_score"])
+                emp["metrics"] = metrics_map.get(uid, {})
+        except Exception as exc:
+            logger.warning("Failed to enrich employee data: %s", exc)
+            
+    return _cors_json({"employees": employees})
 
 
 @app.route("/api/events", methods=["GET", "OPTIONS"])
@@ -398,6 +498,48 @@ def query_events():
         logger.error("Failed to query events: %s", exc)
         return _cors_json({"error": "Failed to query events"}), 500
 
+@app.route("/api/employees/<user_id>/login-behavior", methods=["GET", "OPTIONS"])
+def get_login_behavior(user_id):
+    """Get login behavior data for an employee visualization."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+        
+    limit = int(request.args.get("limit", 100))
+    try:
+        data = _event_store.get_login_behavior(user_id, limit)
+        return _cors_json({"events": data})
+    except Exception as exc:
+        logger.error("Failed to fetch login behavior for %s: %s", user_id, exc)
+        return _cors_json({"error": "Failed to fetch login behavior", "events": []}), 500
+
+@app.route("/api/extension/download", methods=["GET", "OPTIONS"])
+def download_extension():
+    """Generate and download the Chrome extension ZIP file."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+        
+    try:
+        # Create a temporary directory to build the zip
+        tmp_dir = tempfile.mkdtemp()
+        zip_path = Path(tmp_dir) / "adaptive-security-extension"
+        
+        # Path to extension source
+        ext_source = Path(__file__).resolve().parent.parent / "extension"
+        
+        if not ext_source.exists():
+            return _cors_json({"error": "Extension source not found"}), 404
+            
+        shutil.make_archive(str(zip_path), 'zip', str(ext_source))
+        
+        return send_from_directory(
+            tmp_dir, 
+            "adaptive-security-extension.zip", 
+            as_attachment=True,
+            mimetype="application/zip"
+        )
+    except Exception as exc:
+        logger.error("Failed to generate extension zip: %s", exc)
+        return _cors_json({"error": "Failed to generate extension zip"}), 500
 
 @app.route("/api/events/stats", methods=["GET", "OPTIONS"])
 def event_stats():
@@ -707,6 +849,96 @@ def _trigger_training_for_user(
     return session_id
 
 
+@app.route("/api/employees/send-simulation", methods=["POST", "OPTIONS"])
+def send_employee_simulation():
+    """Manual trigger: Send a phishing simulation email to a specific employee from directory."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+
+    # Validate payload size (max 100KB)
+    if request.content_length and request.content_length > 100 * 1024:
+        return _cors_json({"error": "Payload too large"}), 413
+
+    data = request.get_json(silent=True) or {}
+    user_id = data.get("user_id", "").strip()
+    
+    if not user_id:
+        return _cors_json({"error": "user_id is required"}), 400
+
+    employee = _event_store.get_employee(user_id)
+    if not employee:
+        return _cors_json({"error": "Employee not found"}), 404
+
+    # Check for pending training
+    if _email_logger.has_pending_training(user_id):
+        return _cors_json({
+            "error": "Employee has pending training. Complete training before sending new phishing emails.",
+            "has_pending_training": True,
+        }), 409
+
+    # Get risk score
+    risk_score = 0.5
+    if FINAL_CSV.exists():
+        df = pd.read_csv(FINAL_CSV)
+        user_row = df[df["user"] == user_id]
+        if not user_row.empty:
+            risk_score = float(user_row.iloc[0].get("final_risk_score", 0.5))
+
+    result = _send_email_to_user(
+        user_id=user_id,
+        risk_score=risk_score,
+        recipient_email=employee["email"],
+        scenario=data.get("scenario", ""),
+        context=data.get("context", ""),
+    )
+
+    return _cors_json(result)
+
+@app.route("/api/alerts/warning-email", methods=["POST", "OPTIONS"])
+def send_warning_email():
+    """Manual trigger: Send a security warning email to an employee for unusual activity."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+
+    # Validate payload size (max 50KB)
+    if request.content_length and request.content_length > 50 * 1024:
+        return _cors_json({"error": "Payload too large"}), 413
+
+    data = request.get_json(silent=True) or {}
+    user_id = data.get("user_id", "").strip()
+    reason = data.get("reason", "unusual browser activity")
+    
+    if not user_id:
+        return _cors_json({"error": "user_id is required"}), 400
+
+    employee = _event_store.get_employee(user_id)
+    if not employee:
+        return _cors_json({"error": "Employee not found"}), 404
+
+    from backend.mailer.email_sender import send_phishing_email
+    
+    subject = "Security Alert: Unusual Activity Detected"
+    body_text = f"Dear {employee['name']},\n\nUnusual activity has been detected on your account ({reason}). Please verify that this activity was performed by you. If you do not recognize this activity, contact IT security immediately.\n\nThank you,\nSecurity Team"
+    body_html = f"<p>Dear {employee['name']},</p><p>Unusual activity has been detected on your account (<strong>{reason}</strong>). Please verify that this activity was performed by you. If you do not recognize this activity, contact IT security immediately.</p><br><p>Thank you,<br>Security Team</p>"
+    
+    result = send_phishing_email(
+        recipient_email=employee["email"],
+        subject=subject,
+        body_html=body_html,
+        body_text=body_text,
+        tracking_token="",
+        sender_name="Security Operations"
+    )
+
+    # Note: we are purposefully misusing the email logger to record this warning as an email sent, 
+    # but not as a phishing interaction so it doesn't trigger training.
+    # Alternatively, we could just return success.
+    
+    if result["sent"]:
+        return _cors_json({"status": "sent", "recipient": employee["email"]})
+    else:
+        return _cors_json({"error": result.get("error", "Failed to send email")}), 500
+
 @app.route("/api/email/send", methods=["POST", "OPTIONS"])
 def send_email():
     """Send a phishing simulation email to a specific user.
@@ -886,6 +1118,10 @@ def report_email():
     """Allow a user to report a phishing email."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+
+    # Validate payload size (max 50KB)
+    if request.content_length and request.content_length > 50 * 1024:
+        return _cors_json({"error": "Payload too large"}), 413
 
     data = request.get_json(silent=True) or {}
     tracking_token = data.get("tracking_token", "").strip()
