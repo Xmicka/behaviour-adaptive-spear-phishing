@@ -769,6 +769,9 @@ def _send_email_to_user(
     recipient_email: str = "",
     scenario: str = "",
     context: str = "",
+    custom_subject: str = "",
+    custom_body_text: str = "",
+    custom_body_html: str = "",
 ) -> dict:
     """Core helper: generate, send & log a phishing email for a user."""
     tracking_token = create_tracking_token()
@@ -777,16 +780,28 @@ def _send_email_to_user(
     # Get behavioral profile
     profile = _get_user_behavioral_profile(user_id)
 
-    # Generate email content
-    content = generate_email_content(
-        user_id=user_id,
-        risk_score=risk_score,
-        phishing_link=links["phishing_link"],
-        tracking_pixel_url=links["tracking_pixel"],
-        scenario=scenario or None,
-        context=context,
-        behavioral_signals=profile,
-    )
+    if custom_subject and custom_body_text and custom_body_html:
+        # Bypass generation, use provided exact preview content
+        # Note: Assume custom_body_html/text already had tracking tokens injected by generator preview
+        content = {
+            "subject": custom_subject,
+            "body_html": custom_body_html,
+            "body_text": custom_body_text,
+            "sender_name": "Internal Service",  # Fallback
+            "scenario": scenario or "custom preview",
+            "template_id": "manual_preview",
+        }
+    else:
+        # Generate email content
+        content = generate_email_content(
+            user_id=user_id,
+            risk_score=risk_score,
+            phishing_link=links["phishing_link"],
+            tracking_pixel_url=links["tracking_pixel"],
+            scenario=scenario or None,
+            context=context,
+            behavioral_signals=profile,
+        )
 
     # Use user_id as fallback email if none provided
     actual_recipient = recipient_email or f"{user_id}@company-internal.com"
@@ -948,11 +963,18 @@ def send_email():
         "user_id": "employee_charlie",
         "recipient_email": "charlie@example.com",  // optional
         "scenario": "credential_harvest",           // optional
-        "context": "IT department"                   // optional
+        "context": "IT department",                  // optional
+        "custom_subject": "Security Update",         // optional
+        "custom_body_text": "Click here",            // optional
+        "custom_body_html": "<p>Click here</p>"      // optional
     }
     """
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    # Validate payload size (max 100KB)
+    if request.content_length and request.content_length > 100 * 1024:
+        return _cors_json({"error": "Payload too large"}), 413
 
     data = request.get_json(silent=True) or {}
     user_id = data.get("user_id", "").strip()
@@ -980,6 +1002,9 @@ def send_email():
         recipient_email=data.get("recipient_email", ""),
         scenario=data.get("scenario", ""),
         context=data.get("context", ""),
+        custom_subject=data.get("custom_subject", ""),
+        custom_body_text=data.get("custom_body_text", ""),
+        custom_body_html=data.get("custom_body_html", ""),
     )
 
     return _cors_json(result)

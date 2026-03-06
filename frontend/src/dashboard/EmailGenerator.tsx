@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
     fetchDashboardData,
     generatePhishingEmail,
+    sendPhishingEmail,
     type DashboardUser,
     type GeneratedEmail,
 } from '../api/client'
@@ -34,6 +35,8 @@ const EmailGenerator: React.FC = () => {
     const [context, setContext] = useState('')
     const [result, setResult] = useState<GeneratedEmail | null>(null)
     const [generating, setGenerating] = useState(false)
+    const [sending, setSending] = useState(false)
+    const [sendStatus, setSendStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null)
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -52,9 +55,37 @@ const EmailGenerator: React.FC = () => {
 
         setGenerating(true)
         setResult(null)
+        setSendStatus(null)
         const res = await generatePhishingEmail(selectedUser, finalScenario, context)
         setResult(res)
         setGenerating(false)
+    }
+
+    const handleSend = async () => {
+        if (!selectedUser || !result) return
+
+        setSending(true)
+        setSendStatus(null)
+
+        const finalScenario = customScenario || scenario || 'credential verification'
+
+        const res = await sendPhishingEmail(
+            selectedUser,
+            "", // fallback to default routing
+            finalScenario,
+            context,
+            result.email.subject,
+            result.email.body,
+            result.email.body_html || `<p>${result.email.body.replace(/\\n/g, '<br/>')}</p>`
+        )
+
+        if (res && res.sent) {
+            setSendStatus({ type: 'success', msg: `Email sent successfully to user!` })
+        } else {
+            setSendStatus({ type: 'error', msg: res?.error || 'Failed to send email. Check logs.' })
+        }
+
+        setSending(false)
     }
 
     const selectedUserData = users.find(u => u.user_id === selectedUser)
@@ -160,7 +191,7 @@ const EmailGenerator: React.FC = () => {
                                 <div className="flex justify-between">
                                     <span>Risk Score</span>
                                     <span className={`font-semibold ${selectedUserData.tier === 'High' ? 'text-red-300' :
-                                            selectedUserData.tier === 'Medium' ? 'text-yellow-300' : 'text-green-300'
+                                        selectedUserData.tier === 'Medium' ? 'text-yellow-300' : 'text-green-300'
                                         }`}>{(selectedUserData.risk_score * 100).toFixed(0)}% ({selectedUserData.tier})</span>
                                 </div>
                                 <div className="flex justify-between">
@@ -184,10 +215,10 @@ const EmailGenerator: React.FC = () => {
                         onClick={handleGenerate}
                         disabled={generating || !selectedUser}
                         className={`w-full px-5 py-3 rounded-lg font-semibold text-sm transition-all duration-300 ${generating
-                                ? 'bg-yellow-600/20 text-yellow-300 cursor-wait'
-                                : !selectedUser
-                                    ? 'bg-gray-600/20 text-gray-500 cursor-not-allowed'
-                                    : 'bg-gradient-to-r from-red-600 to-orange-600 text-white hover:shadow-lg hover:shadow-red-500/20 hover:-translate-y-0.5'
+                            ? 'bg-yellow-600/20 text-yellow-300 cursor-wait'
+                            : !selectedUser
+                                ? 'bg-gray-600/20 text-gray-500 cursor-not-allowed'
+                                : 'bg-gradient-to-r from-red-600 to-orange-600 text-white hover:shadow-lg hover:shadow-red-500/20 hover:-translate-y-0.5'
                             }`}
                     >
                         {generating ? (
@@ -279,18 +310,56 @@ const EmailGenerator: React.FC = () => {
                                             )}
                                             <div className="flex justify-between">
                                                 <span>Personalization</span>
-                                                <span className={`font-semibold ${result.adaptation_summary.personalization_depth === 'deep' ? 'text-green-300' :
-                                                        result.adaptation_summary.personalization_depth === 'moderate' ? 'text-yellow-300' : 'text-gray-300'
-                                                    }`}>{result.adaptation_summary.personalization_depth}</span>
+                                                <span className={`font-semibold ${result.adaptation_summary?.personalization_depth === 'deep' ? 'text-green-300' :
+                                                    result.adaptation_summary?.personalization_depth === 'moderate' ? 'text-yellow-300' : 'text-gray-300'
+                                                    }`}>{result.adaptation_summary?.personalization_depth || 'N/A'}</span>
                                             </div>
                                             <div className="flex justify-between">
                                                 <span>Urgency</span>
-                                                <span className={`font-semibold ${result.adaptation_summary.urgency_level === 'high' ? 'text-red-300' :
-                                                        result.adaptation_summary.urgency_level === 'medium' ? 'text-yellow-300' : 'text-gray-300'
-                                                    }`}>{result.adaptation_summary.urgency_level}</span>
+                                                <span className={`font-semibold ${result.adaptation_summary?.urgency_level === 'high' ? 'text-red-300' :
+                                                    result.adaptation_summary?.urgency_level === 'medium' ? 'text-yellow-300' : 'text-gray-300'
+                                                    }`}>{result.adaptation_summary?.urgency_level || 'N/A'}</span>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                {/* Send Execution Panel */}
+                                <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-xl border border-white/5 bg-slate-900/50">
+                                    <div className="flex-1">
+                                        {sendStatus && (
+                                            <div className={`text-sm px-3 py-2 rounded-lg ${sendStatus.type === 'success' ? 'bg-green-500/20 text-green-300 border border-green-500/30' : 'bg-red-500/20 text-red-300 border border-red-500/30'}`}>
+                                                {sendStatus.type === 'success' ? '✅ ' : '❌ '}
+                                                {sendStatus.msg}
+                                            </div>
+                                        )}
+                                        {!sendStatus && (
+                                            <p className="text-sm text-gray-400">
+                                                Review the generated email above. Click Send to dispatch this exact payload to the target employee.
+                                            </p>
+                                        )}
+                                    </div>
+                                    <button
+                                        onClick={handleSend}
+                                        disabled={sending || sendStatus?.type === 'success'}
+                                        className={`px-6 py-2.5 rounded-lg font-semibold text-sm transition-all duration-300 min-w-[140px] ${sendStatus?.type === 'success'
+                                            ? 'bg-green-600/50 text-white cursor-not-allowed'
+                                            : sending
+                                                ? 'bg-cyan-600/50 text-cyan-200 cursor-wait'
+                                                : 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white hover:shadow-lg hover:shadow-cyan-500/20 hover:-translate-y-0.5'
+                                            }`}
+                                    >
+                                        {sending ? (
+                                            <span className="flex items-center justify-center gap-2">
+                                                <span className="animate-spin w-4 h-4 border-2 border-white/20 border-t-white rounded-full"></span>
+                                                Sending...
+                                            </span>
+                                        ) : sendStatus?.type === 'success' ? (
+                                            'Sent!'
+                                        ) : (
+                                            '📤 Send Email'
+                                        )}
+                                    </button>
                                 </div>
                             </motion.div>
                         ) : (

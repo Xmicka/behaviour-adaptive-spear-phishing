@@ -53,13 +53,21 @@ This flow manages user interaction with simulated phishing emails.
 ## 6. Manual Dashboard Flows
 Admins can bypass automation for targeted intervention via the Premium Dashboard.
 
-### 6.1 Manual Phishing Simulation
+### 6.1 Quick Targeted Simulation
 1. Admin navigates to the **Employee Directory**.
 2. Admin reviews risk scores and clicks "Send Simulation" for a specific employee.
 3. Dashboard sends `POST /api/employees/send-simulation`.
-4. Backend retrieves the employee's risk score, generates a targeted email, and dispatches it.
+4. Backend retrieves the employee's risk score, generates a targeted email, and dispatches it immediately.
 
-### 6.2 Manual Warning Alerts
+### 6.2 Adaptive Email Generator (Generate -> Preview -> Send)
+1. Admin navigates to the **Email Generator**.
+2. Admin selects a target employee, simulation scenario, and contextual parameters.
+3. Admin clicks "Generate Phishing Email".
+4. Dashboard sends `POST /api/generate-email` and retrieves the preview alongside behavioral analysis factors used to personalize the email.
+5. Admin reviews the email subject, body, and adaptation reasoning.
+6. Admin clicks "Send Email", invoking `POST /api/email/send` with the *exact* preview payload, guaranteeing the sent email matches the preview exactly.
+
+### 6.3 Manual Warning Alerts
 1. Admin reviews the **Behavior Analytics** chart for an employee.
 2. Noting irregular login hours, admin clicks "Send Warning".
 3. Dashboard sends `POST /api/alerts/warning-email`.

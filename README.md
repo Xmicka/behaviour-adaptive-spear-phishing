@@ -62,6 +62,7 @@ Key workflows include:
 - **Continuous Telemetry Gathering**: The extension batches behavioral events and POSTs them to `/api/collect`.
 - **Suspicious Activity Warnings**: The backend monitors for immediate anomalies (e.g., rapid tab creation) and automatically fires warning emails to the affected user.
 - **Autonomous Pipeline**: An isolation forest algorithm runs over the collected events, calculating risk scores and automatically triggering phishing simulations for users crossing the threshold.
+- **Adaptive Manual Generation**: Admins can select users and scenarios, generate emails tailored to their behavior, review a detailed preview of exactly why the email was written that way, and immediately dispatch it.
 - **Remediation**: When a simulation link is clicked, the user is navigated to a dynamic training landing page demanding completion of a micro-quiz.
 
 ## Security & Privacy Considerations

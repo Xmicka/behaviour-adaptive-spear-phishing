@@ -402,13 +402,27 @@ export async function generatePhishingEmail(
 }
 
 export async function sendPhishingEmail(
-  user_id: string, recipient_email?: string, scenario?: string, context?: string
+  user_id: string,
+  recipient_email?: string,
+  scenario?: string,
+  context?: string,
+  custom_subject?: string,
+  custom_body_text?: string,
+  custom_body_html?: string,
 ): Promise<EmailSendResult | null> {
   try {
     const res = await fetch(apiUrl('/api/email/send'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id, recipient_email, scenario, context }),
+      body: JSON.stringify({
+        user_id,
+        recipient_email,
+        scenario,
+        context,
+        custom_subject,
+        custom_body_text,
+        custom_body_html
+      }),
     })
     if (!res.ok) {
       const err = await res.json()
