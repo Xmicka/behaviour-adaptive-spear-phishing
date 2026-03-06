@@ -65,6 +65,7 @@ const PremiumDashboard: React.FC = () => {
           {/* Group 1: Overview and Centerpiece */}
           <div id="overview" className="space-y-12 pt-8">
             <motion.section
+              id="security-posture"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
@@ -112,6 +113,7 @@ const PremiumDashboard: React.FC = () => {
           {/* Group 3: Analytics pipeline */}
           <div id="analytics" className="space-y-12 pt-20 border-t border-slate-800/50">
             <motion.section
+              id="behavioral-risk"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
@@ -121,6 +123,7 @@ const PremiumDashboard: React.FC = () => {
             </motion.section>
 
             <motion.section
+              id="data-collection"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
@@ -130,12 +133,23 @@ const PremiumDashboard: React.FC = () => {
             </motion.section>
 
             <motion.section
+              id="adaptive-pipeline"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: '-100px' }}
             >
               <AdaptivePhishingPipeline />
+            </motion.section>
+
+            <motion.section
+              id="email-generator"
+              variants={sectionVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: '-100px' }}
+            >
+              <EmailGenerator />
             </motion.section>
 
             <div className="flex justify-center py-4">
@@ -173,6 +187,7 @@ const PremiumDashboard: React.FC = () => {
             </motion.section>
 
             <motion.section
+              id="simulation-outcomes"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
@@ -182,6 +197,7 @@ const PremiumDashboard: React.FC = () => {
             </motion.section>
 
             <motion.section
+              id="training-enforcement"
               variants={sectionVariants}
               initial="hidden"
               whileInView="visible"
