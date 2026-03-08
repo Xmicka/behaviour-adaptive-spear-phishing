@@ -2044,6 +2044,82 @@ def generate_email():
         return _cors_json({"error": str(exc)}), 500
 
 
+# ============ DEMO DATA SEEDING ============
+@app.route("/api/seed-demo-data", methods=["POST", "OPTIONS"])
+def seed_demo_data():
+    """Seed the database with demo data for live testing (Render)."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+    
+    try:
+        # Check if data already exists
+        stats = _event_store.get_event_stats()
+        if stats["total_events"] > 0:
+            return _cors_json({
+                "status": "already_seeded",
+                "message": f"Database already has {stats['total_events']} events",
+                "total_events": stats["total_events"],
+                "unique_users": stats["unique_users"]
+            }), 200
+        
+        # Load and seed test data
+        events_path = Path(__file__).resolve().parent / "test_data" / "events.json"
+        if not events_path.exists():
+            return _cors_json({"error": "Test data file not found"}), 404
+        
+        with open(events_path, "r") as f:
+            events = _json.load(f)
+        
+        from collections import defaultdict
+        users_events = defaultdict(list)
+        users_info = {}
+        
+        for e in events:
+            user_email = e["email"]
+            users_info[user_email] = {
+                "name": user_email.split('@')[0].replace('.', ' ').title(),
+                "emp_id": e["employee_id"]
+            }
+            users_events[user_email].append({
+                "type": e["event_type"],
+                "url": e["url"],
+                "timestamp": e["timestamp"],
+                "data": {}
+            })
+        
+        # Register employees and insert events
+        for email, info in users_info.items():
+            _event_store.register_employee(
+                user_id=email,
+                name=info["name"],
+                email=email,
+                employee_id=info["emp_id"],
+                device_id="dev_" + info["emp_id"]
+            )
+            
+            _event_store.insert_events(
+                user_id=email,
+                session_id="synth_session_" + info["emp_id"],
+                events=users_events[email],
+                ip_address="192.168.1.100",
+                user_agent="DemoTester/1.0"
+            )
+        
+        logger.info("Seeded %d events for %d users", len(events), len(users_info))
+        
+        return _cors_json({
+            "status": "success",
+            "message": f"Seeded {len(events)} events for {len(users_info)} users",
+            "total_events": len(events),
+            "unique_users": len(users_info),
+            "users": list(users_info.keys())
+        }), 200
+        
+    except Exception as exc:
+        logger.error("Demo data seeding failed: %s", exc, exc_info=True)
+        return _cors_json({"error": str(exc)}), 500
+
+
 # ============ FRONTEND STATIC FILE SERVING ============
 # Serve built frontend from frontend/dist directory (production Render deployment)
 FRONTEND_BUILD_DIR = Path(__file__).resolve().parent.parent / "frontend" / "dist"

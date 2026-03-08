@@ -134,6 +134,9 @@ const AdminDashboard: React.FC = () => {
       case 'settings':
         return (
           <motion.div key="settings" variants={sectionVariants} initial="hidden" animate="visible" exit="exit" className="space-y-12 pt-8">
+            {/* Seed Demo Data */}
+            <SeedDemoDataSection />
+            
             <div className="glass-dark p-6 rounded-xl border border-slate-700 mb-12 flex justify-between items-center">
               <div>
                 <h3 className="text-xl font-bold text-white">Browser Extension Deployment</h3>
@@ -183,6 +186,92 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
     </div>
+  )
+}
+
+// Seed Demo Data Component
+function SeedDemoDataSection() {
+  const [loading, setLoading] = useState(false)
+  const [status, setStatus] = useState<{ type: 'success' | 'error' | 'info', msg: string } | null>(null)
+
+  const handleSeedData = async () => {
+    setLoading(true)
+    setStatus(null)
+    try {
+      const response = await fetch('/api/seed-demo-data', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+      const data = await response.json()
+      
+      if (response.ok) {
+        if (data.status === 'already_seeded') {
+          setStatus({ 
+            type: 'info', 
+            msg: `Database already has ${data.total_events} events for ${data.unique_users} users` 
+          })
+        } else {
+          setStatus({ 
+            type: 'success', 
+            msg: `✅ Loaded ${data.total_events} events for ${data.unique_users} users` 
+          })
+        }
+      } else {
+        setStatus({ type: 'error', msg: data.error || 'Failed to seed demo data' })
+      }
+    } catch (err) {
+      setStatus({ 
+        type: 'error', 
+        msg: `Error: ${err instanceof Error ? err.message : 'Unknown error'}` 
+      })
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  return (
+    <motion.div 
+      className="glass-dark p-6 rounded-xl border border-slate-700 mb-12"
+      initial={{ opacity: 0 }} 
+      animate={{ opacity: 1 }}
+    >
+      <div className="flex justify-between items-center">
+        <div>
+          <h3 className="text-xl font-bold text-white">🎯 Demo Data Setup</h3>
+          <p className="text-sm text-slate-400 mt-1">Load sample employee behavioral data for live testing and demonstrations.</p>
+        </div>
+        <button
+          onClick={handleSeedData}
+          disabled={loading}
+          className={`px-6 py-3 rounded-lg font-semibold text-sm transition-all ${
+            loading 
+              ? 'bg-blue-600/50 text-blue-200 cursor-wait'
+              : 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white hover:shadow-lg hover:shadow-blue-500/20'
+          }`}
+        >
+          {loading ? (
+            <span className="flex items-center gap-2">
+              <span className="animate-spin">⚙️</span> Loading...
+            </span>
+          ) : (
+            '📤 Seed Demo Data'
+          )}
+        </button>
+      </div>
+      {status && (
+        <motion.div 
+          className={`mt-4 p-3 rounded-lg text-sm ${
+            status.type === 'success' ? 'bg-green-500/20 text-green-300 border border-green-500/30' :
+            status.type === 'info' ? 'bg-blue-500/20 text-blue-300 border border-blue-500/30' :
+            'bg-red-500/20 text-red-300 border border-red-500/30'
+          }`}
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+        >
+          {status.msg}
+        </motion.div>
+      )}
+    </motion.div>
   )
 }
 
