@@ -32,7 +32,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
           'radial-gradient(ellipse at 50% 50%, rgba(34,211,238,0.06) 0%, transparent 50%), radial-gradient(ellipse at 30% 70%, rgba(168,85,247,0.04) 0%, transparent 50%), #050810',
       }}
     >
-      {/* Particle cloud — fills the hero background */}
+      {/* Particle cloud (fills the hero background) */}
       <ParticleCloud />
 
       {/* Content overlay */}
@@ -59,7 +59,7 @@ const Hero: React.FC<HeroProps> = ({ onCtaClick }) => {
             variants={itemVariants}
             className="text-lg lg:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed font-light"
           >
-            AI Agents that simulate, detect, and train — so your team stays
+            AI Agents that simulate, detect, and train, so your team stays
             ahead of real-world spear phishing threats.
           </motion.p>
 

@@ -6,7 +6,7 @@ export default function RiskSummary({score}:{score:number}){
   return (
     <div className="card p-3">
       <div className="text-sm text-gray-400">Organization risk</div>
-      <div className={`text-2xl font-semibold ${color}`}>{label} — {score.toFixed(2)}</div>
+      <div className={`text-2xl font-semibold ${color}`}>{label}: {score.toFixed(2)}</div>
     </div>
   )
 }

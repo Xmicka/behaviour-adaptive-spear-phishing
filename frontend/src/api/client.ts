@@ -489,6 +489,23 @@ export async function generatePhishingEmail(
   }
 }
 
+export async function generatePhishingEmailGemini(
+  user_id: string, scenario: string, context?: string, useGemini: boolean = true
+): Promise<GeneratedEmail | null> {
+  try {
+    const res = await fetch(apiUrl('/api/generate-email-gemini'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id, scenario, context: context || '', use_gemini: useGemini }),
+    })
+    if (!res.ok) throw new Error('gemini email generation failed')
+    return await res.json()
+  } catch (err) {
+    // Fallback to regular generation if Gemini is unavailable
+    return generatePhishingEmail(user_id, scenario, context)
+  }
+}
+
 export async function sendPhishingEmail(
   user_id: string,
   recipient_email?: string,

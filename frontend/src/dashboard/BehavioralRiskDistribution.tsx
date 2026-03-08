@@ -175,11 +175,11 @@ const BehavioralRiskDistribution: React.FC = () => {
 
                 <p className="text-xs text-gray-400 mt-2">
                   {segment.category === 'Safe' &&
-                    'Users demonstrating normal behavioral patterns — no anomalies detected'}
+                    'Users demonstrating normal behavioral patterns (no anomalies detected)'}
                   {segment.category === 'Watchlist' &&
-                    'Users showing moderate deviation from baseline — monitor and provide targeted training'}
+                    'Users showing moderate deviation from baseline, monitor and provide targeted training'}
                   {segment.category === 'High Risk' &&
-                    'Users with significant behavioral anomalies — immediate intervention recommended'}
+                    'Users with significant behavioral anomalies, immediate intervention recommended'}
                 </p>
               </div>
             </motion.div>

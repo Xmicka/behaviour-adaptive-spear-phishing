@@ -77,8 +77,8 @@ const ImplementationGuide: React.FC = () => {
                         </div>
                         <p className="text-xs text-gray-400">
                             {schedulerStatus?.running
-                                ? '✅ Running — pipeline auto-executes every 5 minutes'
-                                : '⏸ Stopped — click Start to enable autonomous operation'}
+                                ? '✅ Running, pipeline auto-executes every 5 minutes'
+                                : '⏸ Stopped, click Start to enable autonomous operation'}
                         </p>
                     </div>
                 </div>
@@ -94,7 +94,7 @@ const ImplementationGuide: React.FC = () => {
                         <div className="bg-green-900/20 border border-green-500/20 rounded-lg p-2 text-center">
                             <div className="font-bold text-green-400 text-lg">{'< 0.3'}</div>
                             <div className="text-green-300">Low Risk</div>
-                            <div className="text-gray-400 mt-1">Normal behavior — no action</div>
+                            <div className="text-gray-400 mt-1">Normal behavior, no action</div>
                         </div>
                         <div className="bg-yellow-900/20 border border-yellow-500/20 rounded-lg p-2 text-center">
                             <div className="font-bold text-yellow-400 text-lg">0.3 – 0.6</div>
@@ -137,7 +137,7 @@ const ImplementationGuide: React.FC = () => {
                     </div>
                     <ul className="list-disc list-inside text-xs text-gray-400 space-y-1 mt-2">
                         <li>Users who <strong>report</strong> phishing skip directly to COMPLIANT</li>
-                        <li>Training is enforced automatically — no manual admin intervention needed</li>
+                        <li>Training is enforced automatically, no manual admin intervention needed</li>
                         <li>After completing both training stages, users may be re-tested in a new cycle</li>
                     </ul>
                 </div>
@@ -173,7 +173,7 @@ const ImplementationGuide: React.FC = () => {
                 <div className="space-y-3 text-xs text-gray-400">
                     <details className="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
                         <summary className="text-gray-200 cursor-pointer font-medium">Does the extension capture passwords?</summary>
-                        <p className="mt-2">No. The extension only captures metadata — page URLs, click targets, typing speed. No passwords, form values, or clipboard content is ever captured.</p>
+                        <p className="mt-2">No. The extension only captures metadata (page URLs, click targets, typing speed). No passwords, form values, or clipboard content is ever captured.</p>
                     </details>
                     <details className="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
                         <summary className="text-gray-200 cursor-pointer font-medium">Can employees disable the extension?</summary>
@@ -189,7 +189,7 @@ const ImplementationGuide: React.FC = () => {
                     </details>
                     <details className="bg-slate-800/50 rounded-lg p-3 border border-slate-700">
                         <summary className="text-gray-200 cursor-pointer font-medium">What if SMTP isn't configured?</summary>
-                        <p className="mt-2">The system runs in "log-only" mode — emails are fully generated and logged but not actually sent. This is useful for testing and development.</p>
+                        <p className="mt-2">The system runs in "log-only" mode, emails are fully generated and logged but not actually sent. This is useful for testing and development.</p>
                     </details>
                 </div>
             ),

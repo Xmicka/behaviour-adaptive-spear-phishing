@@ -118,7 +118,7 @@ const EmailGenerator: React.FC = () => {
                         {loading ? (
                             <div className="text-xs text-gray-500">Loading users...</div>
                         ) : users.length === 0 ? (
-                            <div className="text-xs text-gray-500">No users available — run the pipeline first</div>
+                            <div className="text-xs text-gray-500">No users available, run the pipeline first</div>
                         ) : (
                             <select
                                 value={selectedUser}
@@ -127,7 +127,7 @@ const EmailGenerator: React.FC = () => {
                             >
                                 {users.map(u => (
                                     <option key={u.user_id} value={u.user_id}>
-                                        {u.user_id} — Risk: {(u.risk_score * 100).toFixed(0)}% ({u.tier})
+                                        {u.user_id} (Risk: {(u.risk_score * 100).toFixed(0)}%, {u.tier})
                                     </option>
                                 ))}
                             </select>
@@ -376,7 +376,7 @@ const EmailGenerator: React.FC = () => {
                                 </h3>
                                 <p className="text-sm text-gray-400 max-w-md mx-auto">
                                     Select a target user and scenario, then click "Generate" to create a spear phishing email
-                                    that adapts to the user's actual behavioral patterns — typing speed, click behavior,
+                                    that adapts to the user's actual behavioral patterns (typing speed, click behavior).
                                     pages visited, and risk profile.
                                 </p>
                             </motion.div>

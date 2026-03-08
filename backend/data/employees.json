@@ -1,0 +1,82 @@
+[
+  {
+    "employee_id": "EMP001",
+    "name": "Akesh Chandrasiri",
+    "email": "akeshchandrasiri@gmail.com",
+    "department": "Engineering",
+    "risk_score": 0.15,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP002",
+    "name": "Niromin Chandrasiri",
+    "email": "nirominchandrasiri@gmail.com",
+    "department": "Operations",
+    "risk_score": 0.85,
+    "status": "flagged"
+  },
+  {
+    "employee_id": "EMP003",
+    "name": "Akesh Chandrasiri",
+    "email": "akeshchandrasiri@aiesec.net",
+    "department": "Finance",
+    "risk_score": 0.78,
+    "status": "flagged"
+  },
+  {
+    "employee_id": "EMP004",
+    "name": "Finesse Clothing",
+    "email": "finesse.clothing.lk@gmail.com",
+    "department": "Marketing",
+    "risk_score": 0.22,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP005",
+    "name": "John Silva",
+    "email": "john.silva@corp-demo.com",
+    "department": "Engineering",
+    "risk_score": 0.18,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP006",
+    "name": "Maria Perera",
+    "email": "maria.perera@corp-demo.com",
+    "department": "Human Resources",
+    "risk_score": 0.12,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP007",
+    "name": "Kasun Jayasinghe",
+    "email": "kasun.jayasinghe@corp-demo.com",
+    "department": "Operations",
+    "risk_score": 0.25,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP008",
+    "name": "Chamodi Fernando",
+    "email": "chamodi.fernando@corp-demo.com",
+    "department": "Finance",
+    "risk_score": 0.19,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP009",
+    "name": "Dilshan Weerasinghe",
+    "email": "dilshan.weerasinghe@corp-demo.com",
+    "department": "Engineering",
+    "risk_score": 0.16,
+    "status": "active"
+  },
+  {
+    "employee_id": "EMP010",
+    "name": "Sanduni Karunaratne",
+    "email": "sanduni.karunaratne@corp-demo.com",
+    "department": "Marketing",
+    "risk_score": 0.20,
+    "status": "active"
+  }
+]

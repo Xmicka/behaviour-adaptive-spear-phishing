@@ -1865,6 +1865,101 @@ def dashboard_data():
         return _cors_json({"error": str(exc)}), 500
 
 
+# ============ GEMINI-BASED EMAIL GENERATOR ============
+
+@app.route("/api/generate-email-gemini", methods=["POST", "OPTIONS"])
+def generate_email_gemini():
+    """Generate a phishing email using Gemini API with fallback to templates."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+
+    data = request.get_json(silent=True)
+    if not data:
+        return _cors_json({"error": "Invalid JSON payload"}), 400
+
+    user_id = data.get("user_id", "").strip()
+    scenario = data.get("scenario", "credential_harvest").strip()
+    context = data.get("context", "").strip()
+    use_gemini = data.get("use_gemini", True)
+
+    if not user_id:
+        return _cors_json({"error": "user_id is required"}), 400
+
+    try:
+        from backend.mailer.gemini_generator import generate_phishing_email, enhance_email_with_tracking
+        
+        # Get employee details
+        emp = _event_store.get_employee(user_id)
+        if not emp:
+            return _cors_json({"error": "Employee not found"}), 404
+        
+        # Get behavioral profile
+        profile = _get_user_behavioral_profile(user_id)
+        
+        # Get risk score
+        user_risk = 0.5
+        user_risk_reason = ""
+        if FINAL_CSV.exists():
+            df = pd.read_csv(FINAL_CSV)
+            user_row = df[df["user"] == user_id]
+            if not user_row.empty:
+                user_risk = float(user_row.iloc[0].get("final_risk_score", 0.5))
+                user_risk_reason = str(user_row.iloc[0].get("risk_reason", ""))
+        
+        # Determine user role from department
+        user_role = emp.get("department", "engineer").lower().replace(" ", "_")
+        
+        # Generate email using Gemini (with fallback)
+        if use_gemini:
+            email_content = generate_phishing_email(
+                target_user_role=user_role,
+                scenario=scenario,
+                context=context or emp.get("department", ""),
+                behavioral_signals=profile
+            )
+        else:
+            # Force template generation
+            from backend.mailer.gemini_generator import _fallback_template
+            email_content = _fallback_template(user_role, scenario, context)
+        
+        # Create tracking links
+        tracking_token = create_tracking_token()
+        links = generate_tracking_links(tracking_token)
+        
+        # Enhance with tracking
+        enhanced = enhance_email_with_tracking(
+            email_content,
+            links["phishing_link"],
+            links["tracking_pixel"]
+        )
+        
+        profile["risk_score"] = user_risk
+        profile["risk_reason"] = user_risk_reason
+        
+        return _cors_json({
+            "email": {
+                "subject": enhanced["subject"],
+                "body": enhanced["body"],
+                "body_html": enhanced["body_html"],
+                "from_name": "Security Team",
+                "from_email": "security@example.com",
+                "scenario": scenario,
+                "template_id": f"gemini_{scenario}",
+                "tracking_token": tracking_token,
+                "phishing_link": links["phishing_link"],
+                "generated_at": datetime.utcnow().isoformat(),
+                "generation_method": enhanced.get("method", "fallback"),
+            },
+            "profile": profile,
+            "can_send": True,
+            "send_endpoint": "/api/email/send",
+        })
+        
+    except Exception as exc:
+        logger.error("Gemini email generation failed: %s", exc, exc_info=True)
+        return _cors_json({"error": str(exc)}), 500
+
+
 # ============ ADAPTIVE EMAIL GENERATOR (legacy endpoint) ============
 
 @app.route("/api/generate-email", methods=["POST", "OPTIONS"])

@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useCallback } from 'react'
 /**
  * Lightweight canvas-based particle cloud inspired by MazeHQ.
  * Renders a swirling particle atmosphere with cyan and purple hues.
- * No Three.js dependency — pure Canvas 2D.
+ * No Three.js dependency, pure Canvas 2D.
  */
 
 interface Particle {

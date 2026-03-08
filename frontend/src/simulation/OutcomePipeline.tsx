@@ -21,7 +21,7 @@ export default function OutcomePipeline(){
             </div>
           ))}
         </div>
-        {selected && <div className="mt-4 text-sm text-gray-300">Selected stage: <strong>{selected}</strong> — click blocks to inspect counts and progression.</div>}
+        {selected && <div className="mt-4 text-sm text-gray-300">Selected stage: <strong>{selected}</strong> (click blocks to inspect counts and progression)</div>}
       </div>
     </div>
   )

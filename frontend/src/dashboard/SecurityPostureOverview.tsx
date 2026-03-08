@@ -60,7 +60,7 @@ const FloatingMetricCard: React.FC<MetricCardProps> = ({
         )}
       </div>
 
-      {/* Highlight border on hover — static, no infinite pulse */}
+      {/* Highlight border on hover (static, no infinite pulse) */}
       {isHighlight && (
         <div className="absolute inset-0 rounded-2xl border border-cyan-400/0 group-hover:border-cyan-400/30 transition-all duration-300" />
       )}

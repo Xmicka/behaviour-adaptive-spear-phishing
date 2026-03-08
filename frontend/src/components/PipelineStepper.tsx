@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { fetchPipeline } from '../api/client'
 import { motion } from 'framer-motion'
 
-// Visual Security Pipeline stepper — horizontal flow, subtle motion
+// Visual Security Pipeline stepper - horizontal flow, subtle motion
 export default function PipelineStepper(){
   const [stages, setStages] = useState<{stage:string;count:number}[]>([])
   const [selected, setSelected] = useState<string | null>(null)

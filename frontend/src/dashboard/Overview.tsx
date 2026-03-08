@@ -21,15 +21,15 @@ export default function Overview(){
           <div className="mt-5 grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="card panel-quiet">
               <div className="muted text-xs">Total users simulated</div>
-              <div className="text-2xl font-bold mt-1">{overview?.totalUsers ?? '—'}</div>
+              <div className="text-2xl font-bold mt-1">{overview?.totalUsers ?? '-'}</div>
             </div>
             <div className="card panel-quiet">
               <div className="muted text-xs">High-risk users</div>
-              <div className="text-2xl font-bold mt-1">{overview?.highRisk ?? '—'}</div>
+              <div className="text-2xl font-bold mt-1">{overview?.highRisk ?? '-'}</div>
             </div>
             <div className="card panel-quiet">
               <div className="muted text-xs">Active training sessions</div>
-              <div className="text-2xl font-bold mt-1">{overview?.activeTraining ?? '—'}</div>
+              <div className="text-2xl font-bold mt-1">{overview?.activeTraining ?? '-'}</div>
             </div>
           </div>
         </div>

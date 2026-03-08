@@ -4,7 +4,7 @@ export default function MicroTraining({why, advice, videoId}:{why:string; advice
   return (
     <div className="p-6">
       <div className="card">
-        <div className="text-sm text-gray-400">Micro-Training — Explainable remediation</div>
+        <div className="text-sm text-gray-400">Micro-Training, Explainable remediation</div>
         <div className="mt-3">
           <div className="text-sm"><strong>What went wrong:</strong> {why}</div>
           <div className="mt-2 text-sm"><strong>Why risky:</strong> Social-engineering techniques exploit trust and urgency; attackers mimic real workflows to bypass heuristics.</div>

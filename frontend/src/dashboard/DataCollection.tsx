@@ -102,7 +102,7 @@ const EventRow: React.FC<{ event: CollectorEvent; index: number }> = ({ event, i
         <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
                 <span className="text-xs font-mono text-cyan-300">{event.event_type}</span>
-                <span className="text-xs text-gray-500">{event.page_url || '—'}</span>
+                <span className="text-xs text-gray-500">{event.page_url || '-'}</span>
             </div>
             <div className="text-xs text-gray-500 mt-0.5">
                 <span className="text-gray-400">{event.user_id}</span>
@@ -461,7 +461,7 @@ const DataCollection: React.FC = () => {
                     <h3 className="text-lg font-semibold text-white mb-2">Get Started with Data Collection</h3>
                     <p className="text-sm text-gray-400 max-w-md mx-auto mb-4">
                         Embed the lightweight collector script in your internal pages to start tracking
-                        behavioral patterns. No PII is captured — only navigation patterns, click behavior,
+                        behavioral patterns. No PII is captured, only navigation patterns, click behavior,
                         and session timings.
                     </p>
                     <button

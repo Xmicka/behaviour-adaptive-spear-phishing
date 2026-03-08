@@ -82,7 +82,7 @@ const AlertsRecommendations: React.FC = () => {
             <div className="text-center text-gray-500 py-4">Loading alerts...</div>
           ) : alerts.length === 0 ? (
             <motion.div className="p-4 rounded-lg bg-green-900/30 border border-green-700/50 text-green-300 text-center">
-              <p className="font-semibold">✓ No active alerts — all clear</p>
+              <p className="font-semibold">✓ No active alerts, all clear</p>
             </motion.div>
           ) : (
             alerts.map((alert, idx) => {

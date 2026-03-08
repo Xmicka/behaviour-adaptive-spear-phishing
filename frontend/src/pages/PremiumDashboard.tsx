@@ -58,7 +58,7 @@ const PremiumDashboard: React.FC = () => {
                 <div className="absolute inset-8 rounded-full bg-gradient-to-br from-cyan-500/30 to-blue-600/30 backdrop-blur-sm hidden max-[768px]:block" />
               </div>
               <p className="text-center text-gray-400 text-sm mt-4">
-                Global threat landscape — risk layers visualized
+                Global threat landscape, risk layers visualized
               </p>
             </div>
             <SecurityPostureOverview />
