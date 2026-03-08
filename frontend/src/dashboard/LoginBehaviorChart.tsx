@@ -12,31 +12,45 @@ const LoginBehaviorChart: React.FC<ChartProps> = ({ userId }) => {
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        async function load() {
-            if (!userId) {
-                setLoading(false)
-                return
-            }
-            setLoading(true)
-            const events = await fetchLoginBehavior(userId)
-
-            // Process events for chart
-            // Convert timestamps to hours (0-24) to show daily patterns
-            const processedData = events.map((evt: LoginBehaviorEvent) => {
-                const date = parseISO(evt.timestamp)
-                return {
-                    originalDate: date,
-                    timeLabel: format(date, 'MMM d, HH:mm'),
-                    hourOfDay: date.getHours() + date.getMinutes() / 60,
-                    domain: evt.domain,
-                    type: 'login'
-                }
-            }).reverse() // oldest to newest
-
-            setData(processedData)
+        const timeout = setTimeout(() => {
             setLoading(false)
+        }, 5000)
+
+        async function load() {
+            try {
+                if (!userId) {
+                    setLoading(false)
+                    clearTimeout(timeout)
+                    return
+                }
+                setLoading(true)
+                const events = await fetchLoginBehavior(userId)
+
+                // Process events for chart
+                // Convert timestamps to hours (0-24) to show daily patterns
+                const processedData = events.map((evt: LoginBehaviorEvent) => {
+                    const date = parseISO(evt.timestamp)
+                    return {
+                        originalDate: date,
+                        timeLabel: format(date, 'MMM d, HH:mm'),
+                        hourOfDay: date.getHours() + date.getMinutes() / 60,
+                        domain: evt.domain,
+                        type: 'login'
+                    }
+                }).reverse() // oldest to newest
+
+                setData(processedData)
+                setLoading(false)
+            } catch (err) {
+                console.error('Login behavior fetch error:', err)
+                setLoading(false)
+            } finally {
+                clearTimeout(timeout)
+            }
         }
         load()
+
+        return () => clearTimeout(timeout)
     }, [userId])
 
     if (loading) {

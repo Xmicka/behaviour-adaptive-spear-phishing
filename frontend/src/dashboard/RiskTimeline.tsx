@@ -21,24 +21,38 @@ const RiskTimeline: React.FC<RiskTimelineProps> = ({ userId, days = 30 }) => {
 
     useEffect(() => {
         let mounted = true
+        const timeout = setTimeout(() => {
+            if (mounted) setLoading(false)
+        }, 5000)
+
         setLoading(true)
-        fetchRiskHistory(userId, days).then((history) => {
-            if (mounted) {
-                // Format the dates for display
-                const formattedData = history.map((entry) => ({
-                    ...entry,
-                    displayDate: new Date(entry.timestamp).toLocaleDateString(undefined, {
-                        month: 'short',
-                        day: 'numeric'
-                    }),
-                    scorePercentage: parseFloat((entry.risk_score * 100).toFixed(1))
-                }))
-                setData(formattedData)
-                setLoading(false)
-            }
-        })
+        fetchRiskHistory(userId, days)
+            .then((history) => {
+                if (mounted) {
+                    // Format the dates for display
+                    const formattedData = history.map((entry) => ({
+                        ...entry,
+                        displayDate: new Date(entry.timestamp).toLocaleDateString(undefined, {
+                            month: 'short',
+                            day: 'numeric'
+                        }),
+                        scorePercentage: parseFloat((entry.risk_score * 100).toFixed(1))
+                    }))
+                    setData(formattedData)
+                    setLoading(false)
+                }
+            })
+            .catch(err => {
+                console.error('Risk history fetch error:', err)
+                if (mounted) setLoading(false)
+            })
+            .finally(() => {
+                clearTimeout(timeout)
+            })
+
         return () => {
             mounted = false
+            clearTimeout(timeout)
         }
     }, [userId, days])
 

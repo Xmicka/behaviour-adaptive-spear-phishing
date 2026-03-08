@@ -182,13 +182,24 @@ const DataCollection: React.FC = () => {
     const [autoRefresh, setAutoRefresh] = useState(true)
 
     const loadData = useCallback(async () => {
-        const [statsData, eventsData] = await Promise.all([
-            fetchCollectorStats(),
-            fetchEvents({ limit: 30 }),
-        ])
-        setStats(statsData)
-        setEvents(eventsData.data)
-        setLoading(false)
+        const timeout = setTimeout(() => {
+            setLoading(false)
+        }, 5000)
+
+        try {
+            const [statsData, eventsData] = await Promise.all([
+                fetchCollectorStats(),
+                fetchEvents({ limit: 30 }),
+            ])
+            setStats(statsData)
+            setEvents(eventsData.data)
+            setLoading(false)
+        } catch (err) {
+            console.error('Data collection fetch error:', err)
+            setLoading(false)
+        } finally {
+            clearTimeout(timeout)
+        }
     }, [])
 
     useEffect(() => {

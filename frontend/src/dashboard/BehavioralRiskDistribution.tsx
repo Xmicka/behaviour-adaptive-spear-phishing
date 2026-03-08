@@ -16,28 +16,42 @@ const BehavioralRiskDistribution: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchDashboardData().then(data => {
-      if (data) {
-        const { high, medium, low } = data.risk_distribution
-        const total = high + medium + low
-        setTotalUsers(total)
-
-        if (total > 0) {
-          setSegments([
-            { category: 'Safe', value: low, percentage: Math.round((low / total) * 100), color: '#10b981', icon: '✓' },
-            { category: 'Watchlist', value: medium, percentage: Math.round((medium / total) * 100), color: '#f59e0b', icon: '⚠️' },
-            { category: 'High Risk', value: high, percentage: Math.round((high / total) * 100), color: '#ef4444', icon: '⚡' },
-          ])
-        } else {
-          setSegments([
-            { category: 'Safe', value: 0, percentage: 0, color: '#10b981', icon: '✓' },
-            { category: 'Watchlist', value: 0, percentage: 0, color: '#f59e0b', icon: '⚠️' },
-            { category: 'High Risk', value: 0, percentage: 0, color: '#ef4444', icon: '⚡' },
-          ])
-        }
-      }
+    const timeout = setTimeout(() => {
       setLoading(false)
-    })
+    }, 5000)
+
+    fetchDashboardData()
+      .then(data => {
+        if (data) {
+          const { high, medium, low } = data.risk_distribution
+          const total = high + medium + low
+          setTotalUsers(total)
+
+          if (total > 0) {
+            setSegments([
+              { category: 'Safe', value: low, percentage: Math.round((low / total) * 100), color: '#10b981', icon: '✓' },
+              { category: 'Watchlist', value: medium, percentage: Math.round((medium / total) * 100), color: '#f59e0b', icon: '⚠️' },
+              { category: 'High Risk', value: high, percentage: Math.round((high / total) * 100), color: '#ef4444', icon: '⚡' },
+            ])
+          } else {
+            setSegments([
+              { category: 'Safe', value: 0, percentage: 0, color: '#10b981', icon: '✓' },
+              { category: 'Watchlist', value: 0, percentage: 0, color: '#f59e0b', icon: '⚠️' },
+              { category: 'High Risk', value: 0, percentage: 0, color: '#ef4444', icon: '⚡' },
+            ])
+          }
+        }
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Risk distribution fetch error:', err)
+        setLoading(false)
+      })
+      .finally(() => {
+        clearTimeout(timeout)
+      })
+
+    return () => clearTimeout(timeout)
   }, [])
 
   let currentAngle = 0

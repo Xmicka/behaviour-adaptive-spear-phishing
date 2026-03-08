@@ -22,18 +22,29 @@ const CampaignManager: React.FC = () => {
     }, [])
 
     const loadData = async () => {
-        setLoading(true)
-        const [campaignList, scenarioData] = await Promise.all([
-            fetchCampaigns(),
-            fetchEmailScenarios()
-        ])
-        setCampaigns(campaignList)
-        if (scenarioData) {
-            // Flatten scenarios object values into a single array
-            const allScenarios = Object.values(scenarioData).flat()
-            setScenarios(allScenarios)
+        const timeout = setTimeout(() => {
+            setLoading(false)
+        }, 5000)
+
+        try {
+            setLoading(true)
+            const [campaignList, scenarioData] = await Promise.all([
+                fetchCampaigns(),
+                fetchEmailScenarios()
+            ])
+            setCampaigns(campaignList)
+            if (scenarioData) {
+                // Flatten scenarios object values into a single array
+                const allScenarios = Object.values(scenarioData).flat()
+                setScenarios(allScenarios)
+            }
+            setLoading(false)
+        } catch (err) {
+            console.error('Campaign data fetch error:', err)
+            setLoading(false)
+        } finally {
+            clearTimeout(timeout)
         }
-        setLoading(false)
     }
 
     const handleSubmit = async (e: React.FormEvent) => {

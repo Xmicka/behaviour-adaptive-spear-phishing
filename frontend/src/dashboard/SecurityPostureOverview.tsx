@@ -73,10 +73,24 @@ const SecurityPostureOverview: React.FC = () => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetchDashboardData().then(d => {
-      setData(d)
+    const timeout = setTimeout(() => {
       setLoading(false)
-    })
+    }, 5000)
+
+    fetchDashboardData()
+      .then(d => {
+        setData(d)
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Dashboard data fetch error:', err)
+        setLoading(false)
+      })
+      .finally(() => {
+        clearTimeout(timeout)
+      })
+
+    return () => clearTimeout(timeout)
   }, [])
 
   const posture = data?.posture

@@ -11,13 +11,25 @@ const TrainingEnforcement: React.FC = () => {
   const [message, setMessage] = useState<{ text: string; type: 'success' | 'error' } | null>(null)
 
   const loadData = () => {
-    fetchDashboardData().then(data => {
-      if (data) {
-        setTrainingData(data.training)
-        setTrainingStats(data.training_stats || null)
-      }
+    const timeout = setTimeout(() => {
       setLoading(false)
-    })
+    }, 5000)
+
+    fetchDashboardData()
+      .then(data => {
+        if (data) {
+          setTrainingData(data.training)
+          setTrainingStats(data.training_stats || null)
+        }
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Training data fetch error:', err)
+        setLoading(false)
+      })
+      .finally(() => {
+        clearTimeout(timeout)
+      })
   }
 
   useEffect(() => { loadData() }, [])

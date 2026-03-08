@@ -10,14 +10,28 @@ const AlertsRecommendations: React.FC = () => {
   const [riskStats, setRiskStats] = useState({ high: 0, medium: 0, low: 0 })
 
   useEffect(() => {
-    fetchDashboardData().then(data => {
-      if (data) {
-        setAlerts(data.alerts)
-        setRecommendations(data.recommendations)
-        setRiskStats(data.risk_distribution)
-      }
+    const timeout = setTimeout(() => {
       setLoading(false)
-    })
+    }, 5000)
+
+    fetchDashboardData()
+      .then(data => {
+        if (data) {
+          setAlerts(data.alerts)
+          setRecommendations(data.recommendations)
+          setRiskStats(data.risk_distribution)
+        }
+        setLoading(false)
+      })
+      .catch(err => {
+        console.error('Alerts data fetch error:', err)
+        setLoading(false)
+      })
+      .finally(() => {
+        clearTimeout(timeout)
+      })
+
+    return () => clearTimeout(timeout)
   }, [])
 
   const getSeverityColor = (severity: string) => {
