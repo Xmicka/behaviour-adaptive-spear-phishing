@@ -2103,6 +2103,10 @@ def serve_index():
 @app.route("/<path:path>", methods=["GET"])
 def serve_static(path):
     """Serve static files from frontend/dist."""
+    # Never intercept API routes - let Flask handle them
+    if path.startswith("api/"):
+        return jsonify({"error": "API endpoint not found", "path": path}), 404
+    
     if FRONTEND_BUILD_DIR.exists():
         file_path = FRONTEND_BUILD_DIR / path
         # Check if file exists and is within the dist directory
