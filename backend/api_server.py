@@ -326,7 +326,17 @@ def phishing_simulation():
 
     return _cors_json({"campaigns": campaigns})
 
-
+@app.route("/api/email/scenarios", methods=["GET"])
+def get_email_scenarios():
+    return jsonify({
+        "scenarios": [
+            "Urgent Action (Wire Transfer/Payroll)",
+            "Security Alert Verification",
+            "Admin Panel Password Reset",
+            "VPN Access Reauthentication",
+            "Cloud Storage Permission Update"
+        ]
+    })
 @app.route("/api/simulation-results", methods=["POST", "OPTIONS"])
 def simulation_results():
     """Record phishing simulation results"""
