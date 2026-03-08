@@ -2052,21 +2052,26 @@ def seed_demo_data():
         return _cors_json({"ok": True})
     
     try:
+        logger.info("Seed demo data request received")
+        
         # Check if data already exists
         stats = _event_store.get_event_stats()
         if stats["total_events"] > 0:
+            logger.info(f"Data already exists: {stats['total_events']} events")
             return _cors_json({
                 "status": "already_seeded",
                 "message": f"Database already has {stats['total_events']} events",
                 "total_events": stats["total_events"],
                 "unique_users": stats["unique_users"]
-            }), 200
+            })
         
         # Load and seed test data
         events_path = Path(__file__).resolve().parent / "test_data" / "events.json"
         if not events_path.exists():
+            logger.error(f"Test data file not found at {events_path}")
             return _cors_json({"error": "Test data file not found"}), 404
         
+        logger.info(f"Loading test data from {events_path}")
         with open(events_path, "r") as f:
             events = _json.load(f)
         
@@ -2075,15 +2080,18 @@ def seed_demo_data():
         users_info = {}
         
         for e in events:
-            user_email = e["email"]
+            user_email = e.get("email", "")
+            if not user_email:
+                continue
+                
             users_info[user_email] = {
                 "name": user_email.split('@')[0].replace('.', ' ').title(),
-                "emp_id": e["employee_id"]
+                "emp_id": e.get("employee_id", "unknown")
             }
             users_events[user_email].append({
-                "type": e["event_type"],
-                "url": e["url"],
-                "timestamp": e["timestamp"],
+                "type": e.get("event_type", "page_visit"),
+                "url": e.get("url", ""),
+                "timestamp": e.get("timestamp", ""),
                 "data": {}
             })
         
@@ -2105,7 +2113,7 @@ def seed_demo_data():
                 user_agent="DemoTester/1.0"
             )
         
-        logger.info("Seeded %d events for %d users", len(events), len(users_info))
+        logger.info(f"Successfully seeded {len(events)} events for {len(users_info)} users")
         
         return _cors_json({
             "status": "success",
@@ -2113,11 +2121,11 @@ def seed_demo_data():
             "total_events": len(events),
             "unique_users": len(users_info),
             "users": list(users_info.keys())
-        }), 200
+        })
         
     except Exception as exc:
-        logger.error("Demo data seeding failed: %s", exc, exc_info=True)
-        return _cors_json({"error": str(exc)}), 500
+        logger.error(f"Demo data seeding failed: {exc}", exc_info=True)
+        return _cors_json({"error": str(exc), "type": "exception"}), 500
 
 
 # ============ FRONTEND STATIC FILE SERVING ============

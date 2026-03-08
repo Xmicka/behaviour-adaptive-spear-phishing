@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../auth/AuthContext'
 
@@ -9,9 +9,13 @@ import { useAuth } from '../auth/AuthContext'
  */
 export default function AdminNavbar() {
   const navigate = useNavigate()
+  const location = useLocation()
   const { user, logout } = useAuth()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  
+  // Only show section navigation on dashboard page
+  const isDashboard = location.pathname === '/dashboard'
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50)
@@ -72,18 +76,20 @@ export default function AdminNavbar() {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {navItems.map(item => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
+          {/* Desktop Navigation - Only on dashboard */}
+          {isDashboard && (
+            <nav className="hidden lg:flex items-center gap-1">
+              {navItems.map(item => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          )}
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
@@ -139,17 +145,21 @@ export default function AdminNavbar() {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             >
-              {navItems.map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="block w-full text-left px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors font-medium"
-                >
-                  {item.label}
-                </button>
-              ))}
+              {isDashboard && (
+                <>
+                  {navItems.map(item => (
+                    <button
+                      key={item.id}
+                      onClick={() => scrollToSection(item.id)}
+                      className="block w-full text-left px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors font-medium"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
 
-              <hr className="border-slate-700/50 my-4" />
+                  <hr className="border-slate-700/50 my-4" />
+                </>
+              )}
 
               {user && (
                 <p className="text-xs text-gray-400 px-4">
