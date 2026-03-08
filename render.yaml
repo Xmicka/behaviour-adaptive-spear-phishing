@@ -1,25 +1,21 @@
 services:
   - type: web
-    name: adaptive-spear-phishing-api
+    name: spear-phishing-dashboard
     runtime: python
     plan: free
     buildCommand: |
-      # Install backend dependencies
       pip install -r requirements.txt
-      # Build frontend if package.json exists
-      if [ -f frontend/package.json ]; then
-        cd frontend
-        npm install --legacy-peer-deps
-        npm run build
-        cd ..
-      fi
-        sync: false
+      cd frontend && npm install --legacy-peer-deps && npm run build && cd ..
+    startCommand: gunicorn backend.api_server:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
       - key: EMAIL_ENABLED
         value: "true"
-      - key: PLATFORM_BASE_URL
-        sync: false
       - key: RISK_THRESHOLD_EMAIL
         value: "0.5"
+      - key: PLATFORM_BASE_URL
+        sync: false
       - key: FIREBASE_CREDENTIALS_BASE64
         sync: false
       - key: CORS_ALLOWED_ORIGINS
