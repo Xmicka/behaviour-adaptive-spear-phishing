@@ -1501,6 +1501,9 @@ def training_status_api(user_id=None):
     """Get training status, optionally for a specific user."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     uid = user_id or request.args.get("user_id")
 
