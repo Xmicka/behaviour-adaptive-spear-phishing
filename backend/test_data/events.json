@@ -1,0 +1,3719 @@
+[
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-05T08:50:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-05T08:51:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-05T09:00:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-05T09:01:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-05T09:05:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-05T09:06:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:21:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:21:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:21:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:22:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T09:26:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T09:26:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T09:26:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T09:31:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T09:31:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T09:31:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T09:35:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T09:41:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T09:41:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T09:41:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T09:41:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T09:46:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:58:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:58:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T09:58:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-05T10:00:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-05T10:00:01Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:01:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T10:12:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T10:12:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T10:16:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:20:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:20:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:20:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T10:21:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T10:21:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:26:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T10:31:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:43:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:43:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:43:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:43:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T10:48:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T10:48:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T10:48:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:51:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T10:53:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T10:56:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T10:56:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T10:58:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T10:58:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:01Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:15:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:03Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:04Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:15:05Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T11:15:06Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T11:15:07Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T11:15:08Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:15:09Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:10Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T11:15:11Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:12Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:15:13Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T11:15:14Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:15:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:15:16Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:17Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T11:15:18Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:15:19Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T11:15:20Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:21Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:15:22Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:15:23Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:24Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:15:25Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:26Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:27Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:15:28Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:29Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:15:30Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T11:15:31Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:15:32Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:15:33Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "navigation",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T11:15:34Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T11:19:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T11:19:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:20:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:20:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:20:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:21:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T11:26:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:36:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:36:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:36:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T11:40:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:46:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:46:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:47:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:50:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:50:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:50:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T11:51:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:56:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:56:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:56:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T11:56:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:56:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T11:57:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:04:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:07:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:07:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:14:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:21:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:21:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:25:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:34:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:34:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T12:37:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:52:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:52:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:52:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:56:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T12:56:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T13:00:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T13:03:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:08:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:08:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:08:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:14:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:18:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:18:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:18:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T13:22:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T13:31:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T13:31:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T13:39:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T13:43:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T13:43:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T13:43:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T13:45:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:02:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:02:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T14:08:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T14:08:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T14:08:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T14:09:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:11:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:12:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:12:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:12:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:17:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T14:24:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T14:24:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T14:24:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:25:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:25:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:25:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T14:31:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T14:33:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T14:41:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T14:41:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-05T14:42:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:50:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:50:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T14:51:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T14:54:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T14:54:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T14:58:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T15:00:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T15:00:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T15:02:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:33:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:37:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:38:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:40:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:56:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T15:56:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:01:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:01:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T16:03:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:03:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:05:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:05:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:05:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T16:07:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T16:07:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T16:12:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:14:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T16:21:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T16:21:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T16:22:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:28:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:28:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:28:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T16:29:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:38:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T16:38:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:38:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T16:38:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:38:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T16:38:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T16:43:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:44:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T16:53:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T16:53:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:54:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:54:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T16:54:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T16:58:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-05T17:00:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T17:01:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:03:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:03:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:03:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:03:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:03:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:03:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:04:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:11:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:11:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:12:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:17:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:17:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:18:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:21:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:21:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:21:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:25:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:25:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:25:15Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:29:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:32:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:32:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:32:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T17:35:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:35:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:35:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:35:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T17:41:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T17:42:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:42:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:42:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:42:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-05T17:46:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T17:54:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T17:54:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T17:59:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T18:02:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T18:02:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T18:02:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-05T18:07:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-05T18:11:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T18:22:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T18:22:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T18:22:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-05T18:24:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-05T18:27:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-05T18:29:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T18:36:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T18:36:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T18:36:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T18:36:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-05T18:42:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-05T18:43:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T19:07:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T19:07:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T19:07:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-05T19:08:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-06T02:14:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "session_start",
+    "url": "https://internal.admin.portal/dashboard",
+    "timestamp": "2026-03-06T02:14:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://internal.admin.portal/download_db",
+    "timestamp": "2026-03-06T02:19:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-06T03:08:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "session_start",
+    "url": "https://internal.admin.portal/dashboard",
+    "timestamp": "2026-03-06T03:08:02Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "page_view",
+    "url": "https://internal.admin.portal/download_db",
+    "timestamp": "2026-03-06T03:13:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-06T08:54:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-06T08:55:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-06T09:08:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-06T09:09:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "login_attempt",
+    "url": "https://company.okta.com/login",
+    "timestamp": "2026-03-06T09:15:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "session_start",
+    "url": "https://company.portal.com/home",
+    "timestamp": "2026-03-06T09:16:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:23:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:23:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:31:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:34:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:34:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:34:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:36:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:40:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:40:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T09:44:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T09:45:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T09:45:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T09:48:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T09:56:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T09:56:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:01:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:04:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:04:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:07:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:07:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:07:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:09:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:14:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:24:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:24:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T10:27:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:43:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:43:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:46:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:46:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:48:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T10:49:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T10:49:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T10:51:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T10:53:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:02:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:02:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:02:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:04:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:04:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:04:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:11:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:12:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T11:25:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:25:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T11:25:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:25:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:25:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T11:26:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T11:26:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T11:32:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:33:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T11:34:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T11:44:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T11:44:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:46:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T11:46:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:46:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T11:56:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T11:57:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T11:57:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T11:57:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:58:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:58:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:58:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T11:59:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:00:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:00:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:00:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T12:06:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:07:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:09:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:09:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T12:14:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T12:31:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T12:31:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T12:33:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T12:33:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T12:33:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T12:34:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T12:34:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T12:37:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T12:38:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T12:39:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:48:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:48:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:48:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:48:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:48:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:50:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T12:50:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T12:50:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T12:50:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T12:57:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T12:58:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T13:08:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T13:08:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:13:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T13:13:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:13:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T13:13:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:13:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T13:14:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T13:17:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T13:20:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T13:20:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:22:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T13:22:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T13:22:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T13:22:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T13:27:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:37:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:37:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T13:41:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T13:48:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T13:48:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T13:52:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T13:53:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T13:53:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T13:53:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T14:00:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T14:03:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T14:03:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T14:04:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T14:05:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T14:05:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T14:05:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T14:12:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:15:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:15:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:15:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:22:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "phishing_link_click",
+    "url": "https://company.portal.com/urgent-update",
+    "timestamp": "2026-03-06T14:30:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:31:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:31:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:31:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:39:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:39:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:39:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:42:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:42:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:47:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T14:48:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:54:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:54:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T14:55:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T14:58:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T14:58:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T14:58:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T14:58:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T14:59:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T15:07:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T15:23:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T15:23:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T15:24:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T15:28:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T15:28:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T15:30:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T15:37:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T15:37:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T15:38:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:42:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:42:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:48:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:50:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:50:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:50:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T15:59:00Z"
+  },
+  {
+    "employee_id": "emp_u1",
+    "email": "akeshchandrasiri@aiesec.net",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-06T16:00:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:06:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:06:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:06:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:10:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:10:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:10:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:10:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T16:18:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T16:28:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T16:28:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T16:31:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T16:31:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T16:32:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:33:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:33:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:33:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://jira.atlassian.com/board",
+    "timestamp": "2026-03-06T16:37:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:40:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T16:42:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T16:42:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T16:42:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T16:43:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:53:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:53:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:53:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T16:55:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T16:55:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T16:56:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T17:04:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:18:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:18:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:18:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:20:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T17:27:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T17:27:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T17:32:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T17:32:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T17:32:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T17:35:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T17:38:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T17:38:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:40:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:40:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:40:15Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T17:42:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://confluence.atlassian.com",
+    "timestamp": "2026-03-06T17:46:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T17:46:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T17:46:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:50:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T17:51:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T17:51:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T17:54:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:57:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:57:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T17:58:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T17:58:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T17:59:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://mail.google.com",
+    "timestamp": "2026-03-06T18:00:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://stackoverflow.com",
+    "timestamp": "2026-03-06T18:03:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-06T18:08:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T18:16:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-06T18:16:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T18:16:02Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T18:16:15Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "logout",
+    "url": "https://company.okta.com/logout",
+    "timestamp": "2026-03-06T18:18:00Z"
+  },
+  {
+    "employee_id": "emp_n1",
+    "email": "akeshchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://github.com/dashboard",
+    "timestamp": "2026-03-06T18:19:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T18:35:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "page_view",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T18:35:02Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "click",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T18:35:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_open",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T18:38:00Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "page_view",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T18:38:02Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "click",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T18:38:15Z"
+  },
+  {
+    "employee_id": "emp_n2",
+    "email": "finesse.clothing.lk@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://aws.amazon.com/console",
+    "timestamp": "2026-03-06T18:39:00Z"
+  },
+  {
+    "employee_id": "emp_t1",
+    "email": "nirominchandrasiri@gmail.com",
+    "event_type": "tab_close",
+    "url": "https://slack.com/app",
+    "timestamp": "2026-03-06T18:39:00Z"
+  }
+]

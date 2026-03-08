@@ -41,6 +41,59 @@ _event_store = EventStore(db_path=str(COLLECTOR_DB_PATH))
 _email_logger = EmailLogger(db_path=str(EMAIL_DB_PATH))
 _state_mgr = UserStateManager(db_path=str(COLLECTOR_DB_PATH))
 
+def _load_synthetic_data_if_empty():
+    """Load test events and users to ensure the pipeline is usable out-of-the-box."""
+    stats = _event_store.get_event_stats()
+    if stats["total_events"] == 0:
+        logger.info("Initializing empty EventStore with synthetic testing data.")
+        events_path = Path(__file__).resolve().parent / "test_data" / "events.json"
+        if not events_path.exists():
+            logger.warning("Test data file %s not found. Skipping.", events_path)
+            return
+            
+        try:
+            with open(events_path, "r") as f:
+                events = _json.load(f)
+                
+            from collections import defaultdict
+            users_events = defaultdict(list)
+            users_info = {}
+            for e in events:
+                user_email = e["email"]
+                users_info[user_email] = {
+                    "name": user_email.split('@')[0].replace('.', ' ').title(),
+                    "emp_id": e["employee_id"]
+                }
+                users_events[user_email].append({
+                    "type": e["event_type"],
+                    "url": e["url"],
+                    "timestamp": e["timestamp"],
+                    "data": {} 
+                })
+                
+            for email, info in users_info.items():
+                _event_store.register_employee(
+                    user_id=email, 
+                    name=info["name"],
+                    email=email,
+                    employee_id=info["emp_id"],
+                    device_id="dev_" + info["emp_id"]
+                )
+                
+                _event_store.insert_events(
+                    user_id=email,
+                    session_id="synth_session_" + info["emp_id"],
+                    events=users_events[email],
+                    ip_address="192.168.1.100",
+                    user_agent="SyntheticTester/1.0"
+                )
+            logger.info("Inserted %d synthetic events for %d users.", len(events), len(users_info))
+        except Exception as e:
+            logger.error("Failed to load synthetic data: %s", e)
+
+_load_synthetic_data_if_empty()
+
+
 
 # Phishing email templates based on behavior patterns (legacy — kept for /api/phishing-simulation)
 PHISHING_TEMPLATES = {
