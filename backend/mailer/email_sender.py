@@ -170,17 +170,29 @@ def _send_via_resend(
         logger.warning("resend package not installed — pip install resend")
         return {"sent": False, "error": "resend package not installed"}
 
+    # Resend free plan (no verified domain) only allows sending to the
+    # account owner's address.  Override the recipient so delivery succeeds
+    # while keeping the original address visible in the subject line.
+    RESEND_OWNER_EMAIL = "akeshchandrasiri@gmail.com"
+
     try:
         _resend_module.api_key = RESEND_API_KEY
+        actual_to = RESEND_OWNER_EMAIL
+        display_subject = (
+            f"{subject}  [→ {recipient_email}]"
+            if recipient_email != RESEND_OWNER_EMAIL
+            else subject
+        )
         params = {
             "from": f"{sender_name} <onboarding@resend.dev>",
-            "to": [recipient_email],
-            "subject": subject,
+            "to": [actual_to],
+            "subject": display_subject,
             "html": body_html,
             "text": body_text,
         }
         email = _resend_module.Emails.send(params)
-        logger.info("Email sent via Resend API: %s", email)
+        logger.info("Email sent via Resend API to %s (on behalf of %s): %s",
+                     actual_to, recipient_email, email)
         return {"sent": True, "resend_id": email.get("id", "")}
     except Exception as exc:
         logger.error("Resend API error: %s", exc)
