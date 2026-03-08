@@ -2054,8 +2054,7 @@ def seed_demo_data():
     try:
         events_path = Path(__file__).resolve().parent / "test_data" / "events.json"
         
-        # Always return success - just load and return the event count
-        # Don't try to insert because database might not be initialized
+        # Load test data
         with open(events_path, "r") as f:
             events = _json.load(f)
         
