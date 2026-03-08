@@ -401,6 +401,15 @@ def collect_events():
     if len(events) > 100:
         return _cors_json({"error": "Maximum 100 events per request"}), 400
 
+    device_id = data.get("device_id", "").strip()
+    if not device_id:
+        return _cors_json({"error": "device_id is required for telemetry collection"}), 403
+        
+    emp = _event_store.get_employee_by_device(device_id)
+    if not emp or emp["user_id"] != user_id:
+        logger.warning(f"Rejected collection: Unregistered or mismatched device_id '{device_id}' for user '{user_id}'")
+        return _cors_json({"error": "Device not registered or mismatched user"}), 403
+
     ip_address = request.remote_addr or ""
     user_agent = request.headers.get("User-Agent", "")[:200]
 
@@ -499,6 +508,83 @@ def register_employee():
         })
     return _cors_json({"error": "Failed to register employee"}), 500
 
+@app.route("/api/employees/add", methods=["POST", "OPTIONS"])
+def add_employee():
+    """Add an employee manually from the dashboard."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
+        
+    data = request.get_json(silent=True) or {}
+    name = data.get("name", "").strip()
+    email = data.get("email", "").strip()
+    department = data.get("department", "").strip()
+    emp_id = data.get("employee_id", "").strip()
+    
+    if not name or not email:
+        return _cors_json({"error": "Name and Email are required"}), 400
+        
+    import hashlib
+    user_id = "emp_" + hashlib.md5(email.encode()).hexdigest()[:8]
+        
+    success = _event_store.register_employee(
+        user_id=user_id,
+        name=name,
+        email=email,
+        department=department,
+        employee_id=emp_id
+    )
+    
+    if success:
+        return _cors_json({"status": "added", "user_id": user_id})
+    return _cors_json({"error": "Failed to add employee"}), 500
+
+@app.route("/api/employees/update", methods=["PUT", "OPTIONS"])
+def update_employee():
+    """Update employee details and status from the dashboard."""
+    if request.method == "OPTIONS":
+        return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
+        
+    data = request.get_json(silent=True) or {}
+    user_id = data.get("user_id", "").strip()
+    if not user_id:
+        return _cors_json({"error": "User ID is required"}), 400
+        
+    # First fetch current details to avoid overwriting with empties if not sent
+    emp = _event_store.get_employee(user_id)
+    if not emp:
+        return _cors_json({"error": "Employee not found"}), 404
+        
+    name = data.get("name", emp.get("name", ""))
+    email = data.get("email", emp.get("email", ""))
+    department = data.get("department", emp.get("department", ""))
+    emp_id = data.get("employee_id", emp.get("employee_id", ""))
+    device_id = data.get("device_id", emp.get("device_id", ""))
+    training_status = data.get("training_status", emp.get("training_status", "pending"))
+    
+    is_active = data.get("is_active", emp.get("is_active", 1))
+    if isinstance(is_active, bool):
+        is_active = 1 if is_active else 0
+        
+    success = _event_store.register_employee(
+        user_id=user_id,
+        name=name,
+        email=email,
+        department=department,
+        training_status=training_status,
+        is_active=is_active,
+        employee_id=emp_id,
+        device_id=device_id
+    )
+    
+    if success:
+        return _cors_json({"status": "updated", "user_id": user_id})
+    return _cors_json({"error": "Failed to update employee"}), 500
 
 @app.route("/api/employees", methods=["GET", "OPTIONS"])
 def get_employees():
@@ -619,6 +705,9 @@ def run_pipeline_from_collected():
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
 
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
+
     try:
         auth_df = _event_store.export_to_auth_format()
         if auth_df.empty:
@@ -650,6 +739,10 @@ def run_pipeline_from_collected():
                 out_df = results.reset_index()
         else:
             out_df = results.reset_index()
+
+        if "final_risk_score" in out_df.columns:
+            scores_for_db = out_df[["user", "final_risk_score"]].to_dict("records")
+            _event_store.record_risk_scores(scores_for_db)
 
         out_df.to_csv(FINAL_CSV, index=False)
         _event_store.record_pipeline_finish(run_id, "completed")
@@ -1158,6 +1251,24 @@ def track_email_click(tracking_token):
         _state_mgr.transition(user_id, "phish_clicked",
                               f"User clicked phishing link (email={email_id})")
 
+        # Record as behavioral event to influence next risk score calculation
+        _event_store.insert_events(
+            user_id=user_id,
+            session_id=f"phish_{tracking_token[:8]}",
+            events=[{
+                "event_type": "phishing_click",
+                "timestamp": datetime.utcnow().isoformat(),
+                "page_url": "/api/email/track/" + tracking_token,
+                "event_data": json.dumps({
+                    "email_id": email_id,
+                    "tracking_token": tracking_token,
+                    "interaction": "click"
+                })
+            }],
+            ip_address=ip,
+            user_agent=ua
+        )
+
         # Trigger micro-training automatically
         _trigger_training_for_user(
             user_id=user_id,
@@ -1224,12 +1335,32 @@ def report_email():
     return _cors_json({"error": "Unknown tracking token"}), 404
 
 
-@app.route("/api/email/scenarios", methods=["GET", "OPTIONS"])
-def list_email_scenarios():
-    """List available email attack scenarios."""
+    return _cors_json({"scenarios": get_available_scenarios()})
+
+@app.route("/api/campaigns", methods=["GET", "POST", "OPTIONS"])
+def manage_campaigns():
+    """List or create phishing campaigns."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
-    return _cors_json({"scenarios": get_available_scenarios()})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
+        
+    if request.method == "POST":
+        data = request.get_json(silent=True) or {}
+        name = data.get("name")
+        target_tier = data.get("target_tier")
+        scenario = data.get("scenario")
+        scheduled_for = data.get("scheduled_for")
+        
+        if not name or not target_tier or not scenario:
+            return _cors_json({"error": "name, target_tier, and scenario are required"}), 400
+            
+        campaign_id = _email_logger.create_campaign(name, target_tier, scenario, scheduled_for)
+        return _cors_json({"status": "created", "campaign_id": campaign_id})
+        
+    campaigns = _email_logger.get_campaigns()
+    return _cors_json({"campaigns": campaigns})
 
 
 # ============ TRAINING ENDPOINTS ============
@@ -1451,6 +1582,9 @@ def pipeline_auto_start():
     """Start the autonomous pipeline scheduler."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     data = request.get_json(silent=True) or {}
     interval = int(data.get("interval_minutes", 5))
@@ -1466,6 +1600,9 @@ def pipeline_auto_stop():
     """Stop the autonomous pipeline scheduler."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     stopped = stop_scheduler()
     if stopped:
@@ -1657,8 +1794,16 @@ def dashboard_data():
         else:
             overall_risk = "Low"
 
+        # ── Security Posture Score (0-100) ──
+        # Formula: 100 base - high-risk user penalty - training pending penalty - phishing failure penalty
+        high_risk_penalty = (risk_distribution["high"] / total_users * 40) if total_users > 0 else 0
+        training_penalty = (training_pending / total_users * 30) if total_users > 0 else 0
+        phishing_penalty = email_stats_data.get("click_rate", 0) * 30
+        security_score = max(0, min(100, round(100 - high_risk_penalty - training_penalty - phishing_penalty)))
+
         return _cors_json({
             "posture": {
+                "security_score": security_score,
                 "overall_risk_level": overall_risk,
                 "total_users": total_users,
                 "avg_risk_score": round(avg_risk, 4),

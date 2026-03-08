@@ -82,6 +82,10 @@ def _run_pipeline_cycle(app_context_fn):
             else:
                 out_df = results.reset_index()
 
+            if "final_risk_score" in out_df.columns:
+                scores_for_db = out_df[["user", "final_risk_score"]].to_dict("records")
+                store.record_risk_scores(scores_for_db)
+
             out_df.to_csv(str(FINAL_CSV), index=False)
             store.record_pipeline_finish(run_id, "completed")
 

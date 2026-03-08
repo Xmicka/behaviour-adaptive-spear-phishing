@@ -44,6 +44,11 @@ def run_isolation_forest(features: pd.DataFrame) -> pd.DataFrame:
         "unique_src_hosts",
         "unique_dst_hosts",
         "failed_login_ratio",
+        "tab_burst_count",
+        "unusual_hours_login",
+        "page_view_count",
+        "click_count",
+        "total_events"
     ]
 
     # Verify required columns are present

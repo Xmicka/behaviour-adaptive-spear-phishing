@@ -70,6 +70,14 @@ export type PipelineRunResult = {
 
 export type DashboardUser = {
   user_id: string
+  name?: string
+  email?: string
+  department?: string
+  training_status?: string
+  is_active?: number
+  employee_id?: string
+  device_id?: string
+  metrics?: any
   risk_score: number
   tier: 'High' | 'Medium' | 'Low'
   risk_reason: string
@@ -77,6 +85,8 @@ export type DashboardUser = {
   failed_login_ratio: number
   anomaly_score: number
   ml_anomaly_score: number
+  tab_burst_count?: number
+  unusual_hours_login?: number
 }
 
 export type DashboardAlert = {
@@ -149,6 +159,11 @@ export type LoginBehaviorEvent = {
   domain: string
 }
 
+export type RiskHistoryEntry = {
+  timestamp: string
+  risk_score: number
+}
+
 export type EmailStats = {
   total_sent: number
   total_opened: number
@@ -182,6 +197,7 @@ export type EmailSendResult = {
 
 export type DashboardData = {
   posture: {
+    security_score?: number
     overall_risk_level: string
     total_users: number
     avg_risk_score: number
@@ -214,6 +230,17 @@ export type DashboardData = {
   user_states?: UserStateEntry[]
   state_distribution?: StateDistribution
   scheduler_status?: SchedulerStatus
+}
+
+export type Campaign = {
+  id: number
+  name: string
+  target_tier: string
+  scenario: string
+  status: string
+  created_at: string
+  scheduled_for: string | null
+  completed_at: string | null
 }
 
 export type GeneratedEmail = {
@@ -295,6 +322,30 @@ export async function fetchCollectorStats(): Promise<CollectorStats> {
   }
 }
 
+export async function fetchCampaigns(): Promise<Campaign[]> {
+  try {
+    const res = await fetch(apiUrl('/api/campaigns'))
+    if (!res.ok) throw new Error('campaigns unavailable')
+    const json = await res.json()
+    return json.campaigns || []
+  } catch (err) {
+    return []
+  }
+}
+
+export async function createCampaign(campaign: Partial<Campaign>): Promise<any> {
+  try {
+    const res = await fetch(apiUrl('/api/campaigns'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(campaign),
+    })
+    return await res.json()
+  } catch (err) {
+    return { error: 'Failed to create campaign' }
+  }
+}
+
 export async function fetchEvents(params?: {
   user_id?: string; event_type?: string; since?: string; limit?: number
 }): Promise<{ data: CollectorEvent[]; count: number }> {
@@ -323,16 +374,42 @@ export async function fetchEmployees(): Promise<any[]> {
   }
 }
 
+export async function addEmployee(data: { name: string; email: string; department?: string; employee_id?: string }): Promise<any> {
+  try {
+    const res = await fetch(apiUrl('/api/employees/add'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    return await res.json()
+  } catch (err) {
+    return { error: 'Failed to connect to API' }
+  }
+}
+
+export async function updateEmployee(data: any): Promise<any> {
+  try {
+    const res = await fetch(apiUrl('/api/employees/update'), {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    return await res.json()
+  } catch (err) {
+    return { error: 'Failed to connect to API' }
+  }
+}
+
 export async function downloadExtension(): Promise<void> {
   window.location.href = apiUrl('/api/extension/download')
 }
 
-export async function sendEmployeeSimulation(user_id: string): Promise<any> {
+export async function sendEmployeeSimulation(user_id: string, scenario?: string): Promise<any> {
   try {
     const res = await fetch(apiUrl('/api/employees/send-simulation'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id }),
+      body: JSON.stringify({ user_id, scenario }),
     })
     return await res.json()
   } catch (err) {
@@ -340,12 +417,12 @@ export async function sendEmployeeSimulation(user_id: string): Promise<any> {
   }
 }
 
-export async function sendWarningEmail(user_id: string): Promise<any> {
+export async function sendWarningEmail(user_id: string, message?: string): Promise<any> {
   try {
     const res = await fetch(apiUrl('/api/alerts/warning-email'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id }),
+      body: JSON.stringify({ user_id, message }),
     })
     return await res.json()
   } catch (err) {
@@ -378,6 +455,17 @@ export async function fetchLoginBehavior(user_id: string): Promise<LoginBehavior
     if (!res.ok) throw new Error('login behavior unavailable')
     const json = await res.json()
     return json.events || []
+  } catch (err) {
+    return []
+  }
+}
+
+export async function fetchRiskHistory(user_id: string, days: number = 30): Promise<RiskHistoryEntry[]> {
+  try {
+    const res = await fetch(apiUrl(`/api/employees/${user_id}/risk-history?days=${days}`))
+    if (!res.ok) throw new Error('risk history unavailable')
+    const json = await res.json()
+    return json.history || []
   } catch (err) {
     return []
   }

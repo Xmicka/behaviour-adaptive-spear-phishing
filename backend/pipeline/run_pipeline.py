@@ -3,17 +3,17 @@ from pathlib import Path
 import pandas as pd
 from pandas.errors import EmptyDataError
 
-from backend.config import INPUT_CSV_PATH, OUTPUT_CSV_PATH
-from backend.features.feature_extractor import load_authentication_data, extract_user_features
+from backend.config import OUTPUT_CSV_PATH, COLLECTOR_DB_PATH
+from backend.features.feature_extractor import extract_user_features
 from backend.models.isolation_forest import run_isolation_forest
 from backend.scoring.risk_score import compute_risk_score
+from backend.collector.event_store import EventStore
 
 logger = logging.getLogger(__name__)
 
-
 def main():
     """Run end-to-end pipeline:
-    1) Load auth CSV
+    1) Load telemetry from EventStore
     2) Extract per-user features
     3) Run Isolation Forest to compute anomaly scores
     4) Compute normalized risk score
@@ -23,42 +23,29 @@ def main():
     messages for common error cases (missing file, empty data, missing cols).
     """
 
-    data_path = Path(INPUT_CSV_PATH)
     out_path = Path(OUTPUT_CSV_PATH)
 
-    # Informational start message for observability; concise for demos.
     logger.info("Pipeline start")
 
-    if not data_path.exists():
-        logger.error("Auth sample file not found: %s", data_path)
-        raise FileNotFoundError(f"Auth sample file not found: {data_path}")
-
-    logger.info("Pipeline start: loading authentication data from %s", data_path)
-    print(f"Loading authentication data from {data_path}")
+    store = EventStore(str(COLLECTOR_DB_PATH))
+    print(f"Loading behavioral data from {COLLECTOR_DB_PATH}")
+    
     try:
-        df = load_authentication_data(data_path)
-        # Log number of raw events read from the input CSV. This helps
-        # users quickly understand ingest volume without parsing files.
-        logger.info("Loaded %d authentication event(s) from %s", df.shape[0], data_path)
-    except EmptyDataError:
-        logger.warning("Authentication CSV is empty or has no parseable columns")
-        print("No data found in auth CSV; exiting pipeline.")
-        return
-    except ValueError as exc:
-        # load_authentication_data raises ValueError on missing columns
-        logger.error("Error loading authentication data: %s", exc)
+        # We fetch the telemetry masquerading as authentication events for extraction
+        df = store.export_to_auth_format()
+        logger.info("Loaded %d behavioral event(s)", df.shape[0])
+    except Exception as exc:
+        logger.error("Error loading telemetry data: %s", exc)
         raise
 
     if df.shape[0] == 0:
-        logger.warning("Authentication CSV is empty")
-        print("No data found in auth CSV; exiting pipeline.")
+        logger.warning("Event database is empty")
+        print("No telemetry data found; exiting pipeline.")
         return
 
     print("Extracting user features...")
     features = extract_user_features(df)
 
-    # Number of users (rows) after aggregation — useful to report for
-    # downstream monitoring and to confirm the pipeline processed data.
     logger.info("Extracted features for %d user(s)", features.shape[0])
 
     if features.shape[0] == 0:
@@ -85,6 +72,10 @@ def main():
             out_df = results.reset_index()
     else:
         out_df = results.reset_index()
+
+    if "final_risk_score" in out_df.columns:
+        scores_for_db = out_df[["user", "final_risk_score"]].to_dict("records")
+        store.record_risk_scores(scores_for_db)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_df.to_csv(out_path, index=False)

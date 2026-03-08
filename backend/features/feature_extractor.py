@@ -159,10 +159,10 @@ def load_authentication_data(path_or_buffer: Union[str, "_io.TextIOBase"]) -> pd
 
 
 def extract_user_features(df: pd.DataFrame) -> pd.DataFrame:
-    """Extract per-user behavioral features from authentication DataFrame.
+    """Extract per-user behavioral features from telemetry DataFrame.
 
     Parameters
-    - df: DataFrame as returned by `load_authentication_data` or equivalent.
+    - df: DataFrame as returned by `EventStore` export containing behavioral events.
 
     Returns
     - DataFrame indexed by `user` with columns:
@@ -170,42 +170,54 @@ def extract_user_features(df: pd.DataFrame) -> pd.DataFrame:
         - `failed_login_ratio` (float): fraction of attempts that failed (0..1)
         - `unique_src_hosts` (int): count of distinct source hosts
         - `unique_dst_hosts` (int): count of distinct destination hosts
-
-    Notes
-    - Users with zero events are not present in the output. If you need to
-      include a fixed user list, merge the result with that list externally.
+        - `tab_burst_count` (int): count of rapid tab opens
+        - `unusual_hours_login` (int): count of logins outside 07:00-22:00
+        - `page_view_count` (int): number of page views
+        - `click_count` (int): number of clicks
+        - `total_events` (int): total number of events
     """
 
-    # Validate input columns early to provide a clear, human-friendly
-    # error message if the DataFrame is missing expected fields.
-    _validate_required_columns(df, REQUIRED_COLUMNS)
+    if df.empty:
+        return pd.DataFrame()
 
-    # Group by user and compute aggregations
-    grouped = df.groupby("user").agg(
-        login_count=("success", "size"),
-        failed_count=("success", lambda s: (~s).sum()),
-        unique_src_hosts=("src_host", pd.Series.nunique),
-        unique_dst_hosts=("dst_host", pd.Series.nunique),
-    )
+    def agg_features(user_events):
+        total = len(user_events)
+        logins = len(user_events[user_events['event_type'] == 'login_attempt'])
+        failed = len(user_events[(user_events['event_type'] == 'login_attempt') & (~user_events['success'])])
+        page_views = len(user_events[user_events['event_type'] == 'page_view'])
+        clicks = len(user_events[user_events['event_type'] == 'click'])
+        phishing_clicks = len(user_events[user_events['event_type'] == 'phishing_click'])
+        
+        # Count out-of-hours logins
+        login_events = user_events[user_events['event_type'] == 'login_attempt']
+        unusual_logins = sum(1 for ts in login_events['timestamp'] if 
+                           ts is not pd.NaT and (ts.hour < 7 or ts.hour >= 22))
+                           
+        # Very simple tab burst proxy (in production, sliding window is better)
+        tabs = len(user_events[user_events['event_type'] == 'tab_open'])
+        tab_burst = 1 if tabs > 20 else 0
+        
+        unique_src = user_events['src_host'].nunique()
+        unique_dst = user_events['dst_host'].nunique()
 
-    # Compute failed_login_ratio safely (avoid division by zero)
-    grouped["failed_login_ratio"] = (
-        grouped["failed_count"] / grouped["login_count"]
-    ).fillna(0.0)
+        return pd.Series({
+            'login_count': logins,
+            'failed_login_ratio': failed / max(logins, 1),
+            'unique_src_hosts': unique_src,
+            'unique_dst_hosts': unique_dst,
+            'tab_burst_count': tab_burst,
+            'unusual_hours_login': unusual_logins,
+            'page_view_count': page_views,
+            'click_count': clicks,
+            'phishing_clicks': phishing_clicks,
+            'total_events': total
+        })
 
-    # Convert to desired final column order and types
-    result = grouped[["login_count", "failed_login_ratio", "unique_src_hosts", "unique_dst_hosts"]].copy()
-
-    # Ensure integer columns are of integer dtype where safe
-    int_cols = ["login_count", "unique_src_hosts", "unique_dst_hosts"]
-    for col in int_cols:
-        # downcast to smallest integer subtype without losing information
-        result[col] = pd.to_numeric(result[col], downcast="integer")
-
-    # failed_login_ratio should be float in range [0, 1]
-    result["failed_login_ratio"] = result["failed_login_ratio"].astype(float)
-    result["failed_login_ratio"] = result["failed_login_ratio"].clip(lower=0.0, upper=1.0)
-
+    result = df.groupby('user').apply(agg_features)
+    
+    # Ensure float
+    result['failed_login_ratio'] = result['failed_login_ratio'].astype(float)
+    
     # Sort index for deterministic output
     result.sort_index(inplace=True)
 

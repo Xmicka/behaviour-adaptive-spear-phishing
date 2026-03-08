@@ -32,6 +32,7 @@ def generate_normal_day(email, emp_id, date, events_list):
     current_time = date + timedelta(hours=8, minutes=login_min_offset)
     
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "login_attempt",
@@ -41,6 +42,7 @@ def generate_normal_day(email, emp_id, date, events_list):
     
     current_time += timedelta(minutes=1)
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "session_start",
@@ -58,6 +60,7 @@ def generate_normal_day(email, emp_id, date, events_list):
         # Random action flow
         url = random.choice(URLS)
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "tab_open",
@@ -66,6 +69,7 @@ def generate_normal_day(email, emp_id, date, events_list):
         })
         
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "page_view",
@@ -75,6 +79,7 @@ def generate_normal_day(email, emp_id, date, events_list):
         
         if random.random() > 0.5:
             events_list.append({
+                "device_id": DEVICES.get(email, ""),
                 "employee_id": emp_id,
                 "email": email,
                 "event_type": "click",
@@ -82,7 +87,9 @@ def generate_normal_day(email, emp_id, date, events_list):
                 "timestamp": (current_time + timedelta(seconds=15)).isoformat() + "Z"
             })
             
+            
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "tab_close",
@@ -92,6 +99,7 @@ def generate_normal_day(email, emp_id, date, events_list):
         
     # Logout around 18:30
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "logout",
@@ -103,6 +111,7 @@ def simulate_tab_burst(email, emp_id, date, events_list):
     # Do a normal login around 10:00
     current_time = date + timedelta(hours=10)
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "login_attempt",
@@ -111,6 +120,7 @@ def simulate_tab_burst(email, emp_id, date, events_list):
     })
     
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "session_start",
@@ -123,6 +133,7 @@ def simulate_tab_burst(email, emp_id, date, events_list):
     
     for i in range(35):
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "navigation", # using navigation as per detect_suspicious_activity event types
@@ -134,6 +145,7 @@ def simulate_tab_burst(email, emp_id, date, events_list):
     # Post-burst quiet
     end_time = date + timedelta(hours=17)
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "logout",
@@ -149,6 +161,7 @@ def simulate_unusual_logins(email, emp_id, date, events_list):
 
     for t in [time1, time2]:
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "login_attempt",
@@ -157,6 +170,7 @@ def simulate_unusual_logins(email, emp_id, date, events_list):
         })
         
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "session_start",
@@ -164,6 +178,7 @@ def simulate_unusual_logins(email, emp_id, date, events_list):
             "timestamp": (t + timedelta(seconds=2)).isoformat() + "Z"
         })
         events_list.append({
+            "device_id": DEVICES.get(email, ""),
             "employee_id": emp_id,
             "email": email,
             "event_type": "page_view",
@@ -174,6 +189,7 @@ def simulate_unusual_logins(email, emp_id, date, events_list):
     # Brief normal activity
     end_time = date + timedelta(hours=16)
     events_list.append({
+        "device_id": DEVICES.get(email, ""),
         "employee_id": emp_id,
         "email": email,
         "event_type": "logout",
@@ -201,6 +217,7 @@ def main():
             
             # Phase 3: Add Phishing Victim Simulation
             events.append({
+                "device_id": DEVICES.get("finesse.clothing.lk@gmail.com", ""),
                 "employee_id": "emp_n2",
                 "email": "finesse.clothing.lk@gmail.com",
                 "event_type": "phishing_link_click",

@@ -84,11 +84,18 @@ const SecurityPostureOverview: React.FC = () => {
 
   const metrics = [
     {
+      label: 'Security Score',
+      value: loading ? '...' : (posture?.security_score ?? 'N/A'),
+      isHighlight: true,
+      change: posture?.security_score ? `Out of 100` : '',
+      icon: '🛡️',
+    },
+    {
       label: 'Overall Risk Level',
       value: loading ? '...' : riskLevel,
-      isHighlight: true,
+      isHighlight: false,
       change: posture ? `Avg: ${(posture.avg_risk_score * 100).toFixed(0)}%` : '',
-      icon: '🛡️',
+      icon: '⚠️',
     },
     {
       label: 'Users Monitored',
@@ -127,7 +134,7 @@ const SecurityPostureOverview: React.FC = () => {
         </p>
       </motion.div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {metrics.map((metric, idx) => (
           <FloatingMetricCard
             key={idx}

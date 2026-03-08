@@ -102,16 +102,23 @@ def compute_risk_score(
         login_cnt = out["login_count"] if "login_count" in out.columns else pd.Series(0.0, index=out.index)
         src_hosts = out["unique_src_hosts"] if "unique_src_hosts" in out.columns else pd.Series(0.0, index=out.index)
         dst_hosts = out["unique_dst_hosts"] if "unique_dst_hosts" in out.columns else pd.Series(0.0, index=out.index)
+        tab_burst = out["tab_burst_count"] if "tab_burst_count" in out.columns else pd.Series(0.0, index=out.index)
+        unusual_logins = out["unusual_hours_login"] if "unusual_hours_login" in out.columns else pd.Series(0.0, index=out.index)
+        phish_clicks = out["phishing_clicks"] if "phishing_clicks" in out.columns else pd.Series(0.0, index=out.index)
 
         # Normalize components to 0..1
         failed_n = _minmax_series(failed.astype(float))
         login_n = _minmax_series(login_cnt.astype(float))
         src_n = _minmax_series(src_hosts.astype(float))
         dst_n = _minmax_series(dst_hosts.astype(float))
+        tab_burst_n = _minmax_series(tab_burst.astype(float))
+        unusual_n = _minmax_series(unusual_logins.astype(float))
+        phish_n = _minmax_series(phish_clicks.astype(float))
 
-        # Lightweight interpretable weighting
+        # Heavily penalise tab bursts, out-of-hours activity, and phishing clicks
         out["rule_based_score"] = (
-            0.4 * failed_n + 0.2 * login_n + 0.2 * src_n + 0.2 * dst_n
+            0.1 * failed_n + 0.1 * login_n + 0.05 * src_n + 0.05 * dst_n +
+            0.2 * tab_burst_n + 0.2 * unusual_n + 0.3 * phish_n
         )
     else:
         # Accept externally computed rule-based scores but normalise

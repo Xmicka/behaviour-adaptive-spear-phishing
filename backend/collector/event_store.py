@@ -73,6 +73,9 @@ class EventStore:
                 user_id     TEXT UNIQUE NOT NULL,
                 name        TEXT NOT NULL,
                 email       TEXT NOT NULL,
+                department  TEXT DEFAULT '',
+                training_status TEXT DEFAULT 'pending',
+                is_active   INTEGER DEFAULT 1,
                 employee_id TEXT DEFAULT '',
                 device_id   TEXT DEFAULT '',
                 created_at  TEXT DEFAULT (datetime('now')),
@@ -97,6 +100,15 @@ class EventStore:
                 user_count  INTEGER DEFAULT 0,
                 error       TEXT DEFAULT ''
             );
+
+            CREATE TABLE IF NOT EXISTS risk_history (
+                id          INTEGER PRIMARY KEY AUTOINCREMENT,
+                user_id     TEXT NOT NULL,
+                risk_score  REAL NOT NULL,
+                timestamp   TEXT DEFAULT (datetime('now'))
+            );
+            CREATE INDEX IF NOT EXISTS idx_risk_history_user ON risk_history(user_id);
+            CREATE INDEX IF NOT EXISTS idx_risk_history_timestamp ON risk_history(timestamp);
         """)
         conn.commit()
         logger.info("EventStore schema ensured at %s", self.db_path)
@@ -226,7 +238,7 @@ class EventStore:
         ).fetchall()
 
         if not rows:
-            return pd.DataFrame(columns=["user", "src_host", "dst_host", "timestamp", "success"])
+            return pd.DataFrame(columns=["user", "src_host", "dst_host", "timestamp", "success", "event_type"])
 
         records = []
         for r in rows:
@@ -246,8 +258,9 @@ class EventStore:
                 "user": user,
                 "src_host": src_host,
                 "dst_host": dst_host,
-                "timestamp": ts,
+                "timestamp": pd.to_datetime(ts),
                 "success": success,
+                "event_type": event_type
             })
 
         return pd.DataFrame(records)
@@ -283,17 +296,18 @@ class EventStore:
 
     # ── Employees ─────────────────────────────────────────────────────
 
-    def register_employee(self, user_id: str, name: str, email: str, employee_id: str = "", device_id: str = "") -> bool:
+    def register_employee(self, user_id: str, name: str, email: str, department: str = "", training_status: str = "pending", is_active: int = 1, employee_id: str = "", device_id: str = "") -> bool:
         """Register or update an employee onboarding record."""
         conn = self._get_conn()
         try:
             conn.execute(
-                """INSERT INTO employees (user_id, name, email, employee_id, device_id, last_active)
-                   VALUES (?, ?, ?, ?, ?, datetime('now'))
+                """INSERT INTO employees (user_id, name, email, department, training_status, is_active, employee_id, device_id, last_active)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
                    ON CONFLICT(user_id) DO UPDATE SET
-                   name=excluded.name, email=excluded.email, employee_id=excluded.employee_id,
-                   device_id=excluded.device_id, last_active=datetime('now')""",
-                (user_id, name, email, employee_id, device_id)
+                   name=excluded.name, email=excluded.email, department=excluded.department, 
+                   training_status=excluded.training_status, is_active=excluded.is_active, 
+                   employee_id=excluded.employee_id, device_id=excluded.device_id, last_active=datetime('now')""",
+                (user_id, name, email, department, training_status, is_active, employee_id, device_id)
             )
             conn.commit()
             return True
@@ -351,3 +365,35 @@ class EventStore:
         ).fetchone()[0]
         
         return count >= threshold
+
+    # ── Risk History ──────────────────────────────────────────────────
+
+    def record_risk_scores(self, scores_list: List[Dict[str, Any]]):
+        """Record newly calculated risk scores for historical tracking."""
+        if not scores_list:
+            return
+            
+        conn = self._get_conn()
+        ts = datetime.utcnow().isoformat()
+        
+        cursor = conn.cursor()
+        cursor.executemany(
+            "INSERT INTO risk_history (user_id, risk_score, timestamp) VALUES (?, ?, ?)",
+            [(s["user"], float(s.get("final_risk_score", 0.0)), ts) for s in scores_list]
+        )
+        conn.commit()
+
+    def get_risk_history(self, user_id: str, days: int = 30) -> List[Dict[str, Any]]:
+        """Fetch historical risk scores for a user."""
+        conn = self._get_conn()
+        cutoff_date = (datetime.utcnow() - timedelta(days=days)).isoformat()
+        
+        rows = conn.execute(
+            """SELECT timestamp, risk_score 
+               FROM risk_history 
+               WHERE user_id = ? AND timestamp >= ? 
+               ORDER BY timestamp ASC""",
+            (user_id, cutoff_date)
+        ).fetchall()
+        
+        return [dict(r) for r in rows]

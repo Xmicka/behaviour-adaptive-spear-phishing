@@ -90,6 +90,17 @@ class EmailLogger:
                 created_at      TEXT DEFAULT (datetime('now'))
             );
             CREATE INDEX IF NOT EXISTS idx_training_user ON training_sessions(user_id);
+
+            CREATE TABLE IF NOT EXISTS campaigns (
+                id              INTEGER PRIMARY KEY AUTOINCREMENT,
+                name            TEXT NOT NULL,
+                target_tier     TEXT NOT NULL,
+                scenario        TEXT NOT NULL,
+                status          TEXT NOT NULL DEFAULT 'active',
+                created_at      TEXT DEFAULT (datetime('now')),
+                scheduled_for   TEXT,
+                completed_at    TEXT
+            );
         """)
         self._conn().commit()
         logger.info("EmailLogger schema ensured at %s", self.db_path)
@@ -327,3 +338,29 @@ class EmailLogger:
             "pending": pending,
             "completion_rate": round(completed / total, 4) if total else 0,
         }
+
+    # ── Campaigns ─────────────────────────────────────────────────────
+
+    def create_campaign(
+        self,
+        name: str,
+        target_tier: str,
+        scenario: str,
+        scheduled_for: Optional[str] = None
+    ) -> int:
+        """Create a new phishing campaign."""
+        cursor = self._conn().execute(
+            """INSERT INTO campaigns (name, target_tier, scenario, scheduled_for)
+               VALUES (?, ?, ?, ?)""",
+            (name, target_tier, scenario, scheduled_for)
+        )
+        self._conn().commit()
+        return cursor.lastrowid
+
+    def get_campaigns(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """List recent campaigns."""
+        rows = self._conn().execute(
+            "SELECT * FROM campaigns ORDER BY created_at DESC LIMIT ?",
+            (limit,)
+        ).fetchall()
+        return [dict(r) for r in rows]

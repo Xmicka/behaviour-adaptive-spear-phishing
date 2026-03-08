@@ -51,10 +51,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Load config dynamically
             const override = await chrome.storage.sync.get(['collector_url', 'api_key']);
-            const baseUrl = override.collector_url ||
-                (typeof EXTENSION_CONFIG !== 'undefined' ? EXTENSION_CONFIG.COLLECTOR_URL : 'http://localhost:8000');
+            const baseUrlString = override.collector_url ||
+                (typeof EXTENSION_CONFIG !== 'undefined' ? EXTENSION_CONFIG.COLLECTOR_URL : 'http://localhost:8000/api/collect');
 
-            const endpoint = baseUrl.replace('/api/collect', '/api/employees/register');
+            // Extract the base origin (e.g. http://localhost:8000)
+            const urlObj = new URL(baseUrlString);
+            const baseUrl = urlObj.origin;
+
+            const endpoint = `${baseUrl}/api/employees/register`;
 
             const payload = {
                 employee_name: name,
