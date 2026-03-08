@@ -1015,6 +1015,9 @@ def send_employee_simulation():
     """Manual trigger: Send a phishing simulation email to a specific employee from directory."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     # Validate payload size (max 100KB)
     if request.content_length and request.content_length > 100 * 1024:
@@ -1060,6 +1063,9 @@ def send_warning_email():
     """Manual trigger: Send a security warning email to an employee for unusual activity."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     # Validate payload size (max 50KB)
     if request.content_length and request.content_length > 50 * 1024:
@@ -1118,6 +1124,9 @@ def send_email():
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
         
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
+        
     # Validate payload size (max 100KB)
     if request.content_length and request.content_length > 100 * 1024:
         return _cors_json({"error": "Payload too large"}), 413
@@ -1167,6 +1176,9 @@ def send_email_auto():
     """
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     data = request.get_json(silent=True) or {}
     threshold = float(data.get("threshold", RISK_THRESHOLD_EMAIL))
@@ -1424,6 +1436,9 @@ def trigger_training():
     """
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     data = request.get_json(silent=True) or {}
     user_id = data.get("user_id", "").strip()
@@ -1456,6 +1471,9 @@ def complete_training():
     """
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     data = request.get_json(silent=True) or {}
     user_id = data.get("user_id", "").strip()
@@ -1551,6 +1569,9 @@ def get_user_states():
     """Get all user states for the dashboard."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     states = _state_mgr.get_all_states()
     distribution = _state_mgr.get_state_distribution()
@@ -1567,6 +1588,9 @@ def get_user_state(user_id):
     """Get state and transition history for a specific user."""
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     return _cors_json({
         "user_id": user_id,
@@ -1628,6 +1652,9 @@ def dashboard_data():
     """
     if request.method == "OPTIONS":
         return _cors_json({"ok": True})
+        
+    if not _validate_api_key():
+        return _cors_json({"error": "Invalid or missing API key"}), 401
 
     try:
         # ── Risk data from pipeline output ──
