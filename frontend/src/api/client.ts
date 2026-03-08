@@ -18,9 +18,8 @@ function getAPIBase(): string {
     return 'http://127.0.0.1:8000'
   }
   
-  // In production, use same origin (https://example.onrender.com)
-  // The frontend and backend run on same domain in production
-  return window.location.origin
+  // In production, use the backend Render Web Service URL
+  return 'https://behaviour-adaptive-spear-phishing.onrender.com'
 }
 
 const API_BASE = getAPIBase()

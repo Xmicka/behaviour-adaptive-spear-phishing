@@ -198,8 +198,11 @@ function SeedDemoDataSection() {
     setLoading(true)
     setStatus(null)
     try {
-      // Use GET method which is simpler and more reliable
-      const response = await fetch('/api/seed-demo-data', {
+      // Use the backend URL directly (frontend and backend are on different domains)
+      const backendUrl = import.meta.env.DEV
+        ? '/api/seed-demo-data'
+        : 'https://behaviour-adaptive-spear-phishing.onrender.com/api/seed-demo-data'
+      const response = await fetch(backendUrl, {
         method: 'GET',
         headers: { 'Accept': 'application/json' }
       })
