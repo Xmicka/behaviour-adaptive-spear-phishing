@@ -57,6 +57,9 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
 # Master toggle for email sending (set to "false" to disable)
 EMAIL_ENABLED = os.environ.get("EMAIL_ENABLED", "true").lower() in ("true", "1", "yes")
 
+# Resend API key — used as fallback when SMTP is blocked (e.g. Render free tier)
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+
 # Base URL for tracking links and micro-training redirects
 PLATFORM_BASE_URL = os.environ.get("PLATFORM_BASE_URL", "http://localhost:8000")
 

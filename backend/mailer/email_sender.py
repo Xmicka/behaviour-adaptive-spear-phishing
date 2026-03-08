@@ -27,7 +27,13 @@ from backend.config import (
     SMTP_PORT,
     EMAIL_ENABLED,
     PLATFORM_BASE_URL,
+    RESEND_API_KEY,
 )
+
+try:
+    import resend as _resend_module
+except ImportError:
+    _resend_module = None
 
 logger = logging.getLogger(__name__)
 
@@ -129,17 +135,56 @@ def send_phishing_email(
         result["error"] = f"SMTP error: {exc}"
     except Exception as exc:
         logger.error("Unexpected error sending %s: %s", email_id, exc)
-        # On Render free tier, SMTP is blocked (Errno 101 Network unreachable)
-        # Treat as successful simulation - email was generated and logged
+        # On Render free tier, SMTP port 587 is blocked.
+        # Fall back to Resend HTTP API for actual delivery.
         if "Network is unreachable" in str(exc) or "Errno 101" in str(exc):
-            logger.info("SMTP blocked (likely Render free tier). Email %s logged as simulated.", email_id)
-            result["sent"] = True
-            result["mode"] = "simulated"
-            result["note"] = "Email generated and logged. SMTP delivery unavailable on this host."
+            logger.info("SMTP blocked — trying Resend HTTP API for email %s", email_id)
+            resend_result = _send_via_resend(
+                recipient_email, subject, body_html, body_text, sender_name
+            )
+            if resend_result["sent"]:
+                result["sent"] = True
+                result["mode"] = "resend"
+                return result
+            else:
+                result["error"] = resend_result.get("error", "Resend delivery failed")
         else:
             result["error"] = str(exc)
 
     return result
+
+
+def _send_via_resend(
+    recipient_email: str,
+    subject: str,
+    body_html: str,
+    body_text: str,
+    sender_name: str = "IT Security Team",
+) -> dict:
+    """Send an email using the Resend HTTP API (no SMTP needed)."""
+    if not RESEND_API_KEY:
+        logger.warning("RESEND_API_KEY not set — cannot fall back to Resend.")
+        return {"sent": False, "error": "RESEND_API_KEY not configured"}
+
+    if _resend_module is None:
+        logger.warning("resend package not installed — pip install resend")
+        return {"sent": False, "error": "resend package not installed"}
+
+    try:
+        _resend_module.api_key = RESEND_API_KEY
+        params = {
+            "from": f"{sender_name} <onboarding@resend.dev>",
+            "to": [recipient_email],
+            "subject": subject,
+            "html": body_html,
+            "text": body_text,
+        }
+        email = _resend_module.Emails.send(params)
+        logger.info("Email sent via Resend API: %s", email)
+        return {"sent": True, "resend_id": email.get("id", "")}
+    except Exception as exc:
+        logger.error("Resend API error: %s", exc)
+        return {"sent": False, "error": f"Resend API error: {exc}"}
 
 
 def generate_tracking_links(
