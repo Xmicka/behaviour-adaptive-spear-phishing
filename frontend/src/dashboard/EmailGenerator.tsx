@@ -8,14 +8,12 @@ import {
     type GeneratedEmail,
 } from '../api/client'
 
-const SCENARIOS = [
-    'password reset',
-    'invoice approval',
-    'meeting reschedule',
-    'document review',
-    'software update',
-    'benefits enrollment',
-    'credential verification',
+const DEFAULT_SCENARIOS = [
+    'Urgent Action (Wire Transfer/Payroll)',
+    'Security Alert Verification',
+    'Admin Panel Password Reset',
+    'VPN Access Reauthentication',
+    'Cloud Storage Permission Update',
 ]
 
 const CONTEXTS = [
@@ -29,6 +27,7 @@ const CONTEXTS = [
 
 const EmailGenerator: React.FC = () => {
     const [users, setUsers] = useState<DashboardUser[]>([])
+    const [scenarios, setScenarios] = useState<string[]>(DEFAULT_SCENARIOS)
     const [selectedUser, setSelectedUser] = useState('')
     const [scenario, setScenario] = useState('')
     const [customScenario, setCustomScenario] = useState('')
@@ -38,15 +37,46 @@ const EmailGenerator: React.FC = () => {
     const [sending, setSending] = useState(false)
     const [sendStatus, setSendStatus] = useState<{ type: 'success' | 'error', msg: string } | null>(null)
     const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        fetchDashboardData().then(data => {
-            if (data?.users) {
-                setUsers(data.users)
-                if (data.users.length > 0) setSelectedUser(data.users[0].user_id)
+        const loadData = async () => {
+            try {
+                setLoading(true)
+                setError(null)
+
+                // Fetch dashboard data (users)
+                const dashboardData = await fetchDashboardData()
+                if (dashboardData?.users) {
+                    setUsers(dashboardData.users)
+                    if (dashboardData.users.length > 0) setSelectedUser(dashboardData.users[0].user_id)
+                }
+
+                // Fetch scenarios from API
+                try {
+                    const response = await fetch('/api/email/scenarios')
+                    if (response.ok) {
+                        const data = await response.json()
+                        if (data?.scenarios && Array.isArray(data.scenarios)) {
+                            setScenarios(data.scenarios)
+                        }
+                    } else {
+                        console.warn('Failed to fetch scenarios, using defaults')
+                        setScenarios(DEFAULT_SCENARIOS)
+                    }
+                } catch (err) {
+                    console.error('Error fetching scenarios:', err)
+                    setScenarios(DEFAULT_SCENARIOS)
+                }
+            } catch (err) {
+                console.error('Error loading dashboard data:', err)
+                setError('Failed to load dashboard data')
+            } finally {
+                setLoading(false)
             }
-            setLoading(false)
-        })
+        }
+
+        loadData()
     }, [])
 
     const handleGenerate = async () => {
@@ -92,6 +122,13 @@ const EmailGenerator: React.FC = () => {
 
     return (
         <div>
+            {/* Error display */}
+            {error && (
+                <div className="mb-6 p-4 rounded-lg bg-red-900/20 border border-red-600 text-red-300 text-sm">
+                    ⚠️ {error}
+                </div>
+            )}
+
             {/* Section Header */}
             <div className="flex items-center justify-between mb-6">
                 <div>
@@ -143,7 +180,7 @@ const EmailGenerator: React.FC = () => {
                             className="w-full px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-white text-sm focus:outline-none focus:border-cyan-500 transition-colors"
                         >
                             <option value="">Select a scenario...</option>
-                            {SCENARIOS.map(s => (
+                            {scenarios.map(s => (
                                 <option key={s} value={s}>{s}</option>
                             ))}
                             <option value="__custom__">Custom scenario...</option>
