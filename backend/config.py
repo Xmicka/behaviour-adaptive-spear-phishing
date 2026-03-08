@@ -43,7 +43,7 @@ COLLECTOR_ALLOWED_ORIGINS = os.environ.get("COLLECTOR_ALLOWED_ORIGINS", "*")
 # Default "*" allows all origins (dev mode). In production, set to
 # your frontend domain, e.g. "https://your-app.web.app,https://your-domain.com"
 # Specifically restrict to known domains for security.
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8000,https://behaviour-adaptive-spear-phishing.onrender.com")
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8000,https://behaviour-adaptive-spear-phishing.onrender.com,https://spear-phishing-dashboard.onrender.com")
 
 # ── Email / SMTP configuration ───────────────────────────────────
 # SMTP credentials — set via env vars for security.
