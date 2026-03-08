@@ -2,9 +2,28 @@
   Backend API client.
   - Fetches real data from the Flask backend at /api/*
   - Falls back to empty/mock data when backend is unreachable
+  - Auto-detects API URL: env var > localhost (dev) > same origin (prod)
 */
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'
+function getAPIBase(): string {
+  const envUrl = import.meta.env.VITE_API_BASE_URL
+  
+  // If explicitly set in .env, use it (local development)
+  if (envUrl && envUrl.trim()) {
+    return envUrl
+  }
+  
+  // In development, use localhost
+  if (import.meta.env.DEV) {
+    return 'http://127.0.0.1:8000'
+  }
+  
+  // In production, use same origin (https://example.onrender.com)
+  // The frontend and backend run on same domain in production
+  return window.location.origin
+}
+
+const API_BASE = getAPIBase()
 
 function apiUrl(path: string): string {
   // In development, use relative paths for Vite proxy; otherwise use full URL

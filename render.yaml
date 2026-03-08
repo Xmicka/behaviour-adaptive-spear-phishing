@@ -3,12 +3,16 @@ services:
     name: adaptive-spear-phishing-api
     runtime: python
     plan: free
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn backend.api_server:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
-    envVars:
-      - key: SMTP_EMAIL
-        sync: false
-      - key: SMTP_PASSWORD
+    buildCommand: |
+      # Install backend dependencies
+      pip install -r requirements.txt
+      # Build frontend if package.json exists
+      if [ -f frontend/package.json ]; then
+        cd frontend
+        npm install --legacy-peer-deps
+        npm run build
+        cd ..
+      fi
         sync: false
       - key: EMAIL_ENABLED
         value: "true"

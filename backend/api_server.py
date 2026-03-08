@@ -2044,6 +2044,32 @@ def generate_email():
         return _cors_json({"error": str(exc)}), 500
 
 
+# ============ FRONTEND STATIC FILE SERVING ============
+# Serve built frontend from frontend/dist directory (production Render deployment)
+FRONTEND_BUILD_DIR = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+
+@app.route("/", methods=["GET"])
+def serve_index():
+    """Serve index.html for SPA (Single Page Application)."""
+    if FRONTEND_BUILD_DIR.exists():
+        return send_from_directory(FRONTEND_BUILD_DIR, "index.html")
+    # If frontend not built, return a simple message
+    return jsonify({"message": "Backend API running. Frontend not built.", "status": "ok"}), 200
+
+@app.route("/<path:path>", methods=["GET"])
+def serve_static(path):
+    """Serve static files from frontend/dist."""
+    if FRONTEND_BUILD_DIR.exists():
+        file_path = FRONTEND_BUILD_DIR / path
+        # Check if file exists and is within the dist directory
+        if file_path.exists() and file_path.is_file():
+            return send_from_directory(FRONTEND_BUILD_DIR, path)
+        # For any undefined routes, serve index.html (SPA fallback)
+        return send_from_directory(FRONTEND_BUILD_DIR, "index.html")
+    # If frontend not built, return 404
+    return jsonify({"error": "Frontend not found"}), 404
+
+
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
     logger.info("Starting API server with collector enabled")
