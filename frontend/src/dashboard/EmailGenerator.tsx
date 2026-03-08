@@ -86,9 +86,37 @@ const EmailGenerator: React.FC = () => {
         setGenerating(true)
         setResult(null)
         setSendStatus(null)
-        const res = await generatePhishingEmail(selectedUser, finalScenario, context)
-        setResult(res)
-        setGenerating(false)
+
+        // Timeout after 15 seconds to prevent infinite loading
+        const timeout = setTimeout(() => {
+            setGenerating(false)
+            setSendStatus({ 
+                type: 'error', 
+                msg: 'Email generation timed out. The API may be busy. Please try again.' 
+            })
+        }, 15000)
+
+        try {
+            const res = await generatePhishingEmail(selectedUser, finalScenario, context)
+            clearTimeout(timeout)
+            if (res) {
+                setResult(res)
+            } else {
+                setSendStatus({ 
+                    type: 'error', 
+                    msg: 'Failed to generate email. Please check the backend logs.' 
+                })
+            }
+        } catch (err) {
+            clearTimeout(timeout)
+            console.error('Email generation error:', err)
+            setSendStatus({ 
+                type: 'error', 
+                msg: `Generation failed: ${err instanceof Error ? err.message : 'Unknown error'}` 
+            })
+        } finally {
+            setGenerating(false)
+        }
     }
 
     const handleSend = async () => {
@@ -271,7 +299,26 @@ const EmailGenerator: React.FC = () => {
                 {/* Result Panel */}
                 <div className="lg:col-span-2">
                     <AnimatePresence mode="wait">
-                        {result ? (
+                        {sendStatus?.type === 'error' && !result ? (
+                            <motion.div
+                                key="error"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                className="rounded-xl border border-red-600/50 p-8 text-center"
+                                style={{ background: 'rgba(127, 29, 29, 0.2)' }}
+                            >
+                                <div className="text-5xl mb-4">⚠️</div>
+                                <h3 className="text-lg font-semibold text-red-300 mb-2">Generation Failed</h3>
+                                <p className="text-sm text-red-200 mb-4">{sendStatus.msg}</p>
+                                <button
+                                    onClick={() => { setResult(null); setSendStatus(null) }}
+                                    className="px-4 py-2 rounded-lg bg-red-600/50 hover:bg-red-600/70 text-white text-sm font-semibold transition-colors"
+                                >
+                                    Try Again
+                                </button>
+                            </motion.div>
+                        ) : result ? (
                             <motion.div
                                 key="result"
                                 initial={{ opacity: 0, y: 20 }}

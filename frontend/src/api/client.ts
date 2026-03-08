@@ -479,14 +479,29 @@ export async function generatePhishingEmail(
   user_id: string, scenario: string, context?: string
 ): Promise<GeneratedEmail | null> {
   try {
-    const res = await fetch(apiUrl('/api/generate-email'), {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id, scenario, context: context || '' }),
-    })
-    if (!res.ok) throw new Error('email generation failed')
-    return await res.json()
+    // 20 second timeout for email generation
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 20000)
+
+    try {
+      const res = await fetch(apiUrl('/api/generate-email'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id, scenario, context: context || '' }),
+        signal: controller.signal,
+      })
+      clearTimeout(timeoutId)
+      if (!res.ok) throw new Error(`email generation failed: ${res.status}`)
+      return await res.json()
+    } finally {
+      clearTimeout(timeoutId)
+    }
   } catch (err) {
+    if (err instanceof Error && err.name === 'AbortError') {
+      console.error('Email generation request timed out')
+    } else {
+      console.error('Email generation error:', err)
+    }
     return null
   }
 }
