@@ -366,12 +366,16 @@ const EmailGenerator: React.FC = () => {
                                             🔍 Adaptation Factors
                                         </h4>
                                         <div className="space-y-2">
-                                            {result.risk_factors.map((factor, i) => (
-                                                <div key={i} className="flex items-start gap-2 text-xs text-gray-300">
-                                                    <span className="text-red-400 mt-0.5">•</span>
-                                                    <span>{factor}</span>
-                                                </div>
-                                            ))}
+                                            {result?.risk_factors && Array.isArray(result.risk_factors) && result.risk_factors.length > 0 ? (
+                                                result.risk_factors.map((factor, i) => (
+                                                    <div key={i} className="flex items-start gap-2 text-xs text-gray-300">
+                                                        <span className="text-red-400 mt-0.5">•</span>
+                                                        <span>{factor}</span>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <div className="text-xs text-gray-500">No adaptation factors available</div>
+                                            )}
                                         </div>
                                     </div>
 
@@ -384,13 +388,19 @@ const EmailGenerator: React.FC = () => {
                                             📊 Behavioral Profile
                                         </h4>
                                         <div className="space-y-1.5 text-xs text-gray-400">
-                                            <div className="flex justify-between"><span>Events Analyzed</span><span className="text-white">{result.profile.total_events}</span></div>
-                                            <div className="flex justify-between"><span>Sessions</span><span className="text-white">{result.profile.sessions}</span></div>
-                                            <div className="flex justify-between"><span>Page Views</span><span className="text-white">{result.profile.total_page_views}</span></div>
-                                            <div className="flex justify-between"><span>Clicks</span><span className="text-white">{result.profile.total_clicks}</span></div>
-                                            <div className="flex justify-between"><span>Copy/Paste Events</span><span className="text-white">{result.profile.copy_paste_events}</span></div>
-                                            {result.profile.avg_typing_speed_ms && (
-                                                <div className="flex justify-between"><span>Avg Typing Speed</span><span className="text-white">{result.profile.avg_typing_speed_ms}ms</span></div>
+                                            {result?.profile ? (
+                                                <>
+                                                    <div className="flex justify-between"><span>Events Analyzed</span><span className="text-white">{result.profile.total_events || 0}</span></div>
+                                                    <div className="flex justify-between"><span>Sessions</span><span className="text-white">{result.profile.sessions || 0}</span></div>
+                                                    <div className="flex justify-between"><span>Page Views</span><span className="text-white">{result.profile.total_page_views || 0}</span></div>
+                                                    <div className="flex justify-between"><span>Clicks</span><span className="text-white">{result.profile.total_clicks || 0}</span></div>
+                                                    <div className="flex justify-between"><span>Copy/Paste Events</span><span className="text-white">{result.profile.copy_paste_events || 0}</span></div>
+                                                    {result.profile.avg_typing_speed_ms && (
+                                                        <div className="flex justify-between"><span>Avg Typing Speed</span><span className="text-white">{result.profile.avg_typing_speed_ms}ms</span></div>
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <div className="text-gray-500">Profile data unavailable</div>
                                             )}
                                             <div className="flex justify-between">
                                                 <span>Personalization</span>
