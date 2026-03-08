@@ -4,10 +4,10 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useAuth } from '../auth/AuthContext'
 
 /**
- * Premium navbar with scroll-aware background,
+ * Admin navbar with scroll-aware background,
  * section navigation, and a mobile hamburger menu.
  */
-export default function PremiumNavbar() {
+export default function AdminNavbar() {
   const navigate = useNavigate()
   const { user, logout } = useAuth()
   const [isScrolled, setIsScrolled] = useState(false)
@@ -61,7 +61,7 @@ export default function PremiumNavbar() {
           {/* Logo */}
           <div
             className="flex items-center gap-3 cursor-pointer"
-            onClick={() => navigate('/dashboard-premium')}
+            onClick={() => navigate('/dashboard')}
           >
             <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
               <span className="text-white font-black text-lg">🛡️</span>

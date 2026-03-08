@@ -1,0 +1,16 @@
+[
+  {
+    "email_id": "email_bea47cc13c23",
+    "user_id": "akeshchandrasiri@aiesec.net",
+    "user_email": "akeshchandrasiri@aiesec.net",
+    "user_name": "Akeshchandrasiri",
+    "risk_score": 0.6999999999976295,
+    "scenario": "social_engineering",
+    "subject": "Security Update Required - Action Needed",
+    "sent": false,
+    "mode": "log_only",
+    "timestamp": "2026-03-08T11:06:14.017798",
+    "tracking_token": "f85c63d6081b4954882f95cfa97ba078",
+    "phishing_link": "http://localhost:8000/api/email/track/f85c63d6081b4954882f95cfa97ba078"
+  }
+]

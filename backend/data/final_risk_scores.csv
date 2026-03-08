@@ -1,5 +1,11 @@
-user,login_count,failed_login_ratio,unique_src_hosts,unique_dst_hosts,tab_burst_count,unusual_hours_login,page_view_count,click_count,total_events,anomaly_score,ml_anomaly_score,rule_based_score,final_risk_score,risk_reason
-akeshchandrasiri@aiesec.net,3.0,0.0,1.0,10.0,0.0,2.0,22.0,8.0,78.0,0.02350662961982919,0.9999999999958608,0.49999999999965,0.7499999999977554,Behavior deviates significantly from historical baseline
-nirominchandrasiri@gmail.com,2.0,0.0,1.0,9.0,1.0,0.0,26.0,9.0,128.0,-0.13320423451236518,0.3513457231278088,0.29999999999969995,0.3256728615637544,No strong evidence of deviation
-finesse.clothing.lk@gmail.com,2.0,0.0,1.0,9.0,1.0,0.0,46.0,22.0,167.0,-0.19562212024204378,0.09298693762928843,0.29999999999969995,0.1964934688144942,No strong evidence of deviation
-akeshchandrasiri@gmail.com,2.0,0.0,1.0,9.0,1.0,0.0,43.0,23.0,158.0,-0.21808718964581258,0.0,0.29999999999969995,0.14999999999984998,No strong evidence of deviation
+user,login_count,failed_login_ratio,unique_src_hosts,unique_dst_hosts,tab_burst_count,unusual_hours_login,page_view_count,click_count,phishing_clicks,total_events,anomaly_score,ml_anomaly_score,rule_based_score,final_risk_score,risk_reason
+akeshchandrasiri@aiesec.net,3.0,0.0,2.0,11.0,0.0,2.0,38.0,8.0,0.0,94.0,0.041476717556875986,0.9999999999954473,0.3999999999998117,0.6999999999976295,Behavior deviates significantly from historical baseline
+nirominchandrasiri@gmail.com,2.0,0.0,2.0,10.0,1.0,0.0,42.0,9.0,0.0,144.0,-0.05069376590284835,0.5803746260219877,0.36166666666638997,0.47102064634418883,No strong evidence of deviation
+finesse.clothing.lk@gmail.com,2.0,0.0,2.0,10.0,1.0,0.0,58.0,22.0,0.0,179.0,-0.09947189341445284,0.35830201415675594,0.36166666666638997,0.35998434041157296,No strong evidence of deviation
+akeshchandrasiri@gmail.com,2.0,0.0,2.0,10.0,1.0,0.0,57.0,23.0,0.0,172.0,-0.10539930331983893,0.3313162427375521,0.36166666666638997,0.34649145470197107,No strong evidence of deviation
+chamodi.fernando@corp-demo.com,0.0,0.0,1.0,1.0,0.0,0.0,12.0,0.0,0.0,12.0,-0.17817273449254728,0.0,0.0,0.0,No strong evidence of deviation
+dilshan.weerasinghe@corp-demo.com,0.0,0.0,1.0,1.0,0.0,0.0,12.0,0.0,0.0,12.0,-0.17817273449254728,0.0,0.0,0.0,No strong evidence of deviation
+john.silva@corp-demo.com,0.0,0.0,1.0,1.0,0.0,0.0,12.0,0.0,0.0,12.0,-0.17817273449254728,0.0,0.0,0.0,No strong evidence of deviation
+kasun.jayasinghe@corp-demo.com,0.0,0.0,1.0,1.0,0.0,0.0,12.0,0.0,0.0,12.0,-0.17817273449254728,0.0,0.0,0.0,No strong evidence of deviation
+maria.perera@corp-demo.com,0.0,0.0,1.0,1.0,0.0,0.0,12.0,0.0,0.0,12.0,-0.17817273449254728,0.0,0.0,0.0,No strong evidence of deviation
+sanduni.karunaratne@corp-demo.com,0.0,0.0,1.0,1.0,0.0,0.0,12.0,0.0,0.0,12.0,-0.17817273449254728,0.0,0.0,0.0,No strong evidence of deviation

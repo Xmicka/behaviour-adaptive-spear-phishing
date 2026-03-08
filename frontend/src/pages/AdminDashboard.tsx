@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import PremiumNavbar from '../components/PremiumNavbar'
+import AdminNavbar from '../components/AdminNavbar'
 import SecurityPostureOverview from '../dashboard/SecurityPostureOverview'
 import DataCollection from '../dashboard/DataCollection'
 import BehavioralRiskDistribution from '../dashboard/BehavioralRiskDistribution'
@@ -16,7 +16,7 @@ import Sidebar, { SidebarItem } from '../components/Sidebar'
 import EmployeeDirectory from '../dashboard/EmployeeDirectory'
 import CampaignManager from '../dashboard/CampaignManager'
 
-const PremiumDashboard: React.FC = () => {
+const AdminDashboard: React.FC = () => {
   const [showAdvanced, setShowAdvanced] = useState(false)
   const [activeSection, setActiveSection] = useState('dashboard')
 
@@ -160,7 +160,7 @@ const PremiumDashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex flex-col">
-      <PremiumNavbar />
+      <AdminNavbar />
 
       <Sidebar
         items={sidebarItems}
@@ -186,5 +186,5 @@ const PremiumDashboard: React.FC = () => {
   )
 }
 
-export default PremiumDashboard
+export default AdminDashboard
 

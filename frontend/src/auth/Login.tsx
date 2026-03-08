@@ -39,7 +39,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
         await login(email, password)
       }
 
-      navigate('/dashboard-premium')
+      navigate('/dashboard')
     } catch (err: any) {
       setError(err.message || 'Authentication failed. Please try again.')
     } finally {
@@ -52,7 +52,7 @@ const Login: React.FC<LoginProps> = ({ isOpen = true, onClose }) => {
     setIsLoading(true)
     try {
       await loginWithGoogle()
-      navigate('/dashboard-premium')
+      navigate('/dashboard')
     } catch (err: any) {
       setError(err.message || 'Google sign-in failed.')
     } finally {
