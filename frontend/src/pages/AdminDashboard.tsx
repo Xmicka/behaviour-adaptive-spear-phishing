@@ -198,31 +198,53 @@ function SeedDemoDataSection() {
     setLoading(true)
     setStatus(null)
     try {
+      // Use GET method which is simpler and more reliable
       const response = await fetch('/api/seed-demo-data', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
       })
-      const data = await response.json()
       
-      if (response.ok) {
-        if (data.status === 'already_seeded') {
-          setStatus({ 
-            type: 'info', 
-            msg: `Database already has ${data.total_events} events for ${data.unique_users} users` 
-          })
-        } else {
-          setStatus({ 
-            type: 'success', 
-            msg: `✅ Loaded ${data.total_events} events for ${data.unique_users} users` 
-          })
-        }
+      // Get response as text first
+      const text = await response.text()
+      
+      // Check if we got an empty response
+      if (!text || text.trim() === '') {
+        setStatus({ 
+          type: 'error', 
+          msg: 'Server returned empty response. Please wait for Render to finish deploying and try again.' 
+        })
+        return
+      }
+      
+      // Try to parse as JSON
+      let data
+      try {
+        data = JSON.parse(text)
+      } catch (parseErr) {
+        setStatus({ 
+          type: 'error', 
+          msg: `Invalid JSON response: ${text.substring(0, 100)}...` 
+        })
+        return
+      }
+      
+      if (response.ok && data.status === 'success') {
+        setStatus({ 
+          type: 'success', 
+          msg: `✅ ${data.message}` 
+        })
+      } else if (data.status === 'already_seeded') {
+        setStatus({ 
+          type: 'info', 
+          msg: `Database already has ${data.total_events} events for ${data.unique_users} users` 
+        })
       } else {
-        setStatus({ type: 'error', msg: data.error || 'Failed to seed demo data' })
+        setStatus({ type: 'error', msg: data.error || data.message || 'Failed to seed demo data' })
       }
     } catch (err) {
       setStatus({ 
         type: 'error', 
-        msg: `Error: ${err instanceof Error ? err.message : 'Unknown error'}` 
+        msg: `Network error: ${err instanceof Error ? err.message : 'Unknown error'}` 
       })
     } finally {
       setLoading(false)

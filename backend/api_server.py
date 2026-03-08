@@ -2045,7 +2045,7 @@ def generate_email():
 
 
 # ============ DEMO DATA SEEDING ============
-@app.route("/api/seed-demo-data", methods=["POST", "OPTIONS"])
+@app.route("/api/seed-demo-data", methods=["POST", "OPTIONS", "GET"])
 def seed_demo_data():
     """Seed the database with demo data for live testing (Render)."""
     if request.method == "OPTIONS":
@@ -2079,6 +2079,13 @@ def seed_demo_data():
     except Exception as exc:
         logger.error(f"Seed error: {exc}", exc_info=True)
         return _cors_json({"error": str(exc), "status": "error"}), 500
+
+
+# Simple test endpoint to verify API is responding with JSON
+@app.route("/api/test-json", methods=["GET"])
+def test_json():
+    """Simple test endpoint that returns JSON."""
+    return jsonify({"status": "ok", "message": "API is working", "timestamp": datetime.now().isoformat()})
 
 
 # ============ FRONTEND STATIC FILE SERVING ============
