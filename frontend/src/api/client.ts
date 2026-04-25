@@ -8,7 +8,7 @@
 function getAPIBase(): string {
   const envUrl = import.meta.env.VITE_API_BASE_URL
   
-  // If explicitly set in .env, use it (local development)
+  // If explicitly set in .env, use it (local development or custom deploy)
   if (envUrl && envUrl.trim()) {
     return envUrl
   }
@@ -18,8 +18,8 @@ function getAPIBase(): string {
     return 'http://127.0.0.1:8000'
   }
   
-  // In production, use the backend Render Web Service URL
-  return 'https://behaviour-adaptive-spear-phishing.onrender.com'
+  // In production, use same origin (backend serves the frontend build)
+  return window.location.origin
 }
 
 const API_BASE = getAPIBase()

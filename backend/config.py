@@ -43,7 +43,7 @@ COLLECTOR_ALLOWED_ORIGINS = os.environ.get("COLLECTOR_ALLOWED_ORIGINS", "*")
 # Default "*" allows all origins (dev mode). In production, set to
 # your frontend domain, e.g. "https://your-app.web.app,https://your-domain.com"
 # Specifically restrict to known domains for security.
-CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8000,https://behaviour-adaptive-spear-phishing.onrender.com,https://spear-phishing-dashboard.onrender.com")
+CORS_ALLOWED_ORIGINS = os.environ.get("CORS_ALLOWED_ORIGINS", "http://localhost:5173,http://localhost:8000,https://behaviour-adaptive-spear-phishing.onrender.com,https://spear-phishing-dashboard.onrender.com,https://*.koyeb.app")
 
 # ── Email / SMTP configuration ───────────────────────────────────
 # SMTP credentials — set via env vars for security.
@@ -57,8 +57,7 @@ SMTP_PORT = int(os.environ.get("SMTP_PORT", "587"))
 # Master toggle for email sending (set to "false" to disable)
 EMAIL_ENABLED = os.environ.get("EMAIL_ENABLED", "true").lower() in ("true", "1", "yes")
 
-# Resend API key — used as fallback when SMTP is blocked (e.g. Render free tier)
-RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+
 
 # Base URL for tracking links and micro-training redirects
 PLATFORM_BASE_URL = os.environ.get("PLATFORM_BASE_URL", "http://localhost:8000")
@@ -115,5 +114,5 @@ __all__ = [
     "RISK_THRESHOLD_EMAIL",
     "EMAIL_DB_PATH",
     "ANOMALY_TAB_THRESHOLD",
-    "WARNING_EMAIL_COOLDOWN_MINUTES"
+    "WARNING_EMAIL_COOLDOWN_MINUTES",
 ]

@@ -1,0 +1,15 @@
+.git
+.venv
+venv
+venv_backend
+__pycache__
+*.pyc
+node_modules
+frontend/node_modules
+*.db
+*.db-shm
+*.db-wal
+backend.log
+frontend.log
+.env
+backend/.env

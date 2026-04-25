@@ -27,13 +27,7 @@ from backend.config import (
     SMTP_PORT,
     EMAIL_ENABLED,
     PLATFORM_BASE_URL,
-    RESEND_API_KEY,
 )
-
-try:
-    import resend as _resend_module
-except ImportError:
-    _resend_module = None
 
 logger = logging.getLogger(__name__)
 
@@ -74,7 +68,7 @@ def send_phishing_email(
         - email_id: unique identifier for this email
         - tracking_token: the token used
         - sent: bool — True if actually delivered via SMTP
-        - mode: 'smtp' | 'log_only'
+        - mode: 'smtp' | 'log_only' | 'disabled'
         - error: error message if sending failed, else empty string
     """
     email_id = f"email_{uuid.uuid4().hex[:12]}"
@@ -97,11 +91,13 @@ def send_phishing_email(
         return result
 
     if not SMTP_EMAIL or not SMTP_PASSWORD:
-        logger.info(
-            "SMTP credentials not configured. Log-only mode for email %s to %s",
+        logger.warning(
+            "SMTP credentials not configured. Log-only mode for email %s to %s. "
+            "Set SMTP_EMAIL and SMTP_PASSWORD environment variables to enable sending.",
             email_id,
             recipient_email,
         )
+        result["error"] = "SMTP credentials not configured"
         return result
 
     # Build MIME message
@@ -133,70 +129,11 @@ def send_phishing_email(
     except smtplib.SMTPException as exc:
         logger.error("SMTP error sending %s: %s", email_id, exc)
         result["error"] = f"SMTP error: {exc}"
-    except Exception as exc:
-        logger.error("Unexpected error sending %s: %s", email_id, exc)
-        # On Render free tier, SMTP port 587 is blocked.
-        # Fall back to Resend HTTP API for actual delivery.
-        if "Network is unreachable" in str(exc) or "Errno 101" in str(exc):
-            logger.info("SMTP blocked — trying Resend HTTP API for email %s", email_id)
-            resend_result = _send_via_resend(
-                recipient_email, subject, body_html, body_text, sender_name
-            )
-            if resend_result["sent"]:
-                result["sent"] = True
-                result["mode"] = "resend"
-                return result
-            else:
-                result["error"] = resend_result.get("error", "Resend delivery failed")
-        else:
-            result["error"] = str(exc)
+    except OSError as exc:
+        logger.error("Network error sending %s: %s", email_id, exc)
+        result["error"] = f"Network error: {exc}"
 
     return result
-
-
-def _send_via_resend(
-    recipient_email: str,
-    subject: str,
-    body_html: str,
-    body_text: str,
-    sender_name: str = "IT Security Team",
-) -> dict:
-    """Send an email using the Resend HTTP API (no SMTP needed)."""
-    if not RESEND_API_KEY:
-        logger.warning("RESEND_API_KEY not set — cannot fall back to Resend.")
-        return {"sent": False, "error": "RESEND_API_KEY not configured"}
-
-    if _resend_module is None:
-        logger.warning("resend package not installed — pip install resend")
-        return {"sent": False, "error": "resend package not installed"}
-
-    # Resend free plan (no verified domain) only allows sending to the
-    # account owner's address.  Override the recipient so delivery succeeds
-    # while keeping the original address visible in the subject line.
-    RESEND_OWNER_EMAIL = "akeshchandrasiri@gmail.com"
-
-    try:
-        _resend_module.api_key = RESEND_API_KEY
-        actual_to = RESEND_OWNER_EMAIL
-        display_subject = (
-            f"{subject}  [→ {recipient_email}]"
-            if recipient_email != RESEND_OWNER_EMAIL
-            else subject
-        )
-        params = {
-            "from": f"{sender_name} <onboarding@resend.dev>",
-            "to": [actual_to],
-            "subject": display_subject,
-            "html": body_html,
-            "text": body_text,
-        }
-        email = _resend_module.Emails.send(params)
-        logger.info("Email sent via Resend API to %s (on behalf of %s): %s",
-                     actual_to, recipient_email, email)
-        return {"sent": True, "resend_id": email.get("id", "")}
-    except Exception as exc:
-        logger.error("Resend API error: %s", exc)
-        return {"sent": False, "error": f"Resend API error: {exc}"}
 
 
 def generate_tracking_links(
