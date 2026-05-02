@@ -4,6 +4,7 @@ import {
     fetchDashboardData,
     generatePhishingEmail,
     sendPhishingEmail,
+    fetchEmailScenarios,
     type DashboardUser,
     type GeneratedEmail,
 } from '../api/client'
@@ -52,14 +53,11 @@ const EmailGenerator: React.FC = () => {
                     if (dashboardData.users.length > 0) setSelectedUser(dashboardData.users[0].user_id)
                 }
 
-                // Fetch scenarios from API
+                // Fetch scenarios from API client
                 try {
-                    const response = await fetch('/api/email/scenarios')
-                    if (response.ok) {
-                        const data = await response.json()
-                        if (data?.scenarios && Array.isArray(data.scenarios)) {
-                            setScenarios(data.scenarios)
-                        }
+                    const data = await fetchEmailScenarios()
+                    if (data) {
+                        setScenarios(data)
                     } else {
                         console.warn('Failed to fetch scenarios, using defaults')
                         setScenarios(DEFAULT_SCENARIOS)

@@ -32,23 +32,7 @@ export default function AdminNavbar() {
     navigate('/')
   }
 
-  const scrollToSection = (id: string) => {
-    setMobileOpen(false)
-    const element = document.getElementById(id)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  const navItems = [
-    { label: 'Overview', id: 'security-posture' },
-    { label: 'Data', id: 'data-collection' },
-    { label: 'Risk', id: 'behavioral-risk' },
-    { label: 'Pipeline', id: 'adaptive-pipeline' },
-    { label: 'Email', id: 'email-generator' },
-    { label: 'Outcomes', id: 'simulation-outcomes' },
-    { label: 'Training', id: 'training-enforcement' },
-  ]
+  // Navigation array was removed to avoid redundancy with the main sidebar
 
   return (
     <>
@@ -76,20 +60,7 @@ export default function AdminNavbar() {
             </div>
           </div>
 
-          {/* Desktop Navigation - Only on dashboard */}
-          {isDashboard && (
-            <nav className="hidden lg:flex items-center gap-1">
-              {navItems.map(item => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className="px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 transition-colors"
-                >
-                  {item.label}
-                </button>
-              ))}
-            </nav>
-          )}
+          {/* Removed redundant Desktop Navigation block */}
 
           {/* Right Side */}
           <div className="flex items-center gap-4">
@@ -145,22 +116,6 @@ export default function AdminNavbar() {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             >
-              {isDashboard && (
-                <>
-                  {navItems.map(item => (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className="block w-full text-left px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors font-medium"
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-
-                  <hr className="border-slate-700/50 my-4" />
-                </>
-              )}
-
               {user && (
                 <p className="text-xs text-gray-400 px-4">
                   {user.email}
