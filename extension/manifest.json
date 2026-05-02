@@ -9,7 +9,7 @@
         "alarms"
     ],
     "host_permissions": [
-        "http://localhost:8000/*",
+        "https://behaviour-adaptive-spear-phishing.onrender.com/*",
         "https://localhost:8000/*",
         "https://behaviour-adaptive-spear-phishing.onrender.com/*"
     ],

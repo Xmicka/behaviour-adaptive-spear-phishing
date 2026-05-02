@@ -13,7 +13,7 @@
 
 // ── Default Config (overridden from chrome.storage.sync) ─────────
 let CONFIG = {
-    COLLECTOR_ENDPOINT: 'http://localhost:8000/api/collect',
+    COLLECTOR_ENDPOINT: 'https://behaviour-adaptive-spear-phishing.onrender.com/api/collect',
     USER_ID: '',
     API_KEY: '',
     MAX_BATCH_SIZE: 50,

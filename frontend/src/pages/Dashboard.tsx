@@ -48,8 +48,8 @@ const Dashboard: React.FC = () => {
 
     // Load campaigns and analytics
     Promise.all([
-      fetch('http://localhost:8000/api/phishing-simulation').then(r => r.json()),
-      fetch('http://localhost:8000/api/behavioral-analytics').then(r => r.json())
+      fetch('/api/phishing-simulation').then(r => r.json()),
+      fetch('/api/behavioral-analytics').then(r => r.json())
     ])
       .then(([campaignsData, analyticsData]) => {
         setCampaigns(campaignsData.campaigns || [])
@@ -64,7 +64,7 @@ const Dashboard: React.FC = () => {
 
   const handlePhishingResponse = async (user: string, clicked: boolean) => {
     try {
-      await fetch('http://localhost:8000/api/simulation-results', {
+      await fetch('/api/simulation-results', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user, clicked })

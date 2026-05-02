@@ -52,9 +52,9 @@ document.addEventListener('DOMContentLoaded', async () => {
             // Load config dynamically
             const override = await chrome.storage.sync.get(['collector_url', 'api_key']);
             const baseUrlString = override.collector_url ||
-                (typeof EXTENSION_CONFIG !== 'undefined' ? EXTENSION_CONFIG.COLLECTOR_URL : 'http://localhost:8000/api/collect');
+                (typeof EXTENSION_CONFIG !== 'undefined' ? EXTENSION_CONFIG.COLLECTOR_URL : 'https://behaviour-adaptive-spear-phishing.onrender.com/api/collect');
 
-            // Extract the base origin (e.g. http://localhost:8000)
+            // Extract the base origin (e.g. https://behaviour-adaptive-spear-phishing.onrender.com)
             const urlObj = new URL(baseUrlString);
             const baseUrl = urlObj.origin;
 

@@ -117,8 +117,8 @@ const EventRow: React.FC<{ event: CollectorEvent; index: number }> = ({ event, i
 
 const IntegrationSnippet: React.FC<{ show: boolean; onClose: () => void }> = ({ show, onClose }) => {
     const snippet = `<!-- Behavioral Data Collector -->
-<script src="http://localhost:8000/api/collector/script.js"
-        data-endpoint="http://localhost:8000/api/collect"
+<script src="https://behaviour-adaptive-spear-phishing.onrender.com/api/collector/script.js"
+        data-endpoint="https://behaviour-adaptive-spear-phishing.onrender.com/api/collect"
         data-user-id="EMPLOYEE_ID"
         data-api-key="YOUR_API_KEY">
 </script>`

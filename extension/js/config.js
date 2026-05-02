@@ -8,9 +8,8 @@
  * Defaults work for local development out of the box.
  */
 const EXT_CONFIG = {
-    /** Backend collector endpoint — POST /api/collect
-     *  Set to your deployed backend URL via chrome.storage.sync in production */
-    COLLECTOR_ENDPOINT: 'http://localhost:8000/api/collect',
+    /** Backend collector endpoint — POST /api/collect */
+    COLLECTOR_ENDPOINT: 'https://behaviour-adaptive-spear-phishing.onrender.com/api/collect',
 
     /** User identifier — should be set per-employee (hashed email or UID) */
     USER_ID: '',

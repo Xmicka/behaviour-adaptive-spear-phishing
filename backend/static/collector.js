@@ -6,8 +6,8 @@
  * cadence, and session patterns — NO sensitive content is captured.
  * 
  * Usage:
- *   <script src="http://localhost:8000/api/collector/script.js"
- *           data-endpoint="http://localhost:8000/api/collect"
+ *   <script src="https://behaviour-adaptive-spear-phishing.onrender.com/api/collector/script.js"
+ *           data-endpoint="https://behaviour-adaptive-spear-phishing.onrender.com/api/collect"
  *           data-user-id="employee_123"
  *           data-api-key="your-api-key"></script>
  * 

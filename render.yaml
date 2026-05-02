@@ -22,3 +22,5 @@ services:
         sync: false
       - key: COLLECTOR_API_KEY
         sync: false
+      - key: RESEND_API_KEY
+        sync: false
